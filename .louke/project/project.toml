@@ -8,7 +8,7 @@ release_branch = "releases/v0.1.0"
 
 [meta]
 created = "2026-07-10"
-current_stage = "M-SPEC"
+current_stage = "M-TESTPLAN"
 security_audit = "disabled"
 smoke_test_issue = "#TODO (closed)"
 smoke_test_pr = "#TODO (closed)"
