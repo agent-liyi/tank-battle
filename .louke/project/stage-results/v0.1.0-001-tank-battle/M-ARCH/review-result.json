@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "spec_id": "v0.1.0-001-tank-battle",
+  "stage": "M-ARCH",
+  "kind": "review-result",
+  "role": "Prism",
+  "verdict": "pass",
+  "reviewed_targets": ["architecture.md", "interfaces.md"],
+  "blocking_findings": [],
+  "accepted_risks": [
+    {
+      "id": "A1",
+      "dimension": "C5",
+      "location": "interfaces.md §1.2 drawTank()",
+      "summary": "drawTank 接口缺少 forest 视觉效果参数",
+      "detail": "AC-024 要求坦克在森林地块上渲染为半透明或覆盖森林遮罩，但 drawTank(x, y, direction, type, isInvulnerable) 没有 'isInForest' 参数。可在实现时通过两遍渲染（先画非森林 tiles → 画 tanks → 再画森林 tile 半透明覆盖层）解决，但当前接口未显式体现此策略。",
+      "fix_suggestion": "可选方案：(a) 在 drawTank 增加 isInForest 参数，(b) 在架构文档 §4.1 的渲染顺序中明确森林 tiles 的第二遍覆盖层绘制。"
+    },
+    {
+      "id": "A2",
+      "dimension": "C3",
+      "location": "architecture.md §6.6 vs §2.5/§2.6/§2.8",
+      "summary": "模块依赖关系文档矛盾",
+      "detail": "§6.6 声称 'Pure Logic 层所有模块彼此无 import 依赖，仅 import constants.js'，但 §2.5 列出 Player 依赖 Tank 和 Map，§2.6 列出 Enemy 依赖 Tank、Map、Bullet，§2.8 列出 Collision 依赖 Map。实际实现中这些纯函数间依赖是可接受的（不影响测试性），但文档描述需一致。",
+      "fix_suggestion": "修正 §6.6 的描述以反映实际模块依赖，或调整模块划分使声明与实际一致。"
+    },
+    {
+      "id": "A3",
+      "dimension": "C5",
+      "location": "interfaces.md §1.8 bulletVsBase()",
+      "summary": "bulletVsBase 未文档化 isEnemyBullet 参数的行为差异",
+      "detail": "接口签名 bulletVsBase(bullet, base, isEnemyBullet) 有 isEnemyBullet 布尔参数，但返回类型 { bulletDestroyed, baseDestroyed } 未说明当 isEnemyBullet=true 时 baseDestroyed 应恒为 false。接口注释应明确此行为约束。",
+      "fix_suggestion": "在返回值说明中补充：'isEnemyBullet 为 true 时，baseDestroyed 始终为 false'。"
+    },
+    {
+      "id": "A4",
+      "dimension": "C4",
+      "location": "interfaces.md §1.3 Input 类",
+      "summary": "Input 类隐式依赖 window 全局对象",
+      "detail": "Input 构造函数无参数，内部直接绑定 window 的 keydown/keyup。对单元测试而言需要 jsdom 环境。虽然不是阻塞问题（jsdom 足以应对），但若注入 eventTarget 参数可提升干净程度。",
+      "fix_suggestion": "可选：Input 构造函数接受 eventTarget 参数（默认 window），提高可测试性。"
+    },
+    {
+      "id": "A5",
+      "dimension": "C6",
+      "location": "architecture.md §2 (模块划分列表)",
+      "summary": "Tank 模块缺少独立的架构描述小节",
+      "detail": "Tank 模块出现在架构图、FR Reference Table、文件结构（§5）和 interfaces.md §1.12 中，但 architecture.md §2 模块划分列表没有 Tank 的独立条目。其他纯逻辑模块（Map、Player、Enemy、Bullet、Collision、Score、Base）均有 §2.X 小节。",
+      "fix_suggestion": "在 architecture.md §2 中增加 Tank 模块小节，描述其在位置计算、包围盒和边界检测中的角色。"
+    }
+  ],
+  "created_at": "2026-07-11T14:30:00Z",
+  "contract_bundle_hash": "5f1e2d3c4b5a6f7e8d9c0b1a2f3e4d5c6b7a8f9e0d1c2b3a4f5e6d7c8b9a0f1e2d",
+  "metadata": {
+    "source_command": "review",
+    "review_round": 2,
+    "first_round_blocking_fixed": ["B1", "B2"],
+    "previous_blocking": {
+      "B1": {
+        "status": "fixed",
+        "summary": "isPassable() 注释 water 已修正为不包含 water"
+      },
+      "B2": {
+        "status": "fixed",
+        "summary": "AC-035 从 'any bullet' 改为 'a player bullet'，与 AC-059 不再矛盾"
+      }
+    }
+  }
+}

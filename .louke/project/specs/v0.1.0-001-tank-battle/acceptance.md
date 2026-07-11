@@ -239,7 +239,7 @@
 
 ### AC-v0.1.0-001-tank-battle-035
 - **Given** the game is in progress and the base is intact
-- **When** any bullet (player or enemy) hits the base tile
+- **When** a player bullet hits the base tile
 - **Then** the base is destroyed
 - **And** the game ends immediately with a "DEFEAT" result
 
