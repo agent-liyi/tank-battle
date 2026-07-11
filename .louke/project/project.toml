@@ -1,6 +1,6 @@
 [project]
 version = "v0.1.0"
-repo = "github.com/liyi/tank-battle"
+repo = "github.com/agent-liyi/tank-battle"
 project = "tank-battle-v0.1.0"
 project_id = "TODO"
 spec_id = "v0.1.0-001-tank-battle"

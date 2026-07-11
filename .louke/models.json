@@ -1,0 +1,16 @@
+{
+  "$schema": "louke://models-config",
+  "aliases": {},
+  "assignments": {
+    "agents": {
+      "Archer": "minimax-m3",
+      "Maestro": "glm-5.2"
+    },
+    "roles": {
+      "A": "deepseek-v4-pro",
+      "B": "deepseek-v4-pro",
+      "S": "glm-5.2"
+    }
+  },
+  "version": 1
+}
