@@ -1,0 +1,9 @@
+lk: unknown command 'librarian'
+usage: lk [--help] [--version] <command> ...
+
+positional arguments:
+  <command>
+
+optional arguments:
+  --help, -h
+  --version, -v
