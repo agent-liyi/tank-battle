@@ -31,6 +31,8 @@ import {
 } from './collision.js';
 import { getTankBoundingBox } from './tank.js';
 
+const ALL_DIRECTIONS = [DIRECTIONS.UP, DIRECTIONS.DOWN, DIRECTIONS.LEFT, DIRECTIONS.RIGHT];
+
 export class Game {
   constructor(scheduler, renderer, input, mapFactory) {
     this.scheduler = scheduler;
@@ -142,6 +144,10 @@ export class Game {
     const direction = this.input.getDirection();
     const wantsShoot = this.input.isShoot();
 
+    // Save player position before movement for collision revert
+    const playerPrevX = this.player.x;
+    const playerPrevY = this.player.y;
+
     // Update player
     this.player = updatePlayer(
       this.player,
@@ -150,6 +156,15 @@ export class Game {
       this.enemies,
       this.bullets
     );
+
+    // Check terrain collision for player
+    if (direction.x !== 0 || direction.y !== 0) {
+      const playerTileResult = tankVsTile(this.player.x, this.player.y, this.player.direction, this.mapData);
+      if (playerTileResult.blocked) {
+        this.player.x = playerPrevX;
+        this.player.y = playerPrevY;
+      }
+    }
 
     // Player shooting
     if (wantsShoot) {
@@ -174,6 +189,17 @@ export class Game {
     const rng = this.defaultRNG();
     for (let i = 0; i < this.enemies.length; i++) {
       const updated = updateEnemy(this.enemies[i], this.mapData, rng);
+      
+      // Check terrain collision for enemy
+      const enemyTileResult = tankVsTile(updated.x, updated.y, updated.direction, this.mapData);
+      if (enemyTileResult.blocked) {
+        // Revert position and pick a new random direction
+        updated.x = this.enemies[i].x;
+        updated.y = this.enemies[i].y;
+        const choice = rng.randomInt(0, 3);
+        updated.direction = { ...ALL_DIRECTIONS[choice] };
+      }
+      
       this.enemies[i] = updated;
 
       // Enemy shooting

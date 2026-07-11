@@ -122,6 +122,9 @@ describe('E2E-02: Player Movement and Shooting', () => {
   test('arrow key input moves player in the correct direction', () => {
     const { game, input } = createGame();
     game.init();
+    
+    // Use empty map to test pure movement without terrain obstruction
+    game.mapData = Array.from({ length: 13 }, () => Array(13).fill('empty'));
 
     const initialX = game.player.x;
     const initialY = game.player.y;
@@ -157,6 +160,9 @@ describe('E2E-02: Player Movement and Shooting', () => {
   test('player movement speed is 1 tile per 8 frames', () => {
     const { game, input } = createGame();
     game.init();
+    
+    // Use empty map to test pure movement speed without terrain obstruction
+    game.mapData = Array.from({ length: 13 }, () => Array(13).fill('empty'));
 
     input.getDirection.mockReturnValue({ x: 1, y: 0 });
     const startX = game.player.x;
