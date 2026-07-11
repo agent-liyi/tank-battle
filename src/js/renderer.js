@@ -129,8 +129,27 @@ export class Renderer {
 
   drawBullet(x, y, direction) {
     const ctx = this.ctx;
+    const half = BULLET_SIZE / 2;
+    const cx = x + half;
+    const cy = y + half;
+
+    // Outer glow
+    ctx.fillStyle = 'rgba(241, 196, 15, 0.4)';
+    ctx.beginPath();
+    ctx.arc(cx, cy, half + 2, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Core
     ctx.fillStyle = '#f1c40f';
-    ctx.fillRect(x, y, BULLET_SIZE, BULLET_SIZE);
+    ctx.beginPath();
+    ctx.arc(cx, cy, half, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Bright center
+    ctx.fillStyle = '#fff';
+    ctx.beginPath();
+    ctx.arc(cx, cy, half - 1, 0, Math.PI * 2);
+    ctx.fill();
   }
 
   drawBase(x, y, isDestroyed) {

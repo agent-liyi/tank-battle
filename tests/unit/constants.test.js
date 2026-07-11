@@ -143,8 +143,8 @@ describe('constants', () => {
     expect(INVULNERABILITY_DURATION).toBe(60);
   });
 
-  test('AC-constants BULLET_SIZE should be 4', () => {
-    expect(BULLET_SIZE).toBe(4);
+  test('AC-constants BULLET_SIZE should be 6', () => {
+    expect(BULLET_SIZE).toBe(6);
   });
 
   test('AC-constants TANK_SIZE should be 30', () => {

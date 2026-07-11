@@ -23,7 +23,7 @@ export const ENEMY_SPEED = TILE_SIZE / 10;
 export const BULLET_SPEED = TILE_SIZE / 4;
 
 // Bullet size in pixels
-export const BULLET_SIZE = 4;
+export const BULLET_SIZE = 6;
 
 // Tank size in pixels (slightly smaller than tile)
 export const TANK_SIZE = 30;
