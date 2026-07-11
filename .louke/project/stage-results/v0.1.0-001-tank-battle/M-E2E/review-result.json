@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "spec_id": "v0.1.0-001-tank-battle",
+  "stage": "M-E2E",
+  "kind": "review-result",
+  "role": "Prism",
+  "verdict": "pass",
+  "commit_range": "HEAD",
+  "reviewed_targets": [
+    "tests/e2e/scenarios.test.js",
+    ".louke/project/specs/v0.1.0-001-tank-battle/test-plan.md",
+    ".louke/project/specs/v0.1.0-001-tank-battle/acceptance.md"
+  ],
+  "previous_blocking_findings": [
+    {
+      "id": "E2E-MISSING-04",
+      "status": "resolved",
+      "resolution": "E2E-07 Terrain Interaction added: bullet destroys brick, bullet vs steel, tank vs water, tank vs forest"
+    },
+    {
+      "id": "E2E-MISSING-05",
+      "status": "resolved",
+      "resolution": "E2E-08 Tank/Bullet Collision added: tank-tank block, bullet-bullet mutual destruction, tank vs brick wall"
+    },
+    {
+      "id": "E2E-MISSING-06",
+      "status": "resolved",
+      "resolution": "E2E-09 Edge Cases added: boundary clamp, Enter restart, Space during respawn/destroyed/gameover, spawn deferral"
+    },
+    {
+      "id": "E2E-PARTIAL-01",
+      "status": "resolved",
+      "resolution": "Enter restart covered in E2E-09, terrain interaction covered in E2E-07"
+    }
+  ],
+  "observations": [
+    {
+      "id": "E2E-MINOR-01",
+      "severity": "info",
+      "title": "AC-008 diagonal input rejection not covered in E2E",
+      "detail": "test-plan.md §6 E2E-06 step 2 要求覆盖对角线输入拒绝，但 AC-008 在 coverage matrix 中属于 Unit 类型测试。E2E-09 未包含该用例，不构成阻塞。"
+    }
+  ],
+  "test_run": {
+    "passed": 32,
+    "failed": 0,
+    "total": 32,
+    "command": "npm run test:e2e"
+  },
+  "coverage_summary": {
+    "e2e_paths_planned": 6,
+    "e2e_paths_covered": 6,
+    "e2e_paths_missing": 0,
+    "missing_paths": []
+  },
+  "created_at": "2026-07-11T07:00:00Z",
+  "reviewed_at": "2026-07-11T09:55:00Z",
+  "metadata": { "source_command": "review", "round": 2 }
+}

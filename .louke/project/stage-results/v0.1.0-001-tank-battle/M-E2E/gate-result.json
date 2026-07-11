@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "spec_id": "v0.1.0-001-tank-battle",
+  "stage": "M-E2E",
+  "kind": "gate-result",
+  "role": "Keeper",
+  "verdict": "pass",
+  "checks": {
+    "tests_pass": true,
+    "anti_patterns": true,
+    "ac_traceability": true
+  },
+  "blocking_findings": []
+}
