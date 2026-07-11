@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "spec_id": "v0.1.0-001-tank-battle",
+  "stage": "M-LOCK",
+  "kind": "waiver",
+  "role": "human",
+  "verdict": "waived",
+  "reviewed_targets": [],
+  "blocking_findings": [
+    "MVP模式无GitHub仓库，sage record-lock因gh api调用失败。用户已通过question工具明确确认需求锁定，进入M-DEV阶段"
+  ],
+  "accepted_risks": [
+    "MVP模式无GitHub仓库，sage record-lock因gh api调用失败。用户已通过question工具明确确认需求锁定，进入M-DEV阶段"
+  ],
+  "created_at": "2026-07-11T01:52:19Z",
+  "contract_bundle_hash": "7d739414c27715a348b55cf8d203bf7428f63cb789558bed8f4a3738304078f7",
+  "metadata": {
+    "approved_by": "Maestro"
+  },
+  "output_hash": "611a45e778b37c1c17ed81ea36450dbc2f7fd7470ac8e68efbcf3f4494ffb9ab"
+}
