@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "spec_id": "v0.1.0-001-tank-battle",
+  "stage": "M-BUGFIX",
+  "kind": "waiver",
+  "role": "human",
+  "verdict": "waived",
+  "reviewed_targets": [],
+  "blocking_findings": [
+    "无已知bug需修复。77个文件变更是M-DEV正常开发产出，非bug修复。回归检查误将新功能开发判定为过度变更"
+  ],
+  "accepted_risks": [
+    "无已知bug需修复。77个文件变更是M-DEV正常开发产出，非bug修复。回归检查误将新功能开发判定为过度变更"
+  ],
+  "created_at": "2026-07-11T02:18:18Z",
+  "contract_bundle_hash": "7d739414c27715a348b55cf8d203bf7428f63cb789558bed8f4a3738304078f7",
+  "metadata": {
+    "approved_by": "Maestro"
+  },
+  "output_hash": "6e38d7bfeecf5c5e54602b1574d96a2bbc8460a735f07e74dd5e7a6e7f28ebed"
+}

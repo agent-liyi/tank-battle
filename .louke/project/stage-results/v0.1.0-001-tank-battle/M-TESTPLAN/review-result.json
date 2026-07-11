@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "spec_id": "v0.1.0-001-tank-battle",
+  "stage": "M-TESTPLAN",
+  "kind": "review-result",
+  "role": "Sage",
+  "verdict": "pass",
+  "reviewed_targets": [
+    ".louke/project/specs/v0.1.0-001-tank-battle/spec.md",
+    ".louke/project/specs/v0.1.0-001-tank-battle/acceptance.md",
+    ".louke/project/specs/v0.1.0-001-tank-battle/test-plan.md"
+  ],
+  "blocking_findings": [],
+  "accepted_risks": [],
+  "created_at": "2026-07-11T01:35:13Z",
+  "contract_bundle_hash": "f73a28ca2ec8b900895eb5cb46e73ff9fec582ba4af35506446ca190a6188b86",
+  "metadata": {
+    "source_command": "review"
+  },
+  "output_hash": "90bbcdb929e8c0e4e8593b5381bfa5a08acbf67e08f2e0ca93cd841bbd6d4713"
+}

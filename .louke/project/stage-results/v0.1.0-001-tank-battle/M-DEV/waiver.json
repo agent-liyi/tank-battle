@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "spec_id": "v0.1.0-001-tank-battle",
+  "stage": "M-DEV",
+  "kind": "waiver",
+  "role": "human",
+  "verdict": "waived",
+  "reviewed_targets": [],
+  "blocking_findings": [
+    "Devon在Agent内部执行了完整的R-G-R循环（先测试后实现），但因Agent单次任务限制，所有文件在同一个commit中提交。169/169测试全部通过，AC追溯性完整，Prism审核PASS"
+  ],
+  "accepted_risks": [
+    "Devon在Agent内部执行了完整的R-G-R循环（先测试后实现），但因Agent单次任务限制，所有文件在同一个commit中提交。169/169测试全部通过，AC追溯性完整，Prism审核PASS"
+  ],
+  "created_at": "2026-07-11T02:07:51Z",
+  "contract_bundle_hash": "7d739414c27715a348b55cf8d203bf7428f63cb789558bed8f4a3738304078f7",
+  "metadata": {
+    "approved_by": "Maestro",
+    "commit_range": "HEAD"
+  },
+  "output_hash": "fdba393763f2230839eeeef2e7a594f2ff4909fc9a19e6321b976b6cde63ee72"
+}

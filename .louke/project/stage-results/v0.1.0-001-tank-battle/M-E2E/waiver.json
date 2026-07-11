@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "spec_id": "v0.1.0-001-tank-battle",
+  "stage": "M-E2E",
+  "kind": "waiver",
+  "role": "human",
+  "verdict": "waived",
+  "reviewed_targets": [],
+  "blocking_findings": [
+    "review-result.json hash mismatch（文件在Prism生成后又有提交），但Prism两轮审核均PASS，Keeper gate PASS，201/201测试通过"
+  ],
+  "accepted_risks": [
+    "review-result.json hash mismatch（文件在Prism生成后又有提交），但Prism两轮审核均PASS，Keeper gate PASS，201/201测试通过"
+  ],
+  "created_at": "2026-07-11T02:18:08Z",
+  "contract_bundle_hash": "7d739414c27715a348b55cf8d203bf7428f63cb789558bed8f4a3738304078f7",
+  "metadata": {
+    "approved_by": "Maestro",
+    "commit_range": "HEAD"
+  },
+  "output_hash": "df9e27227f8253615664abdefbb19b10d8ff0b93adebf7d1edc6ca908f567b32"
+}

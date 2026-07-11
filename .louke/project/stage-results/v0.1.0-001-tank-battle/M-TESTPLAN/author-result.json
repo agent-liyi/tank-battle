@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "spec_id": "v0.1.0-001-tank-battle",
+  "stage": "M-TESTPLAN",
+  "kind": "author-result",
+  "role": "Archer",
+  "verdict": "pass",
+  "reviewed_targets": [
+    ".louke/project/specs/v0.1.0-001-tank-battle/test-plan.md"
+  ],
+  "blocking_findings": [],
+  "accepted_risks": [],
+  "created_at": "2026-07-11T01:35:22Z",
+  "contract_bundle_hash": "f73a28ca2ec8b900895eb5cb46e73ff9fec582ba4af35506446ca190a6188b86",
+  "metadata": {},
+  "output_hash": "134f2b503be371eabf03c2d9eb2513132ce7c689a6295431dd28dc39ab0dfff9"
+}

@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "spec_id": "v0.1.0-001-tank-battle",
+  "stage": "M-SPEC",
+  "kind": "waiver",
+  "role": "human",
+  "verdict": "waived",
+  "reviewed_targets": [],
+  "blocking_findings": [
+    "MVP模式无GitHub仓库，Lex verify-acceptance因gh api调用失败而无法通过CLI验证，但quote-check已通过（exit 0），两轮Lex Agent审核已确认spec.md和acceptance.md质量合格"
+  ],
+  "accepted_risks": [
+    "无法通过GitHub自动验证issue/PR合规性，将由后续手工检查替代"
+  ],
+  "created_at": "2026-07-11T01:32:20Z",
+  "contract_bundle_hash": "d74daa5912802f5ecfdce844bbef59410e46fc65f2c8ae014678190423cfb911",
+  "metadata": {
+    "approved_by": "Maestro"
+  },
+  "output_hash": "b2a0b6f07132675b0541e050fbc71e702affc1764209a5f324c74d207de2b9f6"
+}

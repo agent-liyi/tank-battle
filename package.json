@@ -1,0 +1,16 @@
+{
+  "name": "tank-battle",
+  "version": "0.1.0",
+  "description": "FC Tank Battle web game",
+  "type": "module",
+  "scripts": {
+    "test": "NODE_OPTIONS=--experimental-vm-modules npx jest",
+    "test:unit": "NODE_OPTIONS=--experimental-vm-modules npx jest tests/unit --verbose",
+    "test:integration": "NODE_OPTIONS=--experimental-vm-modules npx jest tests/integration --verbose",
+    "test:e2e": "NODE_OPTIONS=--experimental-vm-modules npx jest tests/e2e --verbose"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0"
+  }
+}

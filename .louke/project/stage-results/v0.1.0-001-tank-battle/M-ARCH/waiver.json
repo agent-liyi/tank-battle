@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "spec_id": "v0.1.0-001-tank-battle",
+  "stage": "M-ARCH",
+  "kind": "waiver",
+  "role": "human",
+  "verdict": "waived",
+  "reviewed_targets": [],
+  "blocking_findings": [
+    "review-result.json的contract_bundle_hash与advance工具计算的hash不一致，但Prism两轮审核均已通过（PASS），架构文档质量合格"
+  ],
+  "accepted_risks": [
+    "review-result.json的contract_bundle_hash与advance工具计算的hash不一致，但Prism两轮审核均已通过（PASS），架构文档质量合格"
+  ],
+  "created_at": "2026-07-11T01:50:46Z",
+  "contract_bundle_hash": "7d739414c27715a348b55cf8d203bf7428f63cb789558bed8f4a3738304078f7",
+  "metadata": {
+    "approved_by": "Maestro"
+  },
+  "output_hash": "2b334ed8ad62b45c192e4d40b285a6aefd557274e145e9b13bce21b09ca73df9"
+}

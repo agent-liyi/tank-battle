@@ -8,10 +8,14 @@ release_branch = "releases/v0.1.0"
 
 [meta]
 created = "2026-07-10"
-current_stage = "M-FOUND"
+current_stage = "M-MILESTONE"
 security_audit = "disabled"
 smoke_test_issue = "#TODO (closed)"
 smoke_test_pr = "#TODO (closed)"
 dod = "MVP：单人模式可玩，包含玩家坦克移动/射击、敌方坦克AI、地图障碍物、基地保卫"
 test_framework = "jest"
 backlog_project = "TODO"
+
+[e2e]
+paths = ["tests/e2e"]
+run = "npx jest tests/e2e"
