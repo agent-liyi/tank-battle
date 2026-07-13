@@ -270,10 +270,11 @@ export class Game {
       }
     }
 
-    // Bullet vs Enemy Tank
+    // Bullet vs Enemy Tank (only player bullets can destroy enemies)
     for (let i = 0; i < this.bullets.length; i++) {
       if (bulletsToRemove.has(i)) continue;
       const bullet = this.bullets[i];
+      if (bullet.owner !== 'player') continue;
 
       for (let j = 0; j < this.enemies.length; j++) {
         if (enemiesToRemove.has(j)) continue;
