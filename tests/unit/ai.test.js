@@ -214,11 +214,11 @@ describe('enemy - spawnEnemyQueue', () => {
   });
 });
 
-describe('enemy - AC-059 enemy bullets ignore base', () => {
+describe('enemy - AC-059 enemy bullets can destroy base', () => {
   test('AC-v0.1.0-001-tank-battle-059 enemy bullet vs base check', () => {
     // This is tested in collision - but verifying enemy bullet structure
     const enemy = createEnemy({ x: 200, y: 200 }, 'basic');
-    // Enemy bullets have owner='enemy' so collision can check
+    // Enemy bullets have owner='enemy' and can destroy the base
     // The collision module handles the actual logic (AC-059 verified there)
     expect(enemy.type).toBe('basic');
   });

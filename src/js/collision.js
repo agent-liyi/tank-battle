@@ -71,15 +71,11 @@ export function bulletVsBase(bullet, base, isEnemyBullet) {
     return { bulletDestroyed: false, baseDestroyed: false };
   }
 
-  // Enemy bullets do not destroy the base
-  if (isEnemyBullet) {
-    return { bulletDestroyed: true, baseDestroyed: false };
-  }
-
   if (base.destroyed) {
     return { bulletDestroyed: true, baseDestroyed: false };
   }
 
+  // Any bullet (player or enemy) destroys the base
   return { bulletDestroyed: true, baseDestroyed: true };
 }
 

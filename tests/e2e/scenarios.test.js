@@ -303,7 +303,7 @@ describe('E2E-04: Base Destroyed → Defeat', () => {
     expect(game.state.result).toBe(GAME_RESULTS.DEFEAT);
   });
 
-  test('enemy bullet does not destroy the base', () => {
+  test('enemy bullet destroys the base and triggers DEFEAT', () => {
     const { game } = createGame();
     game.init();
 
@@ -312,8 +312,9 @@ describe('E2E-04: Base Destroyed → Defeat', () => {
 
     game.resolveCollisions();
 
-    expect(game.base.destroyed).toBe(false);
-    expect(game.state.status).toBe(GAME_STATES.PLAYING);
+    expect(game.base.destroyed).toBe(true);
+    expect(game.state.status).toBe(GAME_STATES.GAMEOVER);
+    expect(game.state.result).toBe(GAME_RESULTS.DEFEAT);
   });
 
   test('game over overlay is rendered on defeat', () => {

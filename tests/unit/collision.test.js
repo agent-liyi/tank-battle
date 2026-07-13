@@ -161,12 +161,12 @@ describe('collision - bulletVsBase', () => {
     expect(result.baseDestroyed).toBe(true);
   });
 
-  test('AC-v0.1.0-001-tank-battle-059 enemy bullet does NOT destroy base', () => {
+  test('AC-v0.1.0-001-tank-battle-059 enemy bullet destroys base', () => {
     const bullet = createBullet(200, 390, DIRECTIONS.RIGHT, 'enemy');
     const base = { x: 6 * 32, y: 12 * 32, destroyed: false };
     const result = bulletVsBase(bullet, base, true);
     expect(result.bulletDestroyed).toBe(true);
-    expect(result.baseDestroyed).toBe(false);
+    expect(result.baseDestroyed).toBe(true);
   });
 
   test('bullet misses base', () => {
