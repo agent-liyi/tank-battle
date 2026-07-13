@@ -189,7 +189,7 @@ describe('E2E-02: Player Movement and Shooting', () => {
     const { game, input } = createGame();
     game.init();
 
-    game.frameCount = 20;
+    game.frameCount = 19;
     input.getDirection.mockReturnValue({ x: 0, y: -1 });
     input.isShoot.mockReturnValue(true);
 

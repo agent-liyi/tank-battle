@@ -140,6 +140,8 @@ export class Game {
 
     if (this.state.status !== GAME_STATES.PLAYING) return;
 
+    this.frameCount++;
+
     // Player input
     const direction = this.input.getDirection();
     const wantsShoot = this.input.isShoot();
