@@ -58,131 +58,301 @@ export function getDefaultLevel() {
     Array(GRID_SIZE).fill('empty')
   );
 
-  // Row 0: enemy spawn area (empty except some walls for variety)
-  map[0][0] = 'empty';
-  map[0][6] = 'empty';
-  map[0][12] = 'empty';
+  // --- Top section (rows 0-7): enemy spawn area + mixed terrain ---
+  // Row 0: enemy spawn points at cols 0, 12, 24 (kept empty)
+  map[0][4] = 'brick';
+  map[0][8] = 'brick';
+  map[0][16] = 'brick';
+  map[0][20] = 'brick';
 
-  // Row 1: mixed terrain
-  map[1][1] = 'brick';
-  map[1][4] = 'brick';
-  map[1][5] = 'brick';
-  map[1][7] = 'brick';
-  map[1][8] = 'brick';
-  map[1][11] = 'brick';
+  // Row 1: steel walls
+  map[1][2] = 'steel';
+  map[1][6] = 'steel';
+  map[1][10] = 'steel';
+  map[1][14] = 'steel';
+  map[1][18] = 'steel';
+  map[1][22] = 'steel';
 
-  // Row 2: steel walls
-  map[2][0] = 'steel';
-  map[2][2] = 'steel';
-  map[2][4] = 'steel';
-  map[2][8] = 'steel';
-  map[2][10] = 'steel';
-  map[2][12] = 'steel';
+  // Row 2: brick walls
+  map[2][3] = 'brick';
+  map[2][4] = 'brick';
+  map[2][7] = 'brick';
+  map[2][8] = 'brick';
+  map[2][11] = 'brick';
+  map[2][12] = 'brick';
+  map[2][13] = 'brick';
+  map[2][16] = 'brick';
+  map[2][17] = 'brick';
+  map[2][20] = 'brick';
+  map[2][21] = 'brick';
 
-  // Row 3: brick walls
-  map[3][2] = 'brick';
-  map[3][4] = 'brick';
-  map[3][5] = 'brick';
-  map[3][6] = 'brick';
-  map[3][7] = 'brick';
-  map[3][8] = 'brick';
-  map[3][10] = 'brick';
+  // Row 3: forest
+  map[3][0] = 'forest';
+  map[3][1] = 'forest';
+  map[3][5] = 'forest';
+  map[3][6] = 'forest';
+  map[3][9] = 'brick';
+  map[3][15] = 'brick';
+  map[3][18] = 'forest';
+  map[3][19] = 'forest';
+  map[3][23] = 'forest';
+  map[3][24] = 'forest';
 
-  // Row 4: forest tiles
-  map[4][0] = 'forest';
-  map[4][1] = 'forest';
-  map[4][3] = 'brick';
-  map[4][6] = 'brick';
-  map[4][9] = 'brick';
-  map[4][11] = 'forest';
-  map[4][12] = 'forest';
+  // Row 4: water
+  map[4][2] = 'water';
+  map[4][3] = 'water';
+  map[4][7] = 'brick';
+  map[4][8] = 'brick';
+  map[4][11] = 'steel';
+  map[4][13] = 'steel';
+  map[4][16] = 'brick';
+  map[4][17] = 'brick';
+  map[4][21] = 'water';
+  map[4][22] = 'water';
 
-  // Row 5: water and brick mix
+  // Row 5: mixed
   map[5][0] = 'brick';
   map[5][1] = 'brick';
-  map[5][3] = 'water';
-  map[5][4] = 'water';
-  map[5][5] = 'brick';
-  map[5][7] = 'brick';
-  map[5][8] = 'water';
-  map[5][9] = 'water';
-  map[5][11] = 'brick';
-  map[5][12] = 'brick';
+  map[5][4] = 'forest';
+  map[5][5] = 'forest';
+  map[5][9] = 'brick';
+  map[5][10] = 'brick';
+  map[5][14] = 'brick';
+  map[5][15] = 'brick';
+  map[5][19] = 'forest';
+  map[5][20] = 'forest';
+  map[5][23] = 'brick';
+  map[5][24] = 'brick';
 
-  // Row 6: mixed tiles
-  map[6][0] = 'forest';
-  map[6][2] = 'brick';
-  map[6][3] = 'forest';
-  map[6][5] = 'water';
-  map[6][7] = 'water';
-  map[6][9] = 'forest';
-  map[6][10] = 'brick';
-  map[6][12] = 'forest';
+  // Row 6: steel + brick
+  map[6][3] = 'steel';
+  map[6][6] = 'brick';
+  map[6][7] = 'brick';
+  map[6][8] = 'brick';
+  map[6][12] = 'steel';
+  map[6][16] = 'brick';
+  map[6][17] = 'brick';
+  map[6][18] = 'brick';
+  map[6][21] = 'steel';
 
-  // Row 7: brick walls
-  map[7][0] = 'steel';
-  map[7][1] = 'brick';
-  map[7][2] = 'brick';
-  map[7][3] = 'brick';
-  map[7][4] = 'brick';
-  map[7][8] = 'brick';
-  map[7][9] = 'brick';
+  // Row 7: water barrier
+  map[7][1] = 'water';
+  map[7][2] = 'water';
+  map[7][5] = 'forest';
   map[7][10] = 'brick';
   map[7][11] = 'brick';
-  map[7][12] = 'steel';
+  map[7][13] = 'brick';
+  map[7][14] = 'brick';
+  map[7][19] = 'forest';
+  map[7][22] = 'water';
+  map[7][23] = 'water';
 
-  // Row 8: brick walls
+  // --- Middle section (rows 8-15): open battlefield ---
+  // Row 8
   map[8][0] = 'brick';
-  map[8][2] = 'steel';
-  map[8][4] = 'brick';
-  map[8][6] = 'forest';
-  map[8][8] = 'brick';
-  map[8][10] = 'steel';
-  map[8][12] = 'brick';
+  map[8][4] = 'steel';
+  map[8][8] = 'forest';
+  map[8][9] = 'forest';
+  map[8][15] = 'forest';
+  map[8][16] = 'forest';
+  map[8][20] = 'steel';
+  map[8][24] = 'brick';
 
-  // Row 9: mixed
-  map[9][1] = 'brick';
-  map[9][3] = 'forest';
-  map[9][4] = 'forest';
-  map[9][5] = 'brick';
-  map[9][7] = 'brick';
-  map[9][8] = 'forest';
-  map[9][9] = 'forest';
+  // Row 9
+  map[9][2] = 'brick';
+  map[9][3] = 'brick';
+  map[9][6] = 'water';
+  map[9][7] = 'water';
   map[9][11] = 'brick';
+  map[9][13] = 'brick';
+  map[9][17] = 'water';
+  map[9][18] = 'water';
+  map[9][21] = 'brick';
+  map[9][22] = 'brick';
 
-  // Row 10: brick wall area
-  map[10][2] = 'brick';
-  map[10][4] = 'water';
-  map[10][6] = 'brick';
-  map[10][8] = 'water';
+  // Row 10
+  map[10][5] = 'steel';
+  map[10][9] = 'brick';
   map[10][10] = 'brick';
+  map[10][14] = 'brick';
+  map[10][15] = 'brick';
+  map[10][19] = 'steel';
 
-  // Row 11: Base defense U-shape
-  // U-shape: 3 bricks wide at top, 2 bricks tall on left and right
-  // Base at (row 12, col 6), surrounding at row 11-12, col 5-7
-  // Top 3 bricks: row 11, cols 5,6,7
-  map[11][5] = 'brick';
-  map[11][6] = 'brick';
+  // Row 11
+  map[11][1] = 'forest';
+  map[11][2] = 'forest';
   map[11][7] = 'brick';
-  // Left and right sides: rows 11-12, col 5 and col 7
-  // Row 11 already has cols 5,7 set above
-  map[12][5] = 'brick';
-  map[12][7] = 'brick';
-  // Base at (12, 6) - this is a special tile, but the base entity is separate
-  // We'll mark it as empty in the map and handle base as an entity
-  map[12][6] = 'base';
+  map[11][8] = 'brick';
+  map[11][12] = 'steel';
+  map[11][16] = 'brick';
+  map[11][17] = 'brick';
+  map[11][22] = 'forest';
+  map[11][23] = 'forest';
 
-  // Row 12: other tiles
-  map[12][0] = 'empty';
-  map[12][1] = 'empty';
-  map[12][2] = 'brick';
-  map[12][3] = 'brick';
-  map[12][4] = 'empty'; // Player spawn area
-  map[12][8] = 'empty';
-  map[12][9] = 'brick';
-  map[12][10] = 'brick';
-  map[12][11] = 'empty';
-  map[12][12] = 'empty';
+  // Row 12
+  map[12][0] = 'brick';
+  map[12][3] = 'water';
+  map[12][4] = 'water';
+  map[12][9] = 'forest';
+  map[12][10] = 'forest';
+  map[12][14] = 'forest';
+  map[12][15] = 'forest';
+  map[12][20] = 'water';
+  map[12][21] = 'water';
+  map[12][24] = 'brick';
+
+  // Row 13
+  map[13][6] = 'brick';
+  map[13][7] = 'brick';
+  map[13][11] = 'steel';
+  map[13][13] = 'steel';
+  map[13][17] = 'brick';
+  map[13][18] = 'brick';
+
+  // Row 14
+  map[14][2] = 'steel';
+  map[14][5] = 'brick';
+  map[14][8] = 'forest';
+  map[14][9] = 'forest';
+  map[14][15] = 'forest';
+  map[14][16] = 'forest';
+  map[14][19] = 'brick';
+  map[14][22] = 'steel';
+
+  // Row 15
+  map[15][1] = 'brick';
+  map[15][2] = 'brick';
+  map[15][10] = 'water';
+  map[15][11] = 'water';
+  map[15][13] = 'water';
+  map[15][14] = 'water';
+  map[15][22] = 'brick';
+  map[15][23] = 'brick';
+
+  // --- Bottom section (rows 16-24): approach to base ---
+  // Row 16
+  map[16][4] = 'forest';
+  map[16][5] = 'forest';
+  map[16][9] = 'brick';
+  map[16][10] = 'brick';
+  map[16][14] = 'brick';
+  map[16][15] = 'brick';
+  map[16][19] = 'forest';
+  map[16][20] = 'forest';
+
+  // Row 17
+  map[17][0] = 'steel';
+  map[17][7] = 'brick';
+  map[17][8] = 'brick';
+  map[17][12] = 'brick';
+  map[17][16] = 'brick';
+  map[17][17] = 'brick';
+  map[17][24] = 'steel';
+
+  // Row 18
+  map[18][3] = 'water';
+  map[18][4] = 'water';
+  map[18][11] = 'forest';
+  map[18][12] = 'forest';
+  map[18][13] = 'forest';
+  map[18][20] = 'water';
+  map[18][21] = 'water';
+
+  // Row 19
+  map[19][6] = 'brick';
+  map[19][7] = 'brick';
+  map[19][10] = 'steel';
+  map[19][14] = 'steel';
+  map[19][17] = 'brick';
+  map[19][18] = 'brick';
+
+  // Row 20
+  map[20][1] = 'forest';
+  map[20][2] = 'forest';
+  map[20][5] = 'brick';
+  map[20][9] = 'water';
+  map[20][10] = 'water';
+  map[20][14] = 'water';
+  map[20][15] = 'water';
+  map[20][19] = 'brick';
+  map[20][22] = 'forest';
+  map[20][23] = 'forest';
+
+  // Row 21
+  map[21][0] = 'brick';
+  map[21][4] = 'steel';
+  map[21][8] = 'brick';
+  map[21][9] = 'brick';
+  map[21][12] = 'brick';
+  map[21][16] = 'brick';
+  map[21][17] = 'brick';
+  map[21][20] = 'steel';
+  map[21][24] = 'brick';
+
+  // Row 22: water barriers near base
+  map[22][2] = 'water';
+  map[22][3] = 'water';
+  map[22][6] = 'forest';
+  map[22][7] = 'forest';
+  map[22][10] = 'brick';
+  map[22][14] = 'brick';
+  map[22][17] = 'forest';
+  map[22][18] = 'forest';
+  map[22][21] = 'water';
+  map[22][22] = 'water';
+
+  // Row 23: Base defense U-shape
+  // Base at (row 23, col 12), U-shape: top 3 bricks + side walls
+  map[22][11] = 'brick';
+  map[22][12] = 'brick';
+  map[22][13] = 'brick';
+  map[23][11] = 'brick';
+  map[23][13] = 'brick';
+  map[23][12] = 'base';
+
+  // Row 23: other tiles
+  map[23][0] = 'empty';
+  map[23][1] = 'empty';
+  map[23][2] = 'brick';
+  map[23][3] = 'brick';
+  map[23][4] = 'empty'; // Player spawn area
+  map[23][5] = 'empty';
+  map[23][6] = 'empty';
+  map[23][7] = 'empty';
+  map[23][8] = 'empty';
+  map[23][9] = 'empty';
+  map[23][10] = 'empty';
+  map[23][14] = 'empty';
+  map[23][15] = 'empty';
+  map[23][16] = 'empty';
+  map[23][17] = 'empty';
+  map[23][18] = 'empty';
+  map[23][19] = 'empty';
+  map[23][20] = 'empty';
+  map[23][21] = 'brick';
+  map[23][22] = 'brick';
+  map[23][23] = 'empty';
+  map[23][24] = 'empty';
+
+  // Row 24: bottom boundary
+  map[24][0] = 'brick';
+  map[24][1] = 'brick';
+  map[24][3] = 'brick';
+  map[24][5] = 'brick';
+  map[24][6] = 'brick';
+  map[24][7] = 'brick';
+  map[24][8] = 'brick';
+  map[24][10] = 'brick';
+  map[24][11] = 'brick';
+  map[24][13] = 'brick';
+  map[24][14] = 'brick';
+  map[24][16] = 'brick';
+  map[24][17] = 'brick';
+  map[24][18] = 'brick';
+  map[24][19] = 'brick';
+  map[24][21] = 'brick';
+  map[24][22] = 'brick';
+  map[24][24] = 'brick';
 
   return map;
 }

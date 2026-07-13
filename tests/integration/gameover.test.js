@@ -137,7 +137,7 @@ describe('gameover integration - AC-035, AC-036, AC-040', () => {
     const game = new Game(scheduler, renderer, input);
     game.init();
 
-    const enemy = createEnemy({ x: 200, y: 200 }, 'basic');
+    const enemy = createEnemy({ x: 100, y: 256 }, 'basic');
     game.enemies = [enemy];
     game.score = 0;
 

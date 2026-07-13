@@ -14,6 +14,10 @@ import {
   SHOOTING_COOLDOWN,
   DIRECTIONS,
   TILE_TYPES,
+  GRID_SIZE,
+  TILE_SIZE,
+  TANK_SIZE,
+  BULLET_SIZE,
 } from './constants.js';
 import { getDefaultLevel, getTileAt, setTileAt } from './map.js';
 import { createPlayer, updatePlayer, playerHit, isPlayerInvulnerable } from './player.js';
@@ -176,8 +180,8 @@ export class Game {
         canShoot(this.player.activeBullet, this.player.lastShotFrame, this.frameCount, SHOOTING_COOLDOWN)
       ) {
         const bullet = createBullet(
-          this.player.x + 13,
-          this.player.y + 13,
+          this.player.x + TANK_SIZE / 2 - BULLET_SIZE / 2,
+          this.player.y + TANK_SIZE / 2 - BULLET_SIZE / 2,
           this.player.direction,
           'player'
         );
@@ -208,8 +212,8 @@ export class Game {
       if (updated.shootTimer === 1) {
         // Just reset, fire a bullet
         const enemyBullet = createBullet(
-          updated.x + 13,
-          updated.y + 13,
+          updated.x + TANK_SIZE / 2 - BULLET_SIZE / 2,
+          updated.y + TANK_SIZE / 2 - BULLET_SIZE / 2,
           updated.direction,
           'enemy'
         );
@@ -256,10 +260,10 @@ export class Game {
     // Bullet vs Tile
     for (let i = 0; i < this.bullets.length; i++) {
       const bullet = this.bullets[i];
-      const col = Math.floor(bullet.x / 32);
-      const row = Math.floor(bullet.y / 32);
+      const col = Math.floor(bullet.x / TILE_SIZE);
+      const row = Math.floor(bullet.y / TILE_SIZE);
 
-      if (row >= 0 && row < 13 && col >= 0 && col < 13) {
+      if (row >= 0 && row < GRID_SIZE && col >= 0 && col < GRID_SIZE) {
         const result = bulletVsTile(bullet, col, row, newMap);
         if (result.bulletDestroyed) {
           bulletsToRemove.add(i);
@@ -386,8 +390,8 @@ export class Game {
     this.renderer.clear();
 
     // Draw tiles
-    for (let row = 0; row < 13; row++) {
-      for (let col = 0; col < 13; col++) {
+    for (let row = 0; row < GRID_SIZE; row++) {
+      for (let col = 0; col < GRID_SIZE; col++) {
         const tileType = this.mapData[row][col];
         if (tileType !== TILE_TYPES.EMPTY && tileType !== TILE_TYPES.BASE) {
           this.renderer.drawTile(col, row, tileType);

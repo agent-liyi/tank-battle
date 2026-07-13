@@ -54,7 +54,7 @@ function createMockRenderer() {
     drawBase: jest.fn(),
     drawUI: jest.fn(),
     drawGameOver: jest.fn(),
-    canvas: { width: 416, height: 416 },
+    canvas: { width: 800, height: 800 },
   };
 }
 
@@ -84,8 +84,8 @@ describe('E2E-01: Game Initialization', () => {
 
     // map
     expect(game.mapData).toBeDefined();
-    expect(game.mapData.length).toBe(13);
-    expect(game.mapData[0].length).toBe(13);
+    expect(game.mapData.length).toBe(25);
+    expect(game.mapData[0].length).toBe(25);
 
     // player
     expect(game.player).toBeDefined();
@@ -113,8 +113,8 @@ describe('E2E-01: Game Initialization', () => {
       .toBe(TOTAL_ENEMIES);
 
     // renderer has canvas
-    expect(game.renderer.canvas.width).toBe(416);
-    expect(game.renderer.canvas.height).toBe(416);
+    expect(game.renderer.canvas.width).toBe(800);
+    expect(game.renderer.canvas.height).toBe(800);
   });
 });
 
@@ -124,7 +124,7 @@ describe('E2E-02: Player Movement and Shooting', () => {
     game.init();
     
     // Use empty map to test pure movement without terrain obstruction
-    game.mapData = Array.from({ length: 13 }, () => Array(13).fill('empty'));
+    game.mapData = Array.from({ length: 25 }, () => Array(25).fill('empty'));
 
     const initialX = game.player.x;
     const initialY = game.player.y;
@@ -162,7 +162,7 @@ describe('E2E-02: Player Movement and Shooting', () => {
     game.init();
     
     // Use empty map to test pure movement speed without terrain obstruction
-    game.mapData = Array.from({ length: 13 }, () => Array(13).fill('empty'));
+    game.mapData = Array.from({ length: 25 }, () => Array(25).fill('empty'));
 
     input.getDirection.mockReturnValue({ x: 1, y: 0 });
     const startX = game.player.x;
@@ -247,8 +247,8 @@ describe('E2E-03: Destroy Enemy and Score', () => {
     game.init();
 
     // Place enemy at a known position
-    const enemyX = 200;
-    const enemyY = 200;
+    const enemyX = 100;
+    const enemyY = 256;
     const enemy = createEnemy({ x: enemyX, y: enemyY }, 'basic');
     enemy.active = true;
     game.enemies = [enemy];
@@ -272,7 +272,7 @@ describe('E2E-03: Destroy Enemy and Score', () => {
 
     for (let i = 0; i < 3; i++) {
       const enemyX = 100 + i * 100;
-      const enemyY = 200;
+      const enemyY = 256;
       const enemy = createEnemy({ x: enemyX, y: enemyY }, 'basic');
       enemy.active = true;
       game.enemies = [enemy];
@@ -489,7 +489,7 @@ describe('E2E-07: Terrain Interaction', () => {
   });
 
   test('tank cannot pass through water', () => {
-    const map = Array.from({ length: 13 }, () => Array(13).fill('empty'));
+    const map = Array.from({ length: 25 }, () => Array(25).fill('empty'));
     map[3][3] = 'water';
 
     const result = tankVsTile(3 * TILE_SIZE + 5, 3 * TILE_SIZE + 5, DIRECTIONS.DOWN, map);
@@ -498,7 +498,7 @@ describe('E2E-07: Terrain Interaction', () => {
   });
 
   test('tank can pass through forest', () => {
-    const map = Array.from({ length: 13 }, () => Array(13).fill('empty'));
+    const map = Array.from({ length: 25 }, () => Array(25).fill('empty'));
     map[3][3] = 'forest';
 
     const result = tankVsTile(3 * TILE_SIZE + 5, 3 * TILE_SIZE + 5, DIRECTIONS.DOWN, map);
@@ -509,7 +509,7 @@ describe('E2E-07: Terrain Interaction', () => {
 
 describe('E2E-08: Tank/Bullet Collision', () => {
   test('tank cannot pass through brick wall', () => {
-    const map = Array.from({ length: 13 }, () => Array(13).fill('empty'));
+    const map = Array.from({ length: 25 }, () => Array(25).fill('empty'));
     map[3][3] = 'brick';
 
     const result = tankVsTile(3 * TILE_SIZE + 5, 3 * TILE_SIZE + 5, DIRECTIONS.UP, map);

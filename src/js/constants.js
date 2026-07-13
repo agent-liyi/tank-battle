@@ -2,10 +2,10 @@
 export const TILE_SIZE = 32;
 
 // Grid dimensions
-export const GRID_SIZE = 13;
+export const GRID_SIZE = 25;
 
-// Canvas size (13 tiles * 32px = 416px)
-export const CANVAS_SIZE = 416;
+// Canvas size (25 tiles * 32px = 800px)
+export const CANVAS_SIZE = 800;
 
 // Frames per second target
 export const FPS = 60;
@@ -58,19 +58,19 @@ export const INITIAL_LIVES = 3;
 export const SCORE_PER_ENEMY = 100;
 
 // Player spawn position (pixel coordinates)
-export const PLAYER_SPAWN_X = 4 * TILE_SIZE;
-export const PLAYER_SPAWN_Y = 12 * TILE_SIZE;
+export const PLAYER_SPAWN_X = 8 * TILE_SIZE;
+export const PLAYER_SPAWN_Y = 23 * TILE_SIZE;
 
 // Base position (pixel coordinates)
-export const BASE_POSITION = { col: 6, row: 12 };
+export const BASE_POSITION = { col: 12, row: 23 };
 export const BASE_X = BASE_POSITION.col * TILE_SIZE;
 export const BASE_Y = BASE_POSITION.row * TILE_SIZE;
 
 // Enemy spawn positions (col, row in tile coordinates)
 export const ENEMY_SPAWN_POINTS = [
   { x: 0 * TILE_SIZE, y: 0 },
-  { x: 6 * TILE_SIZE, y: 0 },
   { x: 12 * TILE_SIZE, y: 0 },
+  { x: 24 * TILE_SIZE, y: 0 },
 ];
 
 // Tile types enumeration
