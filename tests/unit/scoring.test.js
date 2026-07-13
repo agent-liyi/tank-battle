@@ -35,8 +35,8 @@ describe('score - getScoreForEnemy', () => {
 });
 
 describe('score - calculateTotalScore', () => {
-  test('AC-v0.1.0-001-tank-battle-044 full level score is 2000 (20 enemies × 100)', () => {
-    expect(calculateTotalScore(20)).toBe(2000);
+  test('AC-v0.1.0-001-tank-battle-044 full level score is 1500 (15 enemies × 100)', () => {
+    expect(calculateTotalScore(15)).toBe(1500);
   });
 
   test('calculates for arbitrary counts', () => {

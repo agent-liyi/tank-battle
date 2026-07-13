@@ -49,7 +49,7 @@ export const INVULNERABILITY_DURATION = 60;
 export const MAX_ACTIVE_ENEMIES = 4;
 
 // Total enemy tanks per level
-export const TOTAL_ENEMIES = 20;
+export const TOTAL_ENEMIES = 15;
 
 // Player initial lives
 export const INITIAL_LIVES = 3;

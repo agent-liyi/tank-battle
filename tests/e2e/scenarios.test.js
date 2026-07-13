@@ -329,7 +329,7 @@ describe('E2E-04: Base Destroyed → Defeat', () => {
 });
 
 describe('E2E-05: All Enemies Destroyed → Victory', () => {
-  test('destroying all 20 enemies triggers VICTORY', () => {
+  test('destroying all 15 enemies triggers VICTORY', () => {
     const { game } = createGame();
     game.init();
 

@@ -74,8 +74,8 @@ describe('constants', () => {
     expect(MAX_ACTIVE_ENEMIES).toBe(4);
   });
 
-  test('AC-constants TOTAL_ENEMIES should be 20', () => {
-    expect(TOTAL_ENEMIES).toBe(20);
+  test('AC-constants TOTAL_ENEMIES should be 15', () => {
+    expect(TOTAL_ENEMIES).toBe(15);
   });
 
   test('AC-constants INITIAL_LIVES should be 3', () => {

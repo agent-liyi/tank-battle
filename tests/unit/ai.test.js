@@ -169,8 +169,8 @@ describe('enemy - spawnEnemyQueue', () => {
     expect(result.enemies.length).toBeGreaterThan(0);
   });
 
-  test('AC-v0.1.0-001-tank-battle-020 deploys all 20 enemies over time', () => {
-    // Create 20 queued enemies
+  test('AC-v0.1.0-001-tank-battle-020 deploys all 15 enemies over time', () => {
+    // Create 15 queued enemies
     let queue = [];
     for (let i = 0; i < TOTAL_ENEMIES; i++) {
       queue.push(createEnemy({ x: 0, y: 0 }, 'basic'));
@@ -187,7 +187,7 @@ describe('enemy - spawnEnemyQueue', () => {
       totalSpawned += result.enemies.length - enemies.length + (enemies.filter(e => !e.active).length);
     }
 
-    // 20 enemies total should be queued/deployed
+    // 15 enemies total should be queued/deployed
     expect(totalSpawned).toBe(TOTAL_ENEMIES);
   });
 
