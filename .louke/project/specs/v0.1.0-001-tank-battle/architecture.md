@@ -1,8 +1,8 @@
-# 坦克大战 — Architecture
+# 坦克大战 — 架构
 
 - **Spec ID**: v0.1.0-001-tank-battle
 
-## §1 High-Level Architecture
+## §1 高层架构
 
 ### 架构概览
 
@@ -217,22 +217,22 @@
 - **依赖**: CanvasRenderingContext2D, constants
 - **状态**: 无状态
 
-## §3 FR Reference Table
+## §3 FR 参考对照表
 
 | FR | 需求描述 | 对应模块 |
 |----|---------|---------|
-| FR-0100 | Game Canvas & Rendering | Game, Renderer, UI |
-| FR-0200 | Player Tank Movement | Game, Input, Player, Tank, Collision |
-| FR-0300 | Player Tank Shooting | Game, Input, Player, Bullet, Collision |
-| FR-0400 | Enemy Tank AI | Game, Enemy, Collision |
-| FR-0500 | Map Elements | Map, Renderer |
-| FR-0600 | Collision Detection | Collision, Bullet, Tank, Map, Player, Enemy |
-| FR-0700 | Base (Eagle) Defense | Base, Collision, Renderer |
-| FR-0800 | Life System | Game, Player, Renderer |
-| FR-0900 | Scoring System | Game, Score, Renderer |
-| FR-1000 | Game Over Conditions | Game, UI |
+| FR-0100 | Game Canvas 与渲染 | Game, Renderer, UI |
+| FR-0200 | 玩家坦克移动 | Game, Input, Player, Tank, Collision |
+| FR-0300 | 玩家坦克射击 | Game, Input, Player, Bullet, Collision |
+| FR-0400 | 敌方坦克 AI | Game, Enemy, Collision |
+| FR-0500 | 地图元素 | Map, Renderer |
+| FR-0600 | 碰撞检测 | Collision, Bullet, Tank, Map, Player, Enemy |
+| FR-0700 | 基地（鹰）防御 | Base, Collision, Renderer |
+| FR-0800 | 生命系统 | Game, Player, Renderer |
+| FR-0900 | 计分系统 | Game, Score, Renderer |
+| FR-1000 | 游戏结束条件 | Game, UI |
 
-## §4 Data Flow
+## §4 数据流
 
 ### §4.1 游戏循环流程
 
@@ -285,7 +285,7 @@
               └── baseDestroyed → defeat
 ```
 
-## §5 File Structure
+## §5 文件结构
 
 ```
 src/
@@ -328,12 +328,12 @@ tests/
     level-data.json           # 预定义的13x13关卡布局数据
 ```
 
-## §6 Key Design Decisions
+## §6 关键设计决策
 
 ### §6.1 纯函数 vs 类的选择
 
 - **纯函数模块**: map, score, collision, bullet, ai, tank, base, player, enemy — 所有核心游戏逻辑均为纯函数，接受输入状态，返回新状态，不依赖 DOM/Canvas。便于 Jest 单元测试，无需 jsdom。
-- **类模块**: Game, Renderer, Input — 封装浏览器 API 和副作用。Game 接收 injectable scheduler/rng，Render 接收 injectable canvas context，实现依赖注入。
+- **类模块**: Game, Renderer, Input — 封装浏览器 API 和副作用。Game 接收可注入的 scheduler/rng，Render 接收可注入的 canvas context，实现依赖注入。
 
 ### §6.2 游戏循环设计
 
@@ -373,6 +373,6 @@ tests/
 
 ### §6.6 模块间无直接依赖
 
-- Pure Logic 层所有模块（map, tank, collision, bullet, score, etc.）彼此无 import 依赖，仅 import `constants.js`。
+- Pure Logic 层所有模块（map, tank, collision, bullet, score 等）彼此无 import 依赖，仅 import `constants.js`。
 - 所有模块编排由 Game 在 update() 中完成：Game 调用 map 获取 tile 信息，调用 collision 传入 tiles 和 entities，调用 ai 传入 rng。
 - 这种架构确保每个纯函数模块可以独立在 Jest 中测试，无需 mock 其他模块。

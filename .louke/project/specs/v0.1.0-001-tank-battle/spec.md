@@ -4,240 +4,239 @@
 - **Created**: 2026-07-10
 - **Status**: Draft
 
-> **[RESOLVED] Responsibility split**: This document only describes the requirements themselves (FR/NFR descriptions + metadata).
-> Acceptance criteria (observable, assertable pass conditions) live in `acceptance.md` so they can grow without bloating spec.
-> The test plan (`test-plan.md`) references both spec.md and acceptance.md as inputs.
+> **[已解决] 职责划分**: 本文档仅描述需求本身（FR/NFR 描述 + metadata）。
+> 验收标准（可观察、可断言的通过条件）存放在 `acceptance.md` 中，以便其独立扩展而不使 spec 臃肿。
+> 测试计划（`test-plan.md`）以 spec.md 和 acceptance.md 作为输入。
 
-## User Stories
+## 用户故事
 
 ### US-0010
-story: As a player, I want to control a tank with arrow keys and shoot enemies, so that I can experience classic FC tank battle gameplay.
+story: 作为一名玩家，我希望用方向键控制坦克并射击敌人，从而体验经典的 FC 坦克大战玩法。
 priority: P0
 
 ### US-0020
-story: As a player, I want to see a map with different terrain types (bricks, steel, water, forest), so that the battlefield feels strategic and varied.
+story: 作为一名玩家，我希望看到包含不同地形（砖墙、钢墙、水域、森林）的地图，让战场更具策略性和多样性。
 priority: P0
 
 ### US-0030
-story: As a player, I want to protect my base (eagle) from enemy tanks, so that I have a clear win/lose condition beyond just combat.
+story: 作为一名玩家，我希望保护自己的基地（老鹰）免受敌方坦克攻击，从而拥有战斗之外的明确胜负条件。
 priority: P0
 
 ### US-0040
-story: As a player, I want a life system and score display, so that I have clear feedback on my performance and progress.
+story: 作为一名玩家，我希望有生命系统和分数显示，从而获得对自身表现和进度的明确反馈。
 priority: P1
 
-## Usage Scenarios
+## 使用场景
 
 ### scenario-0010
 
-The player opens the game in a web browser. The game canvas renders a 13x13 tile grid map. The player tank spawns at the bottom of the map, near the base (eagle). Three enemy tanks spawn at the top of the map. The player uses arrow keys to move the tank in four directions and presses Space to fire bullets. Enemy tanks move autonomously with random direction changes and fire bullets periodically. The player must destroy all enemy tanks while protecting the base. Destroying an enemy tank awards points. If the player tank is hit, it respawns after a short delay (consuming one life). The game ends when all enemies are destroyed (victory) or the base is destroyed / all lives are lost (defeat).
+玩家在网页浏览器中打开游戏。游戏画布渲染一个 13x13 的网格地图。玩家坦克在地图底部、靠近基地（老鹰）的位置生成。三辆敌方坦克在地图顶部生成。玩家使用方向键在四个方向上移动坦克，并按空格键发射子弹。敌方坦克自主移动，会随机改变方向并周期性发射子弹。玩家必须在保护基地的同时摧毁所有敌方坦克。摧毁敌方坦克可获得分数。如果玩家坦克被击中，会在短暂延迟后重生（消耗一条生命）。当所有敌人被摧毁（胜利）或基地被摧毁 / 所有生命耗尽（失败）时，游戏结束。
 
-## Functional Requirements
+## 功能需求
 
-> **[RESOLVED] Format convention (must read)**: Each FR unit starts with a level-3 heading + space + FR-XXXX (uppercase, 4-digit zero-padded) + {title}, immediately followed by a 3-column metadata table (Valid / Testable / Decided), then the requirement description; separate FRs with `---`.
+> **[已解决] 格式约定（必读）**: 每个 FR 单元以三级标题 + 空格 + FR-XXXX（大写，4 位补零）+ {标题} 开头，紧接一个 3 列的 metadata 表格（Valid / Testable / Decided），然后是需求描述；FR 之间用 `---` 分隔。
 >
-> **[RESOLVED] Numbering convention (must read)**: FR codes use **4 digits**, zero-padded, **starting from 100 in the initial draft, stepping by 100**; **after the first review round, insert by step 10**; **after the second round, use sequential numbering**.
+> **[已解决] 编号约定（必读）**: FR 编号使用 **4 位数字**，补零，**初始草案从 100 开始，步长为 100**；**第一轮评审后，以步长 10 插入**；**第二轮后，使用顺序编号**。
 >
-> **[RESOLVED] Must read**: The FR-XXXX code is the id of that requirement. Never delete an existing requirement id to avoid reference confusion; if a FR must be deprecated, change `Valid` to `❌` in the table and explain in the clarification log.
+> **[已解决] 必读**: FR-XXXX 编号是该需求的 id。切勿删除已有的需求 id 以避免引用混乱；若某个 FR 必须废弃，将表格中的 `Valid` 改为 `❌` 并在澄清日志中说明。
 >
-> **[RESOLVED] AC reference**: Acceptance criteria use the `AC-v0.1.0-001-tank-battle-NNN` format, see `acceptance.md`.
+> **[已解决] AC 引用**: 验收标准使用 `AC-v0.1.0-001-tank-battle-NNN` 格式，见 `acceptance.md`。
 >
-> **[RESOLVED] Metadata fields (table columns)**:
-> - Valid: `✅` = still active, `❌` = deprecated
-> - Testable: `✅` = can be tested/asserted, `⚠️ {reason}` = has reservations
-> - Decided: `✅` = user approved, `⚠️` = pending clarification, `❌` = user explicitly rejected
+> **[已解决] Metadata 字段（表格列）**:
+> - Valid: `✅` = 仍然有效, `❌` = 已废弃
+> - Testable: `✅` = 可测试/可断言, `⚠️ {原因}` = 有保留意见
+> - Decided: `✅` = 用户已批准, `⚠️` = 待澄清, `❌` = 用户明确拒绝
 
-### FR-0100 Game Canvas & Rendering
-
-| Valid | Testable | Decided |
-|---|---|---|---|
-| ✅ | ✅ | ✅ |
-
-The game shall render on a fixed-size HTML5 Canvas element. The game world is a 13-column by 13-row tile-based grid, where each tile is 32x32 pixels (total play area: 416x416 pixels). The game shall run a main loop at 60 frames per second using `requestAnimationFrame`. Each frame shall clear the canvas, update game state (movement, collision, AI), and render all game objects (grid, tanks, bullets, base, UI overlay). The canvas shall have a dark background color.
-
----
-
-### FR-0200 Player Tank Movement
+### FR-0100 游戏画布与渲染
 
 | Valid | Testable | Decided |
 |---|---|---|---|
 | ✅ | ✅ | ✅ |
 
-The player tank shall move in four directions: up, down, left, right. Movement is controlled via keyboard input (Arrow keys or W/A/S/D). The tank shall face the direction of its last movement. Holding a movement key shall continuously move the tank at a fixed speed (1 tile per 8 frames at 60fps, approximately 240px/s). Releasing all keys shall stop the tank. Diagonal movement (pressing two directions simultaneously) shall be ignored — only the last pressed direction is respected.
+游戏应在一个固定尺寸的 HTML5 Canvas 元素上渲染。游戏世界是一个 13 列 x 13 行的基于网格的网格，每个格子为 32x32 像素（总游玩区域：416x416 像素）。游戏应使用 `requestAnimationFrame` 以 60 帧每秒的速度运行主循环。每一帧应清空画布、更新游戏状态（移动、碰撞、AI），并渲染所有游戏对象（网格、坦克、子弹、基地、UI 覆盖层）。画布应具有深色背景色。
 
 ---
 
-### FR-0300 Player Tank Shooting
+### FR-0200 玩家坦克移动
 
 | Valid | Testable | Decided |
 |---|---|---|---|
 | ✅ | ✅ | ✅ |
 
-The player shall be able to fire bullets by pressing the Space key. Bullets shall travel in the direction the tank is facing at a speed faster than tank movement (1 tile per 4 frames at 60fps, approximately 480px/s). Only one player bullet may be active on the screen at a time. A cooldown of 20 frames (~333ms) shall be enforced between consecutive shots. Bullets that travel beyond the canvas boundary shall be removed from the game state.
+玩家坦克应能在四个方向上移动：上、下、左、右。移动通过键盘输入控制（方向键或 W/A/S/D）。坦克应朝其最后一次移动的方向。按住移动键应以固定速度（60fps 下每 8 帧 1 格，约 240px/s）持续移动坦克。释放所有键应使坦克停止。对角线移动（同时按两个方向）应被忽略——仅尊重最后按下的方向。
 
 ---
 
-### FR-0400 Enemy Tank AI
+### FR-0300 玩家坦克射击
 
 | Valid | Testable | Decided |
 |---|---|---|---|
 | ✅ | ✅ | ✅ |
 
-Enemy tanks shall spawn at predefined positions at the top of the map (typically the top row, columns 0, 6, 12). A level shall have a total of 20 enemy tanks, with a maximum of 4 active on screen simultaneously. Enemy tanks shall move autonomously in one of four directions, with a random direction change every 60–180 frames. When an enemy tank collides with an obstacle, it shall choose a new random direction. Enemy tanks shall fire bullets at random intervals (every 60–180 frames). Enemy bullets follow the same physics as player bullets. Enemy tanks shall not destroy the base (eagle) unless directed by player actions (enemy bullets cannot target the base).
+玩家应能通过按空格键发射子弹。子弹应朝坦克面向的方向以快于坦克移动的速度（60fps 下每 4 帧 1 格，约 480px/s）飞行。屏幕上同一时间只能有一发玩家子弹活跃。连续射击之间应强制 20 帧（约 333ms）的冷却时间。飞出画布边界的子弹应从游戏状态中移除。
 
 ---
 
-### FR-0500 Map Elements
+### FR-0400 敌方坦克 AI
 
 | Valid | Testable | Decided |
 |---|---|---|---|
 | ✅ | ✅ | ✅ |
 
-The game map shall include four terrain tile types:
-- **Brick wall**: A destructible tile. When hit by any bullet, the impacted brick tile is removed. Tanks cannot pass through brick walls.
-- **Steel wall**: An indestructible tile. Bullets are destroyed on impact with no effect on the tile. Tanks cannot pass through steel walls.
-- **Water**: An impassable tile for tanks. Bullets fly over water without interaction.
-- **Forest**: A tile that tanks can pass through but provides visual cover (game objects underneath are partially obscured). Bullets fly through forest without interaction.
-The initial map layout shall be loaded from a predefined 13x13 level data array. The base area shall be surrounded by brick walls in a U-shape pattern.
+敌方坦克应在地图顶部的预定义位置生成（通常是顶行，第 0、6、12 列）。一个关卡共应有 20 辆敌方坦克，屏幕上同时最多有 4 辆活跃。敌方坦克应自主地在四个方向之一移动，每 60–180 帧随机改变一次方向。当敌方坦克与障碍物碰撞时，应选择一个新的随机方向。敌方坦克应以随机间隔（每 60–180 帧）发射子弹。敌方子弹遵循与玩家子弹相同的物理规则。除非由玩家行为引导，否则敌方坦克不得摧毁基地（老鹰）（敌方子弹不能瞄准基地）。
 
 ---
 
-### FR-0600 Collision Detection
+### FR-0500 地图元素
 
 | Valid | Testable | Decided |
 |---|---|---|---|
 | ✅ | ✅ | ✅ |
 
-The game shall implement AABB (axis-aligned bounding box) collision detection for all game objects. Collision rules:
-- Bullet vs brick wall: bullet is destroyed, brick tile is removed.
-- Bullet vs steel wall: bullet is destroyed, steel tile remains.
-- Bullet vs player tank: player tank is destroyed (lose one life), bullet is destroyed.
-- Bullet vs enemy tank: enemy tank is destroyed (score awarded), bullet is destroyed.
-- Bullet vs base (eagle): base is destroyed (game over), bullet is destroyed.
-- Tank vs wall/water tile: movement is blocked in the colliding direction.
-- Tank vs tank: both tanks are blocked from overlapping.
-- Bullet vs bullet: both bullets are destroyed (mutual cancellation).
+游戏地图应包含四种地形格子类型：
+- **砖墙**: 可破坏的格子。被任何子弹击中时，被击中的砖块格子被移除。坦克无法穿过砖墙。
+- **钢墙**: 不可破坏的格子。子弹在撞击时被销毁，对格子无影响。坦克无法穿过钢墙。
+- **水域**: 坦克无法通行的格子。子弹飞越水域时不发生交互。
+- **森林**: 坦克可以通过但提供视觉掩护的格子（下方的游戏对象被部分遮挡）。子弹穿过森林时不发生交互。
+初始地图布局应从预定义的 13x13 关卡数据数组加载。基地区域应由砖墙以 U 形包围。
 
 ---
 
-### FR-0700 Base (Eagle) Defense
+### FR-0600 碰撞检测
 
 | Valid | Testable | Decided |
 |---|---|---|---|
 | ✅ | ✅ | ✅ |
 
-The base (eagle) shall be placed at the bottom center of the map (row 12, column 6, occupying 1 tile). The base is the player's primary objective to protect. If any bullet (player or enemy) hits the base, the base is destroyed and the game ends immediately in defeat. The base shall be rendered with a distinct visual (eagle icon or colored diamond). The base is initially surrounded by brick walls in a U-shape (3 bricks wide at top, 2 bricks tall on sides) to provide initial protection.
+游戏应为所有游戏对象实现 AABB（轴对齐包围盒）碰撞检测。碰撞规则：
+- 子弹 vs 砖墙: 子弹被销毁，砖块格子被移除。
+- 子弹 vs 钢墙: 子弹被销毁，钢块格子保留。
+- 子弹 vs 玩家坦克: 玩家坦克被销毁（失去一条生命），子弹被销毁。
+- 子弹 vs 敌方坦克: 敌方坦克被销毁（获得分数），子弹被销毁。
+- 子弹 vs 基地（老鹰）: 基地被销毁（游戏结束），子弹被销毁。
+- 坦克 vs 墙/水域格子: 在碰撞方向上的移动被阻挡。
+- 坦克 vs 坦克: 两辆坦克均无法重叠。
+- 子弹 vs 子弹: 两发子弹均被销毁（相互抵消）。
 
 ---
 
-### FR-0800 Life System
+### FR-0700 基地（老鹰）防御
 
 | Valid | Testable | Decided |
 |---|---|---|---|
 | ✅ | ✅ | ✅ |
 
-The player shall start with 3 lives. Each time the player tank is destroyed by an enemy bullet, one life is consumed. When a life is consumed and the player has remaining lives, the player tank respawns at the starting position (bottom center-left, row 12, column 4) after a 60-frame invulnerability period. During invulnerability, the player tank shall visually blink and cannot be destroyed. When all lives are consumed, the game ends in defeat. The remaining lives count shall be displayed on the UI overlay.
+基地（老鹰）应放置在地图底部中央（第 12 行，第 6 列，占据 1 个格子）。基地是玩家要保护的主要目标。如果任何子弹（玩家或敌方）击中基地，基地被摧毁，游戏立即以失败结束。基地应以独特的视觉效果渲染（老鹰图标或彩色菱形）。基地初始由 U 形砖墙包围（顶部 3 块砖宽，两侧各 2 块砖高）以提供初始保护。
 
 ---
 
-### FR-0900 Scoring System
+### FR-0800 生命系统
 
 | Valid | Testable | Decided |
 |---|---|---|---|
 | ✅ | ✅ | ✅ |
 
-The player shall earn points for destroying enemy tanks:
-- Standard enemy tank: 100 points
-Points shall accumulate across the entire game session. The current score shall be displayed on the UI overlay at all times. The score starts at 0 at the beginning of each game.
+玩家应以 3 条生命开始。每次玩家坦克被敌方子弹摧毁时，消耗一条生命。当消耗一条生命且玩家仍有剩余生命时，玩家坦克在 60 帧无敌状态后在起始位置（底部中央偏左，第 12 行，第 4 列）重生。在无敌状态期间，玩家坦克应视觉闪烁且无法被摧毁。当所有生命耗尽时，游戏以失败结束。剩余生命数应显示在 UI 覆盖层上。
 
 ---
 
-### FR-1000 Game Over Conditions
+### FR-0900 计分系统
 
 | Valid | Testable | Decided |
 |---|---|---|---|
 | ✅ | ✅ | ✅ |
 
-The game shall end under the following conditions:
-- **Victory**: All 20 enemy tanks for the current level have been destroyed. A "GAME OVER" overlay with "VICTORY" text shall be displayed.
-- **Defeat (base destroyed)**: The base (eagle) is hit by any bullet. A "GAME OVER" overlay with "DEFEAT" text shall be displayed.
-- **Defeat (no lives)**: The player loses all lives. A "GAME OVER" overlay with "DEFEAT" text shall be displayed.
-When the game ends, all game logic shall halt (no further updates). The player may restart the game by pressing the Enter key.
+玩家摧毁敌方坦克应获得分数：
+- 标准敌方坦克: 100 分
+分数应在整个游戏会话中累积。当前分数应始终显示在 UI 覆盖层上。每局游戏开始时分数为 0。
 
 ---
 
-## Non-Functional Requirements
-
-> **[RESOLVED] Must read**: Format and numbering rules are the same as FR; omitted here.
-
-### NFR-0010 Performance
+### FR-1000 游戏结束条件
 
 | Valid | Testable | Decided |
 |---|---|---|---|
 | ✅ | ✅ | ✅ |
 
-The game shall maintain a consistent 60 frames per second (fps) frame rate on modern desktop browsers (Chrome 90+, Firefox 90+, Safari 15+, Edge 90+). Frame drops below 50 fps shall not occur during normal gameplay with 4 active enemy tanks and all bullets on screen.
+游戏应在以下条件下结束：
+- **胜利**: 当前关卡的所有 20 辆敌方坦克均被摧毁。应显示带有 "VICTORY" 文字的 "GAME OVER" 覆盖层。
+- **失败（基地被摧毁）**: 基地（老鹰）被任何子弹击中。应显示带有 "DEFEAT" 文字的 "GAME OVER" 覆盖层。
+- **失败（无生命）**: 玩家失去所有生命。应显示带有 "DEFEAT" 文字的 "GAME OVER" 覆盖层。
+游戏结束时，所有游戏逻辑应停止（不再更新）。玩家可按 Enter 键重新开始游戏。
 
 ---
 
-### NFR-0020 Browser Compatibility
+## 非功能需求
+
+> **[已解决] 必读**: 格式和编号规则与 FR 相同；此处省略。
+
+### NFR-0010 性能
 
 | Valid | Testable | Decided |
 |---|---|---|---|
 | ✅ | ✅ | ✅ |
 
-The game shall run on the latest two major versions of Chrome, Firefox, Safari, and Edge. The game shall use only ECMAScript 2015+ features supported by these browsers without requiring transpilation. No external libraries or frameworks are required beyond the browser's built-in Canvas 2D API.
+游戏应在现代桌面浏览器（Chrome 90+、Firefox 90+、Safari 15+、Edge 90+）上保持稳定的 60 帧每秒（fps）帧率。在 4 辆活跃敌方坦克和所有子弹同时在屏幕上的正常游戏过程中，不应出现低于 50 fps 的掉帧。
 
 ---
 
-### NFR-0030 Code Testability
+### NFR-0020 浏览器兼容性
 
 | Valid | Testable | Decided |
 |---|---|---|---|
 | ✅ | ✅ | ✅ |
 
-Core game logic modules (movement, collision detection, scoring, life management, AI, map loading) shall be implemented as pure functions or classes with injectable dependencies, separated from rendering concerns. Each module shall be independently testable using the Jest test framework. The game loop integration with `requestAnimationFrame` shall be abstracted behind an interface to allow deterministic testing.
+游戏应在 Chrome、Firefox、Safari 和 Edge 的最新两个主要版本上运行。游戏应仅使用这些浏览器支持的 ECMAScript 2015+ 特性，无需转译。除浏览器内置的 Canvas 2D API 外，无需任何外部库或框架。
 
 ---
 
-## Clarification Log
+### NFR-0030 代码可测试性
 
-> **[RESOLVED]** Record questions raised during user review, Sage/Lex replies, reasons for deprecated requirements, and any decisions that affect FR/NFR table status.
+| Valid | Testable | Decided |
+|---|---|---|---|
+| ✅ | ✅ | ✅ |
 
-> **[RESOLVED] Lex Review 2026-07-10**: PASS with 11 issues (0 L1-L5 structural failures, 11 content-level findings)
-> - [L4] NFR-0020 lists Edge 90+ as required browser but acceptance.md only covers Chrome (AC-051), Firefox (AC-052), Safari (AC-053) — no Edge AC
-> - [Coverage] FR-0400 states "Enemy tanks shall not destroy the base (eagle)" but acceptance.md has no AC verifying enemy bullets cannot hit the base
-> - [Coverage] FR-0200 specifies W/A/S/D as alternative movement keys but AC-004 through AC-010 only test Arrow keys
-> - [Coverage] FR-0300: no AC for what happens when player presses Space while tank is destroyed / during respawn delay
-> - [Coverage] NFR-0030 mentions "movement" and "AI" as independently testable modules — AC-056 covers AI but no AC covers movement module unit tests
-> - [Coverage] NFR-0030 states "requestAnimationFrame shall be abstracted behind an interface" but no AC verifies this abstraction exists
-> - [Testability] AC-024 (forest tile half-transparency/overlay rendering) is a visual assertion — cannot be verified by Jest unit tests; may need canvas pixel-sampling or be deferred to manual testing
-> - [Testability] AC-049/AC-050 (performance FP50/FP30 thresholds) and AC-051–AC-053 (browser compatibility) are integration-level checks requiring real browsers; cannot be fully automated in CI without Playwright/Selenium
-> - [Design] Bullet-bullet mutual cancellation (AC-033 / FR-0600): player has only 1 active bullet while up to 4 enemies can fire — cancellation inherently favours enemies; worth confirming this is intentional
-> - [Boundary] No AC covers player attempting to shoot during GAME OVER state (FR-1000 says "all game logic shall halt")
-> - [Boundary] FR-0400 AC-020 covers spawn replenishment logic but no AC for the edge case where the player tank is occupying a spawn position when a new enemy tries to spawn there
+核心游戏逻辑模块（移动、碰撞检测、计分、生命管理、AI、地图加载）应实现为纯函数或具有可注入依赖的类，与渲染逻辑分离。每个模块应能使用 Jest 测试框架独立测试。游戏循环与 `requestAnimationFrame` 的集成应抽象到接口之后，以允许确定性测试。
+
+---
+
+## 澄清日志
+
+> **[已解决]** 记录用户评审期间提出的问题、Sage/Lex 的回复、废弃需求的原因，以及任何影响 FR/NFR 表格状态的决策。
+
+> **[已解决] Lex 评审 2026-07-10**: PASS，共 11 个问题（0 个 L1-L5 结构性失败，11 个内容级发现）
+> - [L4] NFR-0020 将 Edge 90+ 列为必需浏览器，但 acceptance.md 仅覆盖 Chrome（AC-051）、Firefox（AC-052）、Safari（AC-053）——没有 Edge 的 AC
+> - [覆盖] FR-0400 声明"敌方坦克不得摧毁基地（老鹰）"，但 acceptance.md 没有验证敌方子弹不能击中基地的 AC
+> - [覆盖] FR-0200 指定 W/A/S/D 作为替代移动键，但 AC-004 到 AC-010 仅测试方向键
+> - [覆盖] FR-0300: 没有关于玩家在坦克被摧毁 / 重生延迟期间按空格键会发生什么的 AC
+> - [覆盖] NFR-0030 提到"移动"和"AI"作为可独立测试的模块——AC-056 覆盖了 AI，但没有 AC 覆盖移动模块的单元测试
+> - [覆盖] NFR-0030 声明"requestAnimationFrame 应抽象到接口之后"，但没有 AC 验证此抽象的存在
+> - [可测试性] AC-024（森林格子半透明/覆盖层渲染）是视觉断言——无法通过 Jest 单元测试验证；可能需要画布像素采样或推迟到手动测试
+> - [可测试性] AC-049/AC-050（性能 FP50/FP30 阈值）和 AC-051–AC-053（浏览器兼容性）是集成级检查，需要真实浏览器；没有 Playwright/Selenium 无法在 CI 中完全自动化
+> - [设计] 子弹-子弹相互抵消（AC-033 / FR-0600）：玩家只有 1 发活跃子弹，而最多 4 个敌人可射击——抵消本质上偏向敌方；值得确认这是否是有意为之
+> - [边界] 没有 AC 覆盖玩家在 GAME OVER 状态下尝试射击（FR-1000 说"所有游戏逻辑应停止"）
+> - [边界] FR-0400 AC-020 覆盖了生成补充逻辑，但没有 AC 覆盖当新敌方坦克尝试在玩家坦克占据生成位置时生成的边缘情况
 >
-> **[RESOLVED] Lex Review #2 2026-07-10**: PASS — all 11 issues from review #1 resolved. AC-058~065 verified added; AC numbers 001–065 continuous with no gaps; all 13 FR/NFR sections have corresponding acceptance tests; testability notes are reasonable.
+> **[已解决] Lex 评审 #2 2026-07-10**: PASS——评审 #1 的所有 11 个问题已解决。AC-058~065 已验证添加；AC 编号 001–065 连续无缺漏；所有 13 个 FR/NFR 章节均有对应的验收测试；可测试性说明合理。
 >
-> **[RESOLVED] Sage Response 2026-07-10**: All 11 issues addressed as follows:
+> **[已解决] Sage 回复 2026-07-10**: 所有 11 个问题已按如下方式处理：
 >
-> **Accepted — ACs added:**
-> - [Issue 1] Edge browser: Added AC-058 under NFR-0020
-> - [Issue 2] Enemy bullets not attacking base: Added AC-059 under FR-0400
-> - [Issue 3] W/A/S/D keys: Added AC-060 under FR-0200 (Arrow-key ACs remain primary; WASD verified for equivalent behavior)
-> - [Issue 4] Player death + Space: Added AC-061 under FR-0300 (Space ignored during destruction/respawn delay)
-> - [Issue 5a] Movement module unit tests: Added AC-062 under NFR-0030
-> - [Issue 5b] rAF abstraction: Added AC-063 under NFR-0030
-> - [Issue 10] Game Over shooting: Added AC-064 under FR-1000 (all input ignored during GAME OVER state)
-> - [Issue 11] Enemy spawn position conflict: Added AC-065 under FR-0400 (spawn deferred if position occupied)
+> **已接受——添加的 AC:**
+> - [问题 1] Edge 浏览器: 在 NFR-0020 下添加了 AC-058
+> - [问题 2] 敌方子弹不攻击基地: 在 FR-0400 下添加了 AC-059
+> - [问题 3] W/A/S/D 键: 在 FR-0200 下添加了 AC-060（方向键 AC 仍为主要；WASD 验证等效行为）
+> - [问题 4] 玩家死亡 + 空格: 在 FR-0300 下添加了 AC-061（销毁/重生延迟期间忽略空格）
+> - [问题 5a] 移动模块单元测试: 在 NFR-0030 下添加了 AC-062
+> - [问题 5b] rAF 抽象: 在 NFR-0030 下添加了 AC-063
+> - [问题 10] 游戏结束射击: 在 FR-1000 下添加了 AC-064（GAME OVER 状态期间忽略所有输入）
+> - [问题 11] 敌方生成位置冲突: 在 FR-0400 下添加了 AC-065（位置被占据时生成推迟）
 >
-> **Annotated existing ACs:**
-> - [Issue 6] AC-024 forest visuals: Added "Manual verification" testability note
-> - [Issue 7] AC-049/AC-050/AC-051/AC-052/AC-053 performance & browser: Added "Requires Playwright/Selenium integration test" note
+> **标注了已有 AC:**
+> - [问题 6] AC-024 森林视觉: 添加了"手动验证"可测试性说明
+> - [问题 7] AC-049/AC-050/AC-051/AC-052/AC-053 性能与浏览器: 添加了"需要 Playwright/Selenium 集成测试"说明
 >
-> **Accepted without changes:**
-> - [Issue 8] Random AI: AC-056 already covers deterministic testing via mocked RNG — sufficient; no further AC needed.
+> **已接受无需更改:**
+> - [问题 8] 随机 AI: AC-056 已通过模拟 RNG 覆盖确定性测试——足够；无需进一步 AC。
 >
-> **Design confirmed (no spec change):**
-> - [Issue 9] Bullet-bullet mutual cancellation: Design is intentional. Classic FC Tank Battle features this mechanic; the 1-bullet-vs-4 asymmetry is counterbalanced by the human player's tactical advantage over random AI. No spec change needed.
-
+> **设计已确认（无 spec 更改）:**
+> - [问题 9] 子弹-子弹相互抵消: 设计是有意为之。经典 FC 坦克大战具有此机制；1 发子弹对 4 发的不对称性由人类玩家相对于随机 AI 的战术优势所平衡。无需更改 spec。

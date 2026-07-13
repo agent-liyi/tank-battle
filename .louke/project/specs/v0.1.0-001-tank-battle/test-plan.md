@@ -1,252 +1,252 @@
-# 坦克大战 — Test Plan
+# 坦克大战 — 测试计划
 
 - **Spec ID**: v0.1.0-001-tank-battle
-- **Created**: 2026-07-11
-- **Related acceptance**: `.louke/project/specs/v0.1.0-001-tank-battle/acceptance.md`
-- **Test framework**: jest
+- **创建日期**: 2026-07-11
+- **关联验收**: `.louke/project/specs/v0.1.0-001-tank-battle/acceptance.md`
+- **测试框架**: jest
 
 ## 测试策略
 
-本测试计划覆盖全部 65 个 AC（46 Unit + 12 Integration + 7 Manual）。核心逻辑模块（移动、射击、碰撞、AI、地图、生命、计分）通过 Jest 单元测试覆盖；游戏循环与多模块交互通过集成测试覆盖；渲染、视觉效果、性能、浏览器兼容通过手动/视觉测试覆盖。
+本测试计划覆盖全部 65 个 AC（46 单元测试 + 12 集成测试 + 7 手动测试）。核心逻辑模块（移动、射击、碰撞检测、AI、地图、生命管理、计分）通过 Jest 单元测试覆盖；游戏循环与多模块交互通过集成测试覆盖；渲染、视觉效果、性能、浏览器兼容通过手动/视觉测试覆盖。
 
-## §1 Coverage Matrix
+## §1 覆盖矩阵
 
-| AC ID | Type | Module | Priority |
+| AC ID | 类型 | 模块 | 优先级 |
 |-------|------|--------|----------|
-| AC-001 | Integration | Canvas & Rendering | P0 |
-| AC-002 | Integration | Game Loop | P0 |
-| AC-003 | Manual | Performance | P2 |
-| AC-004 | Unit | Movement | P0 |
-| AC-005 | Unit | Movement | P0 |
-| AC-006 | Unit | Movement | P0 |
-| AC-007 | Unit | Movement | P0 |
-| AC-008 | Unit | Movement | P0 |
-| AC-009 | Integration | Input | P0 |
-| AC-010 | Unit | Movement | P0 |
-| AC-011 | Unit | Shooting | P0 |
-| AC-012 | Unit | Shooting | P0 |
-| AC-013 | Unit | Shooting | P0 |
-| AC-014 | Unit | Shooting | P0 |
-| AC-015 | Unit | AI | P0 |
-| AC-016 | Unit | AI | P0 |
-| AC-017 | Unit | AI | P0 |
-| AC-018 | Unit | AI | P0 |
-| AC-019 | Unit | AI | P0 |
-| AC-020 | Unit | AI | P0 |
-| AC-021 | Unit | Collision | P0 |
-| AC-022 | Unit | Collision | P0 |
-| AC-023 | Unit | Collision | P0 |
-| AC-024 | Unit | Map | P0 |
-| AC-025 | Unit | Map | P0 |
-| AC-026 | Unit | Collision | P0 |
-| AC-027 | Unit | Collision | P0 |
-| AC-028 | Unit | Collision | P0 |
-| AC-029 | Unit | Collision | P0 |
-| AC-030 | Unit | Collision | P0 |
-| AC-031 | Unit | Collision | P0 |
-| AC-032 | Unit | Collision | P0 |
-| AC-033 | Unit | Collision | P0 |
-| AC-034 | Manual | Rendering | P0 |
-| AC-035 | Integration | Game Over | P0 |
-| AC-036 | Integration | Game Over | P0 |
-| AC-037 | Unit | Life | P1 |
-| AC-038 | Unit | Life | P1 |
-| AC-039 | Unit | Life | P1 |
-| AC-040 | Integration | Game Over | P1 |
-| AC-041 | Unit | Life | P1 |
-| AC-042 | Unit | Scoring | P1 |
-| AC-043 | Unit | Scoring | P1 |
-| AC-044 | Unit | Scoring | P1 |
-| AC-045 | Integration | Game Over | P0 |
-| AC-046 | Integration | Game Over | P0 |
-| AC-047 | Integration | Game Over | P0 |
-| AC-048 | Integration | Game Over | P0 |
-| AC-049 | Manual | Performance | P2 |
-| AC-050 | Manual | Performance | P2 |
-| AC-051 | Manual | Browser | P2 |
-| AC-052 | Manual | Browser | P2 |
-| AC-053 | Manual | Browser | P2 |
-| AC-054 | Unit | Testability | P2 |
-| AC-055 | Unit | Testability | P2 |
-| AC-056 | Unit | Testability | P2 |
-| AC-057 | Unit | Testability | P2 |
-| AC-058 | Manual | Browser | P2 |
-| AC-059 | Unit | AI | P0 |
-| AC-060 | Integration | Input | P0 |
-| AC-061 | Unit | Shooting | P0 |
-| AC-062 | Unit | Testability | P2 |
-| AC-063 | Integration | Testability | P2 |
-| AC-064 | Integration | Game Over | P0 |
-| AC-065 | Unit | AI | P0 |
+| AC-001 | 集成测试 | Canvas & 渲染 | P0 |
+| AC-002 | 集成测试 | 游戏循环 | P0 |
+| AC-003 | 手动测试 | 性能 | P2 |
+| AC-004 | 单元测试 | 移动 | P0 |
+| AC-005 | 单元测试 | 移动 | P0 |
+| AC-006 | 单元测试 | 移动 | P0 |
+| AC-007 | 单元测试 | 移动 | P0 |
+| AC-008 | 单元测试 | 移动 | P0 |
+| AC-009 | 集成测试 | 输入 | P0 |
+| AC-010 | 单元测试 | 移动 | P0 |
+| AC-011 | 单元测试 | 射击 | P0 |
+| AC-012 | 单元测试 | 射击 | P0 |
+| AC-013 | 单元测试 | 射击 | P0 |
+| AC-014 | 单元测试 | 射击 | P0 |
+| AC-015 | 单元测试 | AI | P0 |
+| AC-016 | 单元测试 | AI | P0 |
+| AC-017 | 单元测试 | AI | P0 |
+| AC-018 | 单元测试 | AI | P0 |
+| AC-019 | 单元测试 | AI | P0 |
+| AC-020 | 单元测试 | AI | P0 |
+| AC-021 | 单元测试 | 碰撞检测 | P0 |
+| AC-022 | 单元测试 | 碰撞检测 | P0 |
+| AC-023 | 单元测试 | 碰撞检测 | P0 |
+| AC-024 | 单元测试 | 地图 | P0 |
+| AC-025 | 单元测试 | 地图 | P0 |
+| AC-026 | 单元测试 | 碰撞检测 | P0 |
+| AC-027 | 单元测试 | 碰撞检测 | P0 |
+| AC-028 | 单元测试 | 碰撞检测 | P0 |
+| AC-029 | 单元测试 | 碰撞检测 | P0 |
+| AC-030 | 单元测试 | 碰撞检测 | P0 |
+| AC-031 | 单元测试 | 碰撞检测 | P0 |
+| AC-032 | 单元测试 | 碰撞检测 | P0 |
+| AC-033 | 单元测试 | 碰撞检测 | P0 |
+| AC-034 | 手动测试 | 渲染 | P0 |
+| AC-035 | 集成测试 | 游戏结束 | P0 |
+| AC-036 | 集成测试 | 游戏结束 | P0 |
+| AC-037 | 单元测试 | 生命管理 | P1 |
+| AC-038 | 单元测试 | 生命管理 | P1 |
+| AC-039 | 单元测试 | 生命管理 | P1 |
+| AC-040 | 集成测试 | 游戏结束 | P1 |
+| AC-041 | 单元测试 | 生命管理 | P1 |
+| AC-042 | 单元测试 | 计分 | P1 |
+| AC-043 | 单元测试 | 计分 | P1 |
+| AC-044 | 单元测试 | 计分 | P1 |
+| AC-045 | 集成测试 | 游戏结束 | P0 |
+| AC-046 | 集成测试 | 游戏结束 | P0 |
+| AC-047 | 集成测试 | 游戏结束 | P0 |
+| AC-048 | 集成测试 | 游戏结束 | P0 |
+| AC-049 | 手动测试 | 性能 | P2 |
+| AC-050 | 手动测试 | 性能 | P2 |
+| AC-051 | 手动测试 | 浏览器 | P2 |
+| AC-052 | 手动测试 | 浏览器 | P2 |
+| AC-053 | 手动测试 | 浏览器 | P2 |
+| AC-054 | 单元测试 | 可测试性 | P2 |
+| AC-055 | 单元测试 | 可测试性 | P2 |
+| AC-056 | 单元测试 | 可测试性 | P2 |
+| AC-057 | 单元测试 | 可测试性 | P2 |
+| AC-058 | 手动测试 | 浏览器 | P2 |
+| AC-059 | 单元测试 | AI | P0 |
+| AC-060 | 集成测试 | 输入 | P0 |
+| AC-061 | 单元测试 | 射击 | P0 |
+| AC-062 | 单元测试 | 可测试性 | P2 |
+| AC-063 | 集成测试 | 可测试性 | P2 |
+| AC-064 | 集成测试 | 游戏结束 | P0 |
+| AC-065 | 单元测试 | AI | P0 |
 
-**AC Count Summary**: 65 total ACs — 46 Unit / 12 Integration / 7 Manual
+**AC 数量统计**: 共 65 个 AC — 46 单元测试 / 12 集成测试 / 7 手动测试
 
-## §2 Unit Tests (Jest)
+## §2 单元测试 (Jest)
 
-### 2.1 Movement Module (`src/modules/movement`)
-- **AC-004–007**: Directional movement — verify position delta per frame matches 1 tile / 8 frames speed for each direction; verify tank direction property updates.
-- **AC-008**: Diagonal input rejection — verify that when two directional inputs are active, only the last-pressed direction is applied; position should not update diagonally.
-- **AC-010**: Boundary clamping — verify tank position is clamped within [0, 12] tile coordinates for all four directions at edges.
-- **AC-062**: Meta — all movement test cases pass via `npx jest`.
+### 2.1 移动模块 (`src/modules/movement`)
+- **AC-004–007**: 方向移动 — 验证每帧位置增量与各方向 1 格 / 8 帧的速度一致；验证坦克方向属性更新。
+- **AC-008**: 斜向输入拒绝 — 验证当两个方向输入同时激活时，仅应用最后按下的方向；位置不应斜向更新。
+- **AC-010**: 边界钳制 — 验证坦克位置在四方向到达边缘时被钳制在 [0, 12] 格坐标范围内。
+- **AC-062**: 元测试 — 所有移动测试用例通过 `npx jest` 执行。
 
-### 2.2 Shooting Module (`src/modules/shooting`)
-- **AC-011**: Bullet creation — verify bullet spawns at tank position, travels at 1 tile / 4 frames in tank's facing direction.
-- **AC-012**: One-bullet limit — verify `fire()` returns null when a player bullet is already active on screen.
-- **AC-013**: Cooldown enforcement — verify `fire()` returns null when called within 20 frames of the previous shot.
-- **AC-014**: Boundary removal — verify bullet is removed from state when its tile coordinate exits [0, 12] × [0, 12].
-- **AC-061**: No fire during death — verify `fire()` returns null when player is in `destroyed` or `respawning` state.
+### 2.2 射击模块 (`src/modules/shooting`)
+- **AC-011**: 子弹创建 — 验证子弹在坦克位置生成，以 1 格 / 4 帧的速度沿坦克朝向方向飞行。
+- **AC-012**: 单发子弹限制 — 验证当屏幕上已有玩家子弹活动时，`fire()` 返回 null。
+- **AC-013**: 冷却强制 — 验证在上一次射击后 20 帧内调用 `fire()` 时返回 null。
+- **AC-014**: 边界移除 — 验证当子弹格坐标超出 [0, 12] × [0, 12] 范围时，从状态中移除。
+- **AC-061**: 死亡期间不可射击 — 验证当玩家处于 `destroyed` 或 `respawning` 状态时，`fire()` 返回 null。
 
-### 2.3 Collision Detection Module (`src/modules/collision`)
-- **AC-021 / AC-026**: Bullet vs brick wall — verify bullet destroyed, brick tile removed.
-- **AC-022 / AC-027**: Bullet vs steel wall — verify bullet destroyed, steel tile unchanged.
-- **AC-023 / AC-029**: Tank vs water — verify tank movement blocked, position unchanged.
-- **AC-028 / AC-032**: Tank vs wall / tank vs tank — verify movement blocked, no overlap.
-- **AC-030**: Bullet vs enemy tank — verify enemy removed, bullet removed, score +100.
-- **AC-031**: Enemy bullet vs player tank — verify player destroyed, life −1, bullet removed.
-- **AC-033**: Bullet vs bullet — verify both bullets destroyed (mutual cancellation).
-- **AC-035 / AC-036**: Bullet vs base — verify base destroyed, game over trigger.
-- **AC-054**: Meta — all collision test cases pass via `npx jest`.
+### 2.3 碰撞检测模块 (`src/modules/collision`)
+- **AC-021 / AC-026**: 子弹与砖墙 — 验证子弹被销毁，砖块格子被移除。
+- **AC-022 / AC-027**: 子弹与钢墙 — 验证子弹被销毁，钢块格子不变。
+- **AC-023 / AC-029**: 坦克与水域 — 验证坦克移动被阻挡，位置不变。
+- **AC-028 / AC-032**: 坦克与墙 / 坦克与坦克 — 验证移动被阻挡，无重叠。
+- **AC-030**: 子弹与敌方坦克 — 验证敌方被移除，子弹被移除，得分 +100。
+- **AC-031**: 敌方子弹与玩家坦克 — 验证玩家被销毁，生命 -1，子弹被移除。
+- **AC-033**: 子弹与子弹 — 验证两颗子弹均被销毁（相互抵消）。
+- **AC-035 / AC-036**: 子弹与基地 — 验证基地被销毁，触发游戏结束。
+- **AC-054**: 元测试 — 所有碰撞检测测试用例通过 `npx jest` 执行。
 
-### 2.4 AI Module (`src/modules/ai`)
-- **AC-015**: Spawn logic — verify enemies spawn at predefined positions (row 0, cols 0/6/12); max 4 active.
-- **AC-016**: Autonomous movement — verify enemy tank moves each frame in its facing direction without input.
-- **AC-017**: Random direction change — with mocked RNG, verify direction changes at the scheduled frame interval.
-- **AC-018**: Collision reroute — verify direction changes to a different random direction on obstacle collision.
-- **AC-019**: Firing interval — with mocked RNG, verify bullet fires at the scheduled frame interval.
-- **AC-020**: Spawn replenishment — verify new enemies spawn as existing ones are destroyed, up to 4 active, until all 20 deployed.
-- **AC-059**: Enemy bullets ignore base — verify enemy bullet colliding with base tile does not trigger base destruction.
-- **AC-065**: Spawn deferral — verify spawn is deferred when position occupied by player tank; enemy spawns within 60 frames after clearance.
-- **AC-056**: Meta — all AI test cases pass via `npx jest` with mocked random number generators.
+### 2.4 AI 模块 (`src/modules/ai`)
+- **AC-015**: 生成逻辑 — 验证敌方在预定义位置生成（第 0 行，第 0/6/12 列）；最多 4 个同时活动。
+- **AC-016**: 自主移动 — 验证敌方坦克每帧沿其朝向方向移动，无需输入。
+- **AC-017**: 随机方向变化 — 在 mock RNG 下，验证在预设帧间隔发生方向变化。
+- **AC-018**: 碰撞绕行 — 验证在障碍物碰撞时方向变为不同的随机方向。
+- **AC-019**: 射击间隔 — 在 mock RNG 下，验证在预设帧间隔发射子弹。
+- **AC-020**: 生成补充 — 验证随着现有敌方被销毁而生成新敌方，最多 4 个同时活动，直到全部 20 个部署完毕。
+- **AC-059**: 敌方子弹忽略基地 — 验证敌方子弹与基地格子的碰撞不会触发基地销毁。
+- **AC-065**: 生成延迟 — 验证当位置被玩家坦克占据时生成被延迟；敌方在清除后 60 帧内生成。
+- **AC-056**: 元测试 — 所有 AI 测试用例在 mock 随机数生成器下通过 `npx jest` 执行。
 
-### 2.5 Map Module (`src/modules/map`)
-- **AC-024**: Forest pass-through — verify tanks can move into forest tiles (collision allows passage).
-- **AC-025**: Initial layout — verify level data array produces correct tile types at each coordinate; base area U-shape (rows 11–12, cols 5–7) contains brick walls; eagle at (12, 6).
-- **AC-057**: Meta — all map test cases pass via `npx jest` with predefined 13×13 level data array.
+### 2.5 地图模块 (`src/modules/map`)
+- **AC-024**: 森林通行 — 验证坦克可以移动进入森林格子（碰撞允许通行）。
+- **AC-025**: 初始布局 — 验证关卡数据数组在各坐标处产生正确的格子类型；基地区域 U 型（第 11–12 行，第 5–7 列）包含砖墙；鹰位于 (12, 6)。
+- **AC-057**: 元测试 — 所有地图测试用例在预定义 13×13 关卡数据数组下通过 `npx jest` 执行。
 
-### 2.6 Life Module (`src/modules/life`)
-- **AC-037**: Initialization — verify life counter starts at 3 on new game.
-- **AC-038**: Life decrement + respawn — verify life counter decrements on player destruction; respawn at (12, 4) after 60-frame delay when lives > 0.
-- **AC-039**: Invulnerability — verify player cannot be destroyed within 60 frames after respawn; life counter unchanged.
-- **AC-041**: No respawn at 0 — verify when lives reach 0, no respawn occurs.
-- **AC-055**: Meta — all life management test cases pass via `npx jest`.
+### 2.6 生命管理模块 (`src/modules/life`)
+- **AC-037**: 初始化 — 验证新游戏时生命计数器起始为 3。
+- **AC-038**: 生命递减与重生 — 验证玩家被销毁时生命计数器递减；当生命 > 0 时，在 60 帧延迟后于 (12, 4) 重生。
+- **AC-039**: 无敌状态 — 验证玩家在重生后 60 帧内不可被销毁；生命计数器不变。
+- **AC-041**: 0 生命不重生 — 验证当生命降至 0 时，不发生重生。
+- **AC-055**: 元测试 — 所有生命管理测试用例通过 `npx jest` 执行。
 
-### 2.7 Scoring Module (`src/modules/scoring`)
-- **AC-042**: Initialization — verify score starts at 0 on new game.
-- **AC-043**: Score increment — verify score increases by 100 per enemy destroyed; updated score reflected in output.
-- **AC-044**: Full level score — verify score equals 2000 after all 20 enemies destroyed (20 × 100).
-- **AC-055**: Meta — all scoring test cases pass via `npx jest`.
+### 2.7 计分模块 (`src/modules/scoring`)
+- **AC-042**: 初始化 — 验证新游戏时得分起始为 0。
+- **AC-043**: 得分递增 — 验证每销毁一个敌方得分增加 100；更新后的得分反映在输出中。
+- **AC-044**: 完整关卡得分 — 验证全部 20 个敌方被销毁后得分等于 2000（20 × 100）。
+- **AC-055**: 元测试 — 所有计分测试用例通过 `npx jest` 执行。
 
-### 2.8 NFR-0030 Testability Meta-ACs
-- **AC-054**: Collision module passes Jest test suite.
-- **AC-055**: Scoring and life modules pass Jest test suite.
-- **AC-056**: AI module with mocked RNG passes Jest test suite.
-- **AC-057**: Map module passes Jest test suite.
-- **AC-062**: Movement module passes Jest test suite.
+### 2.8 NFR-0030 可测试性元 AC
+- **AC-054**: 碰撞检测模块通过 Jest 测试套件。
+- **AC-055**: 计分与生命管理模块通过 Jest 测试套件。
+- **AC-056**: AI 模块在 mock RNG 下通过 Jest 测试套件。
+- **AC-057**: 地图模块通过 Jest 测试套件。
+- **AC-062**: 移动模块通过 Jest 测试套件。
 
-## §3 Integration Tests
+## §3 集成测试
 
-### 3.1 Game Loop (`src/core/loop`)
-- **AC-002**: Update-then-render sequence — verify `update()` is called before `render()` each tick in the game loop.
-- **AC-063**: rAF abstraction — verify `requestAnimationFrame` is accessed through an injectable interface; mock implementation enables deterministic frame-by-frame testing.
+### 3.1 游戏循环 (`src/core/loop`)
+- **AC-002**: 先更新后渲染顺序 — 验证游戏循环中每个 tick 先调用 `update()` 再调用 `render()`。
+- **AC-063**: rAF 抽象 — 验证 `requestAnimationFrame` 通过可注入接口访问；mock 实现支持确定性的逐帧测试。
 
-### 3.2 Input Handling (`src/core/input`)
-- **AC-009**: Key release stops movement — verify player tank stops within 1 frame when all keys released.
-- **AC-060**: WASD key mapping — verify W/A/S/D maps to Up/Left/Down/Right with same speed and last-pressed priority as Arrow keys.
+### 3.2 输入处理 (`src/core/input`)
+- **AC-009**: 按键释放停止移动 — 验证所有按键释放时玩家坦克在 1 帧内停止。
+- **AC-060**: WASD 按键映射 — 验证 W/A/S/D 映射为上/左/下/右，与方向键具有相同速度和最后按下优先级。
 
-### 3.3 Game Over State Machine (`src/core/gameover`)
-- **AC-035**: Base destruction → defeat — verify bullet hitting base transitions game state to GAME OVER with DEFEAT; all updates halt.
-- **AC-036**: Self-destruction — verify player's own bullet can destroy base, triggering DEFEAT.
-- **AC-040**: Zero lives → defeat — verify life counter reaching 0 transitions to GAME OVER with DEFEAT.
-- **AC-045**: All enemies destroyed → victory — verify destroying 20th enemy transitions to GAME OVER with VICTORY; all updates halt.
-- **AC-046**: Defeat — base destroyed path (cross-check with AC-035).
-- **AC-047**: Defeat — zero lives path (cross-check with AC-040).
-- **AC-048**: Restart on Enter — verify pressing Enter during GAME OVER resets score to 0, lives to 3, reinitializes all game objects.
-- **AC-064**: Input blocked during game over — verify all input (Space, movement keys) is ignored when game over overlay is displayed.
+### 3.3 游戏结束状态机 (`src/core/gameover`)
+- **AC-035**: 基地销毁 → 失败 — 验证子弹击中基地时游戏状态转换为 GAME OVER 且显示 DEFEAT；所有更新停止。
+- **AC-036**: 自我摧毁 — 验证玩家自己的子弹可以摧毁基地，触发 DEFEAT。
+- **AC-040**: 零生命 → 失败 — 验证生命计数器降至 0 时转换为 GAME OVER 且显示 DEFEAT。
+- **AC-045**: 全部敌方销毁 → 胜利 — 验证销毁第 20 个敌方时转换为 GAME OVER 且显示 VICTORY；所有更新停止。
+- **AC-046**: 失败 — 基地销毁路径（与 AC-035 交叉验证）。
+- **AC-047**: 失败 — 零生命路径（与 AC-040 交叉验证）。
+- **AC-048**: Enter 重启 — 验证在 GAME OVER 状态下按 Enter 将得分重置为 0、生命重置为 3，并重新初始化所有游戏对象。
+- **AC-064**: 游戏结束期间输入屏蔽 — 验证当游戏结束遮罩显示时，所有输入（空格、移动键）被忽略。
 
-### 3.4 Canvas Initialization (`src/core/canvas`)
-- **AC-001**: Canvas creation — verify `<canvas>` element created with 416×416 pixel dimensions; dark background color applied.
+### 3.4 Canvas 初始化 (`src/core/canvas`)
+- **AC-001**: Canvas 创建 — 验证创建的 `<canvas>` 元素具有 416×416 像素尺寸；应用深色背景色。
 
-## §4 Manual / Visual Tests
+## §4 手动/视觉测试
 
-### 4.1 Visual Rendering
-- **AC-034**: Base (eagle) visual — verify base tile at (12, 6) displays a distinct visual (eagle icon or colored diamond).
+### 4.1 视觉渲染
+- **AC-034**: 基地（鹰）视觉 — 验证位于 (12, 6) 的基地格子显示独特视觉（鹰图标或彩色菱形）。
 
-### 4.2 Visual Effects
-- **AC-024**: Forest overlay — manual verification: tank sprite rendered with partial transparency or under forest overlay while on forest tiles.
+### 4.2 视觉效果
+- **AC-024**: 森林覆盖 — 手动验证：坦克位于森林格子上时，精灵以部分透明或位于森林覆盖下方渲染。
 
-### 4.3 Performance
-- **AC-003**: Frame timing — measure average frame duration over 100 frames; verify between 14ms and 20ms.
-- **AC-049**: Sustained 50fps — verify frame rate ≥50 fps over 5 seconds with 4 enemies + player + bullets active. *(Requires Playwright/Selenium)*
-- **AC-050**: Average frame time — verify ≤20ms average over 300 frames via browser performance API. *(Requires Playwright/Selenium)*
+### 4.3 性能
+- **AC-003**: 帧时序 — 测量 100 帧的平均帧时长；验证介于 14ms 至 20ms 之间。
+- **AC-049**: 持续 50fps — 验证在 4 个敌方 + 玩家 + 子弹活动的情况下，5 秒内帧率 ≥50 fps。*(需要 Playwright/Selenium)*
+- **AC-050**: 平均帧时间 — 通过浏览器性能 API 验证 300 帧平均 ≤20ms。*(需要 Playwright/Selenium)*
 
-### 4.4 Browser Compatibility
-- **AC-051**: Chrome — canvas renders, keyboard responsive, no console errors. *(Requires Playwright/Selenium)*
-- **AC-052**: Firefox — canvas renders, keyboard responsive, no console errors. *(Requires Playwright/Selenium)*
-- **AC-053**: Safari — canvas renders, keyboard responsive, no console errors. *(Requires Playwright/Selenium)*
-- **AC-058**: Edge — canvas renders, keyboard responsive, no console errors. *(Requires Playwright/Selenium)*
+### 4.4 浏览器兼容性
+- **AC-051**: Chrome — Canvas 渲染正常，键盘响应正常，无控制台错误。*(需要 Playwright/Selenium)*
+- **AC-052**: Firefox — Canvas 渲染正常，键盘响应正常，无控制台错误。*(需要 Playwright/Selenium)*
+- **AC-053**: Safari — Canvas 渲染正常，键盘响应正常，无控制台错误。*(需要 Playwright/Selenium)*
+- **AC-058**: Edge — Canvas 渲染正常，键盘响应正常，无控制台错误。*(需要 Playwright/Selenium)*
 
-## §5 Test Priority (P0/P1/P2)
+## §5 测试优先级 (P0/P1/P2)
 
-### P0 — Core Gameplay (Must Pass Before Merge)
-- **Unit**: Movement (AC-004–008, 010), Shooting (AC-011–014, 061), Collision (all 8 FR-0600 ACs), AI (AC-015–020, 059, 065), Map (AC-024, 025)
-- **Integration**: Canvas init (AC-001), Game loop (AC-002), Input (AC-009, 060), Game over transitions (AC-035, 036, 045, 046, 047, 048, 064)
-- **Manual**: Base rendering (AC-034)
-- **Total P0 ACs**: 46
+### P0 — 核心玩法（合并前必须通过）
+- **单元测试**: 移动 (AC-004–008, 010)，射击 (AC-011–014, 061)，碰撞检测 (全部 8 个 FR-0600 AC)，AI (AC-015–020, 059, 065)，地图 (AC-024, 025)
+- **集成测试**: Canvas 初始化 (AC-001)，游戏循环 (AC-002)，输入 (AC-009, 060)，游戏结束转换 (AC-035, 036, 045, 046, 047, 048, 064)
+- **手动测试**: 基地渲染 (AC-034)
+- **P0 AC 总数**: 46
 
-### P1 — Secondary Mechanics (Must Pass Before Release)
-- **Unit**: Life (AC-037–039, 041), Scoring (AC-042–044)
-- **Integration**: Zero-lives game over (AC-040)
-- **Total P1 ACs**: 8
+### P1 — 次要机制（发布前必须通过）
+- **单元测试**: 生命管理 (AC-037–039, 041)，计分 (AC-042–044)
+- **集成测试**: 零生命游戏结束 (AC-040)
+- **P1 AC 总数**: 8
 
-### P2 — Non-functional & Meta (Informational)
-- **Unit**: Testability meta (AC-054–057, 062)
-- **Integration**: rAF abstraction (AC-063)
-- **Manual**: Performance (AC-003, 049, 050), Browser compat (AC-051–053, 058)
-- **Total P2 ACs**: 11
+### P2 — 非功能性与元测试（参考信息）
+- **单元测试**: 可测试性元测试 (AC-054–057, 062)
+- **集成测试**: rAF 抽象 (AC-063)
+- **手动测试**: 性能 (AC-003, 049, 050)，浏览器兼容 (AC-051–053, 058)
+- **P2 AC 总数**: 11
 
-## §6 E2E Test Paths
+## §6 端到端测试路径
 
-### E2E-01: Full Victory Playthrough
-1. Player opens game → canvas renders with 13×13 map, base at bottom center.
-2. Arrow keys move player tank in all four directions.
-3. Space fires bullets; bullets destroy brick walls; collision with steel stops bullets.
-4. Enemy tanks spawn from top (max 4 active); player destroys them one by one.
-5. Score increments +100 per kill; displayed on UI.
-6. After 20th enemy destroyed → "GAME OVER" overlay displays "VICTORY".
-7. All game updates halt; pressing Enter restarts game with score=0, lives=3.
+### E2E-01: 完整胜利通关
+1. 玩家打开游戏 → Canvas 以 13×13 地图渲染，基地位于底部中央。
+2. 方向键使玩家坦克向四个方向移动。
+3. 空格键发射子弹；子弹摧毁砖墙；与钢墙碰撞时子弹停止。
+4. 敌方坦克从顶部生成（最多 4 个同时活动）；玩家逐一摧毁它们。
+5. 每击杀一个得分 +100；显示在 UI 上。
+6. 第 20 个敌方被销毁后 → "GAME OVER" 遮罩显示 "VICTORY"。
+7. 所有游戏更新停止；按 Enter 以得分=0、生命=3 重启游戏。
 
-### E2E-02: Player Death & Respawn
-1. Player tank hit by enemy bullet → player destroyed, life −1 (2 remaining).
-2. After 60-frame invulnerability period, player respawns at (12, 4).
-3. During invulnerability, enemy bullets pass through without damage; tank blinks.
-4. Player hit twice more → life reaches 0 → "GAME OVER" overlay displays "DEFEAT".
+### E2E-02: 玩家死亡与重生
+1. 玩家坦克被敌方子弹击中 → 玩家被销毁，生命 -1（剩余 2）。
+2. 经过 60 帧无敌期后，玩家在 (12, 4) 重生。
+3. 无敌期间，敌方子弹穿过不造成伤害；坦克闪烁。
+4. 玩家再被击中两次 → 生命降至 0 → "GAME OVER" 遮罩显示 "DEFEAT"。
 
-### E2E-03: Base Destruction (Defeat)
-1. Player accidentally fires bullet toward base → base destroyed → "DEFEAT" immediately.
-2. (Alternative) Enemy breaks through defenses; any bullet hits base → "DEFEAT".
-3. Game halts; Enter restarts fresh game.
+### E2E-03: 基地销毁（失败）
+1. 玩家意外向基地发射子弹 → 基地被销毁 → 立即 "DEFEAT"。
+2. （备选）敌方突破防御；任何子弹击中基地 → "DEFEAT"。
+3. 游戏停止；按 Enter 重启新游戏。
 
-### E2E-04: Terrain Interaction
-1. Player moves through forest tiles (passable, visual overlay applied).
-2. Player blocked by brick walls; bullet destroys brick tile → path opens.
-3. Player blocked by steel walls; bullets destroyed with no effect.
-4. Player blocked by water tiles; bullets fly over water.
+### E2E-04: 地形交互
+1. 玩家穿过森林格子（可通行，应用视觉覆盖）。
+2. 玩家被砖墙阻挡；子弹摧毁砖块格子 → 路径打开。
+3. 玩家被钢墙阻挡；子弹被销毁且无效果。
+4. 玩家被水域格子阻挡；子弹飞越水域。
 
-### E2E-05: Tank-Tank & Bullet-Bullet Collision
-1. Player tank approaches enemy tank → both blocked, no overlap.
-2. Player bullet and enemy bullet collide mid-air → both destroyed.
-3. Player tactical advantage: only 1 active bullet vs up to 4 enemy bullets; mutual cancellation mechanic intentional.
+### E2E-05: 坦克-坦克与子弹-子弹碰撞
+1. 玩家坦克接近敌方坦克 → 双方被阻挡，无重叠。
+2. 玩家子弹与敌方子弹在空中碰撞 → 双双销毁。
+3. 玩家战术优势：仅 1 颗活动子弹对最多 4 颗敌方子弹；相互抵消机制为有意设计。
 
-### E2E-06: Edge Cases
-1. Player at map boundary → movement blocked (cannot exit 13×13 grid).
-2. Player pressing two directions → only last-pressed applies (no diagonal).
-3. Player pressing Space while destroyed → no bullet, no cooldown trigger.
-4. Enemy spawn position occupied by player → spawn deferred until clear.
-5. All input ignored during GAME OVER state; only Enter triggers restart.
+### E2E-06: 边界情况
+1. 玩家位于地图边界 → 移动被阻挡（无法离开 13×13 网格）。
+2. 玩家同时按下两个方向 → 仅最后按下的生效（无斜向）。
+3. 玩家在被销毁状态下按空格 → 无子弹，不触发冷却。
+4. 敌方生成位置被玩家占据 → 生成延迟至清除。
+5. GAME OVER 状态期间所有输入被忽略；仅 Enter 触发重启。
 
-## §7 Test Environment
+## §7 测试环境
 
-### 7.1 Directory Layout
+### 7.1 目录结构
 
 ```
 tests/
@@ -266,40 +266,40 @@ tests/
 ├── e2e/
 │   └── scenarios.test.js     # E2E-01 ~ E2E-06
 └── assets/
-    └── level-data.json       # Predefined 13x13 level layout
+    └── level-data.json       # 预定义 13x13 关卡布局
 ```
 
-### 7.2 Naming Conventions
-- File: `{module}.test.js`
-- Test case: `test('AC-{NNN} {description}', () => { ... })`
-- First line of each test docstring/comment must contain `AC-v0.1.0-001-tank-battle-NNN`.
+### 7.2 命名规范
+- 文件: `{module}.test.js`
+- 测试用例: `test('AC-{NNN} {description}', () => { ... })`
+- 每个测试文档字符串/注释的首行必须包含 `AC-v0.1.0-001-tank-battle-NNN`。
 
-### 7.3 Execution
-- **Offline**: No network dependencies; test data pinned in `tests/assets/`.
-- **Execution order**: `npx jest tests/unit` → `npx jest tests/integration` → `npx jest tests/e2e`
-- **CI**: Run full suite on every push; P0 failures block merge.
+### 7.3 执行
+- **离线**: 无网络依赖；测试数据固定在 `tests/assets/` 中。
+- **执行顺序**: `npx jest tests/unit` → `npx jest tests/integration` → `npx jest tests/e2e`
+- **CI**: 每次推送运行完整套件；P0 失败阻止合并。
 
-### 7.4 Key Testing Infrastructures
-- **Mocked RNG**: Required for AI module determinism (AC-016–019, 056). Inject via dependency injection.
-- **Mocked rAF**: Required for game loop testing (AC-002, 063). Access through injectable interface.
-- **DOM Environment**: Integration tests require `jest-environment-jsdom` for canvas tests (AC-001).
+### 7.4 关键测试基础设施
+- **Mock RNG**: AI 模块确定性所必需 (AC-016–019, 056)。通过依赖注入注入。
+- **Mock rAF**: 游戏循环测试所必需 (AC-002, 063)。通过可注入接口访问。
+- **DOM 环境**: 集成测试需要 `jest-environment-jsdom` 用于 Canvas 测试 (AC-001)。
 
-## §8 AC Reference Closure
+## §8 AC 参考闭合
 
-| FR / NFR | AC Range | Count | Test Types | Closure |
+| FR / NFR | AC 范围 | 数量 | 测试类型 | 闭合 |
 |----------|----------|-------|------------|---------|
-| FR-0100 Canvas & Rendering | 001–003 | 3 | 2 Integration + 1 Manual | ✓ |
-| FR-0200 Movement | 004–010, 060 | 8 | 6 Unit + 2 Integration | ✓ |
-| FR-0300 Shooting | 011–014, 061 | 5 | 5 Unit | ✓ |
-| FR-0400 Enemy AI | 015–020, 059, 065 | 8 | 8 Unit | ✓ |
-| FR-0500 Map | 021–025 | 5 | 4 Unit + 1 Manual | ✓ |
-| FR-0600 Collision | 026–033 | 8 | 8 Unit | ✓ |
-| FR-0700 Base | 034–036 | 3 | 1 Manual + 2 Integration | ✓ |
-| FR-0800 Life | 037–041 | 5 | 4 Unit + 1 Integration | ✓ |
-| FR-0900 Scoring | 042–044 | 3 | 3 Unit | ✓ |
-| FR-1000 Game Over | 045–048, 064 | 5 | 5 Integration | ✓ |
-| NFR-0010 Performance | 049–050 | 2 | 2 Manual | ✓ |
-| NFR-0020 Browser | 051–053, 058 | 4 | 4 Manual | ✓ |
-| NFR-0030 Testability | 054–057, 062–063 | 6 | 5 Unit + 1 Integration | ✓ |
+| FR-0100 Canvas & 渲染 | 001–003 | 3 | 2 集成测试 + 1 手动测试 | ✓ |
+| FR-0200 移动 | 004–010, 060 | 8 | 6 单元测试 + 2 集成测试 | ✓ |
+| FR-0300 射击 | 011–014, 061 | 5 | 5 单元测试 | ✓ |
+| FR-0400 敌方 AI | 015–020, 059, 065 | 8 | 8 单元测试 | ✓ |
+| FR-0500 地图 | 021–025 | 5 | 4 单元测试 + 1 手动测试 | ✓ |
+| FR-0600 碰撞检测 | 026–033 | 8 | 8 单元测试 | ✓ |
+| FR-0700 基地 | 034–036 | 3 | 1 手动测试 + 2 集成测试 | ✓ |
+| FR-0800 生命管理 | 037–041 | 5 | 4 单元测试 + 1 集成测试 | ✓ |
+| FR-0900 计分 | 042–044 | 3 | 3 单元测试 | ✓ |
+| FR-1000 游戏结束 | 045–048, 064 | 5 | 5 集成测试 | ✓ |
+| NFR-0010 性能 | 049–050 | 2 | 2 手动测试 | ✓ |
+| NFR-0020 浏览器 | 051–053, 058 | 4 | 4 手动测试 | ✓ |
+| NFR-0030 可测试性 | 054–057, 062–063 | 6 | 5 单元测试 + 1 集成测试 | ✓ |
 
-**All 13 FR/NFR sections have AC coverage. All 65 ACs have test type assigned.**
+**全部 13 个 FR/NFR 章节均有 AC 覆盖。全部 65 个 AC 均已分配测试类型。**

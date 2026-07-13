@@ -1,412 +1,412 @@
-# 坦克大战 — Acceptance Criteria
+# 坦克大战 — 验收标准
 
 - **Spec ID**: v0.1.0-001-tank-battle
-- **Created**: 2026-07-10
+- **创建日期**: 2026-07-10
 
-> Central registry of acceptance criteria. spec.md only keeps FR/NFR requirement descriptions and metadata (testability/resolved/valid);
-> detailed observable, assertable pass conditions live in this table.
+> 验收标准中央注册表。spec.md 仅保留 FR/NFR 需求描述和元数据（可测试性/已解决/有效）；
+> 详细的可观察、可断言的通过条件存放在此表中。
 >
-> Numbering convention:
-> - AC-v0.1.0-001-tank-battle-NNN, where NNN is a 3-digit sequential number starting from 001.
+> 编号约定：
+> - AC-v0.1.0-001-tank-battle-NNN，其中 NNN 是从 001 开始的三位顺序编号。
 >
-> During Lex phase 1/2 review, verify: (1) this table exists; (2) every FR/NFR in spec.md has a corresponding section here; (3) each AC can be tested/asserted.
+> 在 Lex 阶段 1/2 审查时，验证：(1) 此表存在；(2) spec.md 中的每个 FR/NFR 在此处都有对应章节；(3) 每个 AC 都可被测试/断言。
 
-## FR-0100 Game Canvas & Rendering
+## FR-0100 游戏画布与渲染
 
 ### AC-v0.1.0-001-tank-battle-001
-- **Given** the game module is loaded in a browser
-- **When** the game initializes
-- **Then** a `<canvas>` element is created with dimensions 416x416 pixels
-- **And** the canvas has a dark background color
+- **给定** 游戏模块已加载到浏览器中
+- **当** 游戏初始化时
+- **那么** 创建一个尺寸为 416x416 像素的 `<canvas>` 元素
+- **并且** 画布具有深色背景色
 
 ### AC-v0.1.0-001-tank-battle-002
-- **Given** the game is running
-- **When** the game loop executes
-- **Then** each frame calls the update logic followed by the render logic
-- **And** the game loop targets a consistent 60fps using `requestAnimationFrame`
+- **给定** 游戏正在运行
+- **当** 游戏循环执行时
+- **那么** 每一帧先调用更新逻辑，再调用渲染逻辑
+- **并且** 游戏循环使用 `requestAnimationFrame` 目标稳定在 60fps
 
 ### AC-v0.1.0-001-tank-battle-003
-- **Given** the game is running at 60fps
-- **When** 100 frames are measured
-- **Then** the average frame duration is between 14ms and 20ms (approximately 50–60fps)
+- **给定** 游戏以 60fps 运行
+- **当** 测量 100 帧时
+- **那么** 平均帧时长在 14ms 到 20ms 之间（约 50–60fps）
 
-## FR-0200 Player Tank Movement
+## FR-0200 玩家坦克移动
 
 ### AC-v0.1.0-001-tank-battle-004
-- **Given** the player tank is on the map at position (x, y)
-- **When** the player presses Arrow Up
-- **Then** the tank moves upward at the defined speed (1 tile per 8 frames)
-- **And** the tank sprite faces upward
+- **给定** 玩家坦克位于地图上的位置 (x, y)
+- **当** 玩家按下方向键上
+- **那么** 坦克以定义的速度向上移动（每 8 帧 1 个图块）
+- **并且** 坦克精灵朝向上方
 
 ### AC-v0.1.0-001-tank-battle-005
-- **Given** the player tank is on the map at position (x, y)
-- **When** the player presses Arrow Down
-- **Then** the tank moves downward at the defined speed
-- **And** the tank sprite faces downward
+- **给定** 玩家坦克位于地图上的位置 (x, y)
+- **当** 玩家按下方向键下
+- **那么** 坦克以定义的速度向下移动
+- **并且** 坦克精灵朝向下方
 
 ### AC-v0.1.0-001-tank-battle-006
-- **Given** the player tank is on the map at position (x, y)
-- **When** the player presses Arrow Left
-- **Then** the tank moves leftward at the defined speed
-- **And** the tank sprite faces left
+- **给定** 玩家坦克位于地图上的位置 (x, y)
+- **当** 玩家按下方向键左
+- **那么** 坦克以定义的速度向左移动
+- **并且** 坦克精灵朝向左方
 
 ### AC-v0.1.0-001-tank-battle-007
-- **Given** the player tank is on the map at position (x, y)
-- **When** the player presses Arrow Right
-- **Then** the tank moves rightward at the defined speed
-- **And** the tank sprite faces right
+- **给定** 玩家坦克位于地图上的位置 (x, y)
+- **当** 玩家按下方向键右
+- **那么** 坦克以定义的速度向右移动
+- **并且** 坦克精灵朝向右方
 
 ### AC-v0.1.0-001-tank-battle-008
-- **Given** the player is holding Arrow Up
-- **When** the player presses Arrow Right while still holding Arrow Up
-- **Then** only the last pressed direction (Right) is applied
-- **And** the tank does not move diagonally
+- **给定** 玩家正在按住方向键上
+- **当** 玩家在仍按住方向键上的同时按下方向键右
+- **那么** 仅应用最后按下的方向（右）
+- **并且** 坦克不会斜向移动
 
 ### AC-v0.1.0-001-tank-battle-009
-- **Given** the player tank is moving in a direction
-- **When** the player releases all movement keys
-- **Then** the tank stops moving within 1 frame
+- **给定** 玩家坦克正在某方向移动
+- **当** 玩家释放所有移动键
+- **那么** 坦克在 1 帧内停止移动
 
 ### AC-v0.1.0-001-tank-battle-010
-- **Given** the player tank is at map boundary (x=0 or x=12 or y=0 or y=12 in tile coordinates)
-- **When** the player presses a direction that would move the tank beyond the boundary
-- **Then** the tank does not move outside the 13x13 grid
+- **给定** 玩家坦克位于地图边界（图块坐标 x=0 或 x=12 或 y=0 或 y=12）
+- **当** 玩家按下会使坦克越过边界的方向
+- **那么** 坦克不会移动到 13x13 网格之外
 
 ### AC-v0.1.0-001-tank-battle-060
-- **Given** the player tank is on the map
-- **When** the player presses W, A, S, or D respectively
-- **Then** the tank moves in the corresponding direction (W=Up, S=Down, A=Left, D=Right) at the same speed as Arrow key input
-- **And** the WASD keys follow the same last-pressed-direction priority behavior as Arrow keys
+- **给定** 玩家坦克位于地图上
+- **当** 玩家分别按下 W、A、S 或 D 键
+- **那么** 坦克朝对应方向移动（W=上，S=下，A=左，D=右），速度与方向键输入相同
+- **并且** WASD 键遵循与方向键相同的最后按下方向优先行为
 
-## FR-0300 Player Tank Shooting
+## FR-0300 玩家坦克射击
 
 ### AC-v0.1.0-001-tank-battle-011
-- **Given** the player tank is on the map facing upward
-- **When** the player presses Space
-- **Then** a bullet is created at the tank's position
-- **And** the bullet travels upward at the defined bullet speed (1 tile per 4 frames)
+- **给定** 玩家坦克位于地图上且朝向上方
+- **当** 玩家按下空格键
+- **那么** 在坦克位置创建一颗子弹
+- **并且** 子弹以定义的子弹速度向上行进（每 4 帧 1 个图块）
 
 ### AC-v0.1.0-001-tank-battle-012
-- **Given** the player tank is facing a direction with one active bullet on screen
-- **When** the player presses Space
-- **Then** no new bullet is created until the existing bullet is destroyed
+- **给定** 玩家坦克朝向某方向，且屏幕上已有一颗活动子弹
+- **当** 玩家按下空格键
+- **那么** 在现有子弹被销毁前不创建新子弹
 
 ### AC-v0.1.0-001-tank-battle-013
-- **Given** the player tank fired a bullet and 15 frames have passed
-- **When** the player presses Space again
-- **Then** no new bullet is created (cooldown of 20 frames not yet elapsed)
+- **给定** 玩家坦克已发射子弹且经过了 15 帧
+- **当** 玩家再次按下空格键
+- **那么** 不创建新子弹（20 帧的冷却时间尚未结束）
 
 ### AC-v0.1.0-001-tank-battle-014
-- **Given** a player bullet is traveling on the canvas
-- **When** the bullet reaches a tile coordinate outside the 13x13 grid (x < 0 or x >= 13 or y < 0 or y >= 13)
-- **Then** the bullet is removed from the game state
+- **给定** 一颗玩家子弹正在画布上行进
+- **当** 子弹到达 13x13 网格之外的图块坐标（x < 0 或 x >= 13 或 y < 0 或 y >= 13）
+- **那么** 子弹从游戏状态中移除
 
 ### AC-v0.1.0-001-tank-battle-061
-- **Given** the player tank has been destroyed and is in the 60-frame respawn delay
-- **When** the player presses Space
-- **Then** no bullet is created
-- **And** the shooting cooldown is not triggered
+- **给定** 玩家坦克已被摧毁并处于 60 帧的重生延迟中
+- **当** 玩家按下空格键
+- **那么** 不创建子弹
+- **并且** 不触发射击冷却时间
 
-## FR-0400 Enemy Tank AI
+## FR-0400 敌方坦克 AI
 
 ### AC-v0.1.0-001-tank-battle-015
-- **Given** a level has started
-- **When** enemy tanks spawn
-- **Then** the first enemy appears at a predefined spawn position (row 0, column 0, 6, or 12)
-- **And** a maximum of 4 enemy tanks are active on screen at any time
+- **给定** 关卡已开始
+- **当** 敌方坦克生成时
+- **那么** 第一个敌方坦克出现在预定义的生成位置（第 0 行，第 0、6 或 12 列）
+- **并且** 屏幕上任何时候最多同时存在 4 辆敌方坦克
 
 ### AC-v0.1.0-001-tank-battle-016
-- **Given** an enemy tank is active on the map
-- **When** the game updates each frame
-- **Then** the enemy tank moves in its current facing direction autonomously without player input
+- **给定** 一辆敌方坦克在地图上活动
+- **当** 游戏每帧更新时
+- **那么** 敌方坦克无需玩家输入即可自主沿当前朝向方向移动
 
 ### AC-v0.1.0-001-tank-battle-017
-- **Given** an enemy tank is active on the map
-- **When** 60 to 180 frames have elapsed (randomized per enemy)
-- **Then** the enemy tank changes to a new random direction
+- **给定** 一辆敌方坦克在地图上活动
+- **当** 经过 60 到 180 帧（每个敌人随机化）
+- **那么** 敌方坦克变更为新的随机方向
 
 ### AC-v0.1.0-001-tank-battle-018
-- **Given** an enemy tank is moving and collides with a wall or other obstacle
-- **When** the collision is detected
-- **Then** the enemy tank immediately selects a new random direction different from the blocked direction
+- **给定** 一辆敌方坦克正在移动并与墙壁或其他障碍物发生碰撞
+- **当** 检测到碰撞时
+- **那么** 敌方坦克立即选择不同于受阻方向的新随机方向
 
 ### AC-v0.1.0-001-tank-battle-019
-- **Given** an enemy tank is active on the map
-- **When** 60 to 180 frames have elapsed (randomized per enemy)
-- **Then** the enemy tank fires a bullet in its current facing direction
+- **给定** 一辆敌方坦克在地图上活动
+- **当** 经过 60 到 180 帧（每个敌人随机化）
+- **那么** 敌方坦克沿当前朝向方向发射一颗子弹
 
 ### AC-v0.1.0-001-tank-battle-020
-- **Given** a total of 20 enemy tanks are queued for the level and 4 have been destroyed
-- **When** the game updates
-- **Then** new enemies spawn to maintain up to 4 active tanks on screen until all 20 are deployed
+- **给定** 关卡共排队 20 辆敌方坦克，已有 4 辆被摧毁
+- **当** 游戏更新时
+- **那么** 生成新的敌方坦克以维持屏幕上最多 4 辆活动坦克，直到全部 20 辆部署完毕
 
 ### AC-v0.1.0-001-tank-battle-059
-- **Given** the game is in progress, the base is intact, and an enemy bullet is traveling on the map
-- **When** the enemy bullet's bounding box overlaps the base tile
-- **Then** the base remains intact
-- **And** the game does not end (enemy bullets do not trigger base destruction)
+- **给定** 游戏进行中，基地完好，且一颗敌方子弹正在地图上行进
+- **当** 敌方子弹的包围盒与基地图块重叠
+- **那么** 基地保持完好
+- **并且** 游戏不结束（敌方子弹不会触发基地摧毁）
 
 ### AC-v0.1.0-001-tank-battle-065
-- **Given** a new enemy tank is queued to spawn at a predefined position
-- **When** the spawn position is currently occupied by the player tank
-- **Then** enemy spawn is deferred until the position is clear
-- **And** the enemy spawns within 60 frames after the position becomes available
+- **给定** 一辆新敌方坦克排队在预定义位置生成
+- **当** 生成位置当前被玩家坦克占据
+- **那么** 敌方生成推迟到位置空闲
+- **并且** 敌方在位置可用后的 60 帧内生成
 
-## FR-0500 Map Elements
+## FR-0500 地图元素
 
 ### AC-v0.1.0-001-tank-battle-021
-- **Given** a map is loaded with brick wall tiles
-- **When** a bullet (player or enemy) hits a brick wall tile
-- **Then** the bullet is destroyed and the brick wall tile is removed from the map
+- **给定** 地图已加载砖墙图块
+- **当** 一颗子弹（玩家或敌方）击中砖墙图块
+- **那么** 子弹被销毁，砖墙图块从地图中移除
 
 ### AC-v0.1.0-001-tank-battle-022
-- **Given** a map is loaded with steel wall tiles
-- **When** a bullet (player or enemy) hits a steel wall tile
-- **Then** the bullet is destroyed and the steel wall tile remains unchanged
+- **给定** 地图已加载钢墙图块
+- **当** 一颗子弹（玩家或敌方）击中钢墙图块
+- **那么** 子弹被销毁，钢墙图块保持不变
 
 ### AC-v0.1.0-001-tank-battle-023
-- **Given** a map is loaded with water tiles
-- **When** a tank (player or enemy) attempts to move into a water tile
-- **Then** the tank's movement is blocked
-- **And** bullets pass over water tiles without any interaction
+- **给定** 地图已加载水域图块
+- **当** 一辆坦克（玩家或敌方）试图移动进入水域图块
+- **那么** 坦克的移动被阻挡
+- **并且** 子弹穿过水域图块时无任何交互
 
 ### AC-v0.1.0-001-tank-battle-024
-- **Given** a map is loaded with forest tiles
-- **When** a tank (player or enemy) enters a forest tile
-- **Then** the tank can pass through
-- **And** the tank sprite is rendered with partial transparency or under a forest overlay while on the forest tile
-- **Testability Note**: Manual verification — visual rendering cannot be asserted by Jest unit tests
+- **给定** 地图已加载森林图块
+- **当** 一辆坦克（玩家或敌方）进入森林图块
+- **那么** 坦克可以通过
+- **并且** 坦克位于森林图块上时，精灵以部分透明或在森林覆盖层下方渲染
+- **可测试性说明**：需人工验证 — 视觉渲染无法通过 Jest 单元测试断言
 
 ### AC-v0.1.0-001-tank-battle-025
-- **Given** the initial level map is loaded
-- **When** the map data is read
-- **Then** the base area (row 11–12, columns 5–7) contains brick walls in a U-shape: 3 bricks wide on top row, 2 bricks tall on left and right sides
-- **And** the eagle tile is at (row 12, column 6)
+- **给定** 初始关卡地图已加载
+- **当** 读取地图数据时
+- **那么** 基地区域（第 11–12 行，第 5–7 列）包含 U 形砖墙：顶行 3 块砖宽，左右两侧各 2 块砖高
+- **并且** 老鹰图块位于（第 12 行，第 6 列）
 
-## FR-0600 Collision Detection
+## FR-0600 碰撞检测
 
 ### AC-v0.1.0-001-tank-battle-026
-- **Given** a player bullet is traveling toward a brick wall tile
-- **When** the bullet's bounding box overlaps the brick wall tile's bounding box
-- **Then** the bullet is destroyed and the brick wall tile is removed
+- **给定** 一颗玩家子弹正朝向砖墙图块行进
+- **当** 子弹的包围盒与砖墙图块的包围盒重叠
+- **那么** 子弹被销毁，砖墙图块被移除
 
 ### AC-v0.1.0-001-tank-battle-027
-- **Given** a player bullet is traveling toward a steel wall tile
-- **When** the bullet's bounding box overlaps the steel wall tile's bounding box
-- **Then** the bullet is destroyed and the steel wall tile remains
+- **给定** 一颗玩家子弹正朝向钢墙图块行进
+- **当** 子弹的包围盒与钢墙图块的包围盒重叠
+- **那么** 子弹被销毁，钢墙图块保持不变
 
 ### AC-v0.1.0-001-tank-battle-028
-- **Given** the player tank is adjacent to a brick wall tile
-- **When** the player attempts to move into the brick wall tile
-- **Then** the player tank's movement is blocked in that direction
+- **给定** 玩家坦克与砖墙图块相邻
+- **当** 玩家试图移动进入砖墙图块
+- **那么** 玩家坦克在该方向的移动被阻挡
 
 ### AC-v0.1.0-001-tank-battle-029
-- **Given** the player tank is adjacent to a water tile
-- **When** the player attempts to move into the water tile
-- **Then** the player tank's movement is blocked in that direction
+- **给定** 玩家坦克与水域图块相邻
+- **当** 玩家试图移动进入水域图块
+- **那么** 玩家坦克在该方向的移动被阻挡
 
 ### AC-v0.1.0-001-tank-battle-030
-- **Given** a bullet (player or enemy) is traveling toward an enemy tank
-- **When** the bullet's bounding box overlaps the enemy tank's bounding box
-- **Then** the enemy tank is destroyed and removed from the game
-- **And** the bullet is destroyed
-- **And** the player's score increases by 100 points
+- **给定** 一颗子弹（玩家或敌方）正朝向敌方坦克行进
+- **当** 子弹的包围盒与敌方坦克的包围盒重叠
+- **那么** 敌方坦克被摧毁并从游戏中移除
+- **并且** 子弹被销毁
+- **并且** 玩家分数增加 100 分
 
 ### AC-v0.1.0-001-tank-battle-031
-- **Given** an enemy bullet is traveling toward the player tank
-- **When** the bullet's bounding box overlaps the player tank's bounding box
-- **Then** the player tank is destroyed
-- **And** the player loses one life
-- **And** the bullet is destroyed
+- **给定** 一颗敌方子弹正朝向玩家坦克行进
+- **当** 子弹的包围盒与玩家坦克的包围盒重叠
+- **那么** 玩家坦克被摧毁
+- **并且** 玩家失去一条生命
+- **并且** 子弹被销毁
 
 ### AC-v0.1.0-001-tank-battle-032
-- **Given** the player tank and an enemy tank are approaching each other
-- **When** the two tanks' bounding boxes would overlap
-- **Then** both tanks are blocked from entering the overlapping position
-- **And** neither tank is destroyed (tank-tank collision does not cause destruction)
+- **给定** 玩家坦克与一辆敌方坦克正相互靠近
+- **当** 两辆坦克的包围盒即将重叠
+- **那么** 两辆坦克都被阻止进入重叠位置
+- **并且** 两辆坦克均不被摧毁（坦克与坦克碰撞不会导致摧毁）
 
 ### AC-v0.1.0-001-tank-battle-033
-- **Given** a player bullet and an enemy bullet are traveling toward each other
-- **When** the two bullets' bounding boxes overlap
-- **Then** both bullets are destroyed (mutual cancellation)
+- **给定** 一颗玩家子弹与一颗敌方子弹正相向行进
+- **当** 两颗子弹的包围盒重叠
+- **那么** 两颗子弹都被销毁（相互抵消）
 
-## FR-0700 Base (Eagle) Defense
+## FR-0700 基地（老鹰）防御
 
 ### AC-v0.1.0-001-tank-battle-034
-- **Given** the game level is loaded
-- **When** the map renders
-- **Then** the base (eagle) is displayed at tile position (row 12, column 6) with a distinct visual representation
+- **给定** 游戏关卡已加载
+- **当** 地图渲染时
+- **那么** 基地（老鹰）显示在图块位置（第 12 行，第 6 列），具有独特的视觉表现
 
 ### AC-v0.1.0-001-tank-battle-035
-- **Given** the game is in progress and the base is intact
-- **When** a player bullet hits the base tile
-- **Then** the base is destroyed
-- **And** the game ends immediately with a "DEFEAT" result
+- **给定** 游戏进行中且基地完好
+- **当** 一颗玩家子弹击中基地图块
+- **那么** 基地被摧毁
+- **并且** 游戏立即以"DEFEAT"结果结束
 
 ### AC-v0.1.0-001-tank-battle-036
-- **Given** the game is in progress and the base is intact
-- **When** the player tank fires a bullet toward the base
-- **Then** the base is destroyed upon impact
-- **And** the game ends with "DEFEAT" (the player can destroy their own base)
+- **给定** 游戏进行中且基地完好
+- **当** 玩家坦克朝基地发射子弹
+- **那么** 基地在被击中时摧毁
+- **并且** 游戏以"DEFEAT"结束（玩家可以摧毁自己的基地）
 
-## FR-0800 Life System
+## FR-0800 生命系统
 
 ### AC-v0.1.0-001-tank-battle-037
-- **Given** a new game starts
-- **When** the player tank spawns
-- **Then** the life counter is set to 3
-- **And** the life counter is displayed on the UI overlay
+- **给定** 新游戏开始
+- **当** 玩家坦克生成
+- **那么** 生命计数器设为 3
+- **并且** 生命计数器显示在 UI 覆盖层上
 
 ### AC-v0.1.0-001-tank-battle-038
-- **Given** the player has 2 lives remaining and the player tank is destroyed
-- **When** the destruction animation completes
-- **Then** the life counter decrements to 1
-- **And** a new player tank respawns at the starting position (row 12, column 4) after 60 frames
+- **给定** 玩家剩余 2 条生命且玩家坦克被摧毁
+- **当** 摧毁动画完成
+- **那么** 生命计数器减至 1
+- **并且** 新的玩家坦克在 60 帧后在起始位置（第 12 行，第 4 列）重生
 
 ### AC-v0.1.0-001-tank-battle-039
-- **Given** the player tank has just respawned (invulnerability period)
-- **When** an enemy bullet hits the player tank within the first 60 frames after respawn
-- **Then** the player tank is not destroyed
-- **And** the life counter is not decremented
-- **And** the player tank visually blinks during the invulnerability period
+- **给定** 玩家坦克刚重生（无敌状态期间）
+- **当** 敌方子弹在重生后前 60 帧内击中玩家坦克
+- **那么** 玩家坦克不被摧毁
+- **并且** 生命计数器不减少
+- **并且** 玩家坦克在无敌状态期间视觉上闪烁
 
 ### AC-v0.1.0-001-tank-battle-040
-- **Given** the player has 1 life remaining and the player tank is destroyed
-- **When** the life counter decrements to 0
-- **Then** the game ends with a "DEFEAT" result
+- **给定** 玩家剩余 1 条生命且玩家坦克被摧毁
+- **当** 生命计数器减至 0
+- **那么** 游戏以"DEFEAT"结果结束
 
 ### AC-v0.1.0-001-tank-battle-041
-- **Given** the player has 0 lives remaining
-- **When** the game checks the game over condition
-- **Then** no respawn occurs
-- **And** the game over overlay is displayed
+- **给定** 玩家剩余 0 条生命
+- **当** 游戏检查游戏结束条件
+- **那么** 不发生重生
+- **并且** 显示游戏结束覆盖层
 
-## FR-0900 Scoring System
+## FR-0900 计分系统
 
 ### AC-v0.1.0-001-tank-battle-042
-- **Given** a new game starts
-- **When** the game initializes
-- **Then** the score is set to 0
-- **And** the score is displayed on the UI overlay
+- **给定** 新游戏开始
+- **当** 游戏初始化
+- **那么** 分数设为 0
+- **并且** 分数显示在 UI 覆盖层上
 
 ### AC-v0.1.0-001-tank-battle-043
-- **Given** the score is 200 and the player destroys an enemy tank
-- **When** the enemy tank is hit by the player's bullet
-- **Then** the score increments by 100 to 300
-- **And** the updated score is visible on the UI overlay within 1 frame
+- **给定** 分数为 200 且玩家摧毁了一辆敌方坦克
+- **当** 敌方坦克被玩家子弹击中
+- **那么** 分数增加 100 至 300
+- **并且** 更新后的分数在 1 帧内显示在 UI 覆盖层上
 
 ### AC-v0.1.0-001-tank-battle-044
-- **Given** the player has destroyed 20 enemy tanks
-- **When** the score is displayed
-- **Then** the score equals 20 × 100 = 2000 points
+- **给定** 玩家已摧毁 20 辆敌方坦克
+- **当** 显示分数时
+- **那么** 分数等于 20 × 100 = 2000 分
 
-## FR-1000 Game Over Conditions
+## FR-1000 游戏结束条件
 
 ### AC-v0.1.0-001-tank-battle-045
-- **Given** 20 enemy tanks have been queued and the player has destroyed all 20
-- **When** the last enemy tank is destroyed
-- **Then** the game ends with a "GAME OVER" overlay displaying "VICTORY"
-- **And** all game logic updates halt
+- **给定** 20 辆敌方坦克已排队且玩家已摧毁全部 20 辆
+- **当** 最后一辆敌方坦克被摧毁
+- **那么** 游戏以"GAME OVER"覆盖层结束，显示"VICTORY"
+- **并且** 所有游戏逻辑更新停止
 
 ### AC-v0.1.0-001-tank-battle-046
-- **Given** the game is in progress and the base is intact
-- **When** any bullet collides with the base tile
-- **Then** the game ends with a "GAME OVER" overlay displaying "DEFEAT"
-- **And** all game logic updates halt
+- **给定** 游戏进行中且基地完好
+- **当** 任何子弹与基地图块碰撞
+- **那么** 游戏以"GAME OVER"覆盖层结束，显示"DEFEAT"
+- **并且** 所有游戏逻辑更新停止
 
 ### AC-v0.1.0-001-tank-battle-047
-- **Given** the player has 1 life remaining
-- **When** the player tank is destroyed by an enemy bullet
-- **Then** the life counter reaches 0
-- **And** the game ends with a "GAME OVER" overlay displaying "DEFEAT"
-- **And** all game logic updates halt
+- **给定** 玩家剩余 1 条生命
+- **当** 玩家坦克被敌方子弹摧毁
+- **那么** 生命计数器降至 0
+- **并且** 游戏以"GAME OVER"覆盖层结束，显示"DEFEAT"
+- **并且** 所有游戏逻辑更新停止
 
 ### AC-v0.1.0-001-tank-battle-048
-- **Given** the game has ended (victory or defeat) and the game over overlay is displayed
-- **When** the player presses the Enter key
-- **Then** the game restarts with a fresh level, score reset to 0, and lives reset to 3
-- **And** all game objects are reinitialized
+- **给定** 游戏已结束（胜利或失败）且显示游戏结束覆盖层
+- **当** 玩家按下 Enter 键
+- **那么** 游戏重新开始，使用全新关卡，分数重置为 0，生命重置为 3
+- **并且** 所有游戏对象重新初始化
 
 ### AC-v0.1.0-001-tank-battle-064
-- **Given** the game has ended and the GAME OVER overlay is displayed
-- **When** the player presses Space
-- **Then** no bullet is created
-- **And** no game state updates occur (all input is ignored during GAME OVER state)
+- **给定** 游戏已结束且显示 GAME OVER 覆盖层
+- **当** 玩家按下空格键
+- **那么** 不创建子弹
+- **并且** 不发生游戏状态更新（GAME OVER 状态期间忽略所有输入）
 
-## NFR-0010 Performance
+## NFR-0010 性能
 
 ### AC-v0.1.0-001-tank-battle-049
-- **Given** the game is running on a modern desktop browser (Chrome 90+, Firefox 90+, Safari 15+, Edge 90+)
-- **When** 4 enemy tanks and the player tank are active with bullets on screen
-- **Then** the frame rate remains at or above 50 fps consistently over a 5-second measurement window
-- **And** no single frame exceeds 33ms duration
-- **Testability Note**: Requires Playwright/Selenium integration test — cannot be fully automated in CI without browser automation
+- **给定** 游戏运行在现代桌面浏览器上（Chrome 90+、Firefox 90+、Safari 15+、Edge 90+）
+- **当** 4 辆敌方坦克和玩家坦克活动且屏幕上有子弹时
+- **那么** 帧率在 5 秒测量窗口内始终保持在 50fps 或以上
+- **并且** 没有任何单帧超过 33ms 时长
+- **可测试性说明**：需要 Playwright/Selenium 集成测试 — 没有浏览器自动化则无法在 CI 中完全自动化
 
 ### AC-v0.1.0-001-tank-battle-050
-- **Given** the game loop is running
-- **When** measured using the browser's performance API
-- **Then** the average frame time over 300 frames (5 seconds at 60fps) is ≤ 20ms
-- **Testability Note**: Requires Playwright/Selenium integration test
+- **给定** 游戏循环正在运行
+- **当** 使用浏览器的 performance API 测量时
+- **那么** 300 帧（60fps 下 5 秒）的平均帧时间 ≤ 20ms
+- **可测试性说明**：需要 Playwright/Selenium 集成测试
 
-## NFR-0020 Browser Compatibility
+## NFR-0020 浏览器兼容性
 
 ### AC-v0.1.0-001-tank-battle-051
-- **Given** the game HTML file is opened in the latest Chrome browser
-- **When** the game initializes
-- **Then** the canvas renders correctly and keyboard input is responsive
-- **And** no JavaScript errors appear in the console
-- **Testability Note**: Requires Playwright/Selenium integration test
+- **给定** 游戏 HTML 文件在最新的 Chrome 浏览器中打开
+- **当** 游戏初始化时
+- **那么** 画布正确渲染且键盘输入响应灵敏
+- **并且** 控制台中没有 JavaScript 错误
+- **可测试性说明**：需要 Playwright/Selenium 集成测试
 
 ### AC-v0.1.0-001-tank-battle-052
-- **Given** the game HTML file is opened in the latest Firefox browser
-- **When** the game initializes
-- **Then** the canvas renders correctly and keyboard input is responsive
-- **And** no JavaScript errors appear in the console
-- **Testability Note**: Requires Playwright/Selenium integration test
+- **给定** 游戏 HTML 文件在最新的 Firefox 浏览器中打开
+- **当** 游戏初始化时
+- **那么** 画布正确渲染且键盘输入响应灵敏
+- **并且** 控制台中没有 JavaScript 错误
+- **可测试性说明**：需要 Playwright/Selenium 集成测试
 
 ### AC-v0.1.0-001-tank-battle-053
-- **Given** the game HTML file is opened in the latest Safari browser
-- **When** the game initializes
-- **Then** the canvas renders correctly and keyboard input is responsive
-- **And** no JavaScript errors appear in the console
-- **Testability Note**: Requires Playwright/Selenium integration test
+- **给定** 游戏 HTML 文件在最新的 Safari 浏览器中打开
+- **当** 游戏初始化时
+- **那么** 画布正确渲染且键盘输入响应灵敏
+- **并且** 控制台中没有 JavaScript 错误
+- **可测试性说明**：需要 Playwright/Selenium 集成测试
 
 ### AC-v0.1.0-001-tank-battle-058
-- **Given** the game HTML file is opened in the latest Edge browser
-- **When** the game initializes
-- **Then** the canvas renders correctly and keyboard input is responsive
-- **And** no JavaScript errors appear in the console
-- **Testability Note**: Requires Playwright/Selenium integration test
+- **给定** 游戏 HTML 文件在最新的 Edge 浏览器中打开
+- **当** 游戏初始化时
+- **那么** 画布正确渲染且键盘输入响应灵敏
+- **并且** 控制台中没有 JavaScript 错误
+- **可测试性说明**：需要 Playwright/Selenium 集成测试
 
-## NFR-0030 Code Testability
+## NFR-0030 代码可测试性
 
 ### AC-v0.1.0-001-tank-battle-054
-- **Given** the game's collision detection module
-- **When** Jest tests are executed with `npx jest`
-- **Then** all collision detection test cases pass (bullet-wall, bullet-tank, tank-wall, tank-tank, bullet-bullet)
+- **给定** 游戏的碰撞检测模块
+- **当** 使用 `npx jest` 执行 Jest 测试
+- **那么** 所有碰撞检测测试用例通过（子弹-墙壁、子弹-坦克、坦克-墙壁、坦克-坦克、子弹-子弹）
 
 ### AC-v0.1.0-001-tank-battle-055
-- **Given** the game's scoring and life management modules
-- **When** Jest tests are executed
-- **Then** all scoring and life management test cases pass (score increment, life decrement, game over on zero lives)
+- **给定** 游戏的计分和生命管理模块
+- **当** 执行 Jest 测试
+- **那么** 所有计分和生命管理测试用例通过（分数增加、生命减少、零生命时游戏结束）
 
 ### AC-v0.1.0-001-tank-battle-056
-- **Given** the game's AI module
-- **When** Jest tests are executed with mocked random number generators
-- **Then** enemy movement direction changes and shooting intervals are deterministic and testable
+- **给定** 游戏的 AI 模块
+- **当** 使用模拟的随机数生成器执行 Jest 测试
+- **那么** 敌方移动方向变更和射击间隔是确定性的且可测试
 
 ### AC-v0.1.0-001-tank-battle-057
-- **Given** the game's map loading module
-- **When** Jest tests are executed with a predefined 13x13 level data array
-- **Then** the map correctly identifies tile types at each coordinate (brick, steel, water, forest, empty, base)
+- **给定** 游戏的地图加载模块
+- **当** 使用预定义的 13x13 关卡数据数组执行 Jest 测试
+- **那么** 地图能正确识别每个坐标处的图块类型（砖墙、钢墙、水域、森林、空地、基地）
 
 ### AC-v0.1.0-001-tank-battle-062
-- **Given** the game's movement module
-- **When** Jest tests are executed
-- **Then** all movement test cases pass (position update, direction change, speed calculation, diagonal input rejection, boundary clamping)
+- **给定** 游戏的移动模块
+- **当** 执行 Jest 测试
+- **那么** 所有移动测试用例通过（位置更新、方向变更、速度计算、斜向输入拒绝、边界钳制）
 
 ### AC-v0.1.0-001-tank-battle-063
-- **Given** the game loop module
-- **When** the source code is inspected
-- **Then** `requestAnimationFrame` is accessed through an injectable interface (not called directly)
-- **And** a mock implementation of the interface can be injected to enable deterministic frame-by-frame testing
+- **给定** 游戏循环模块
+- **当** 检查源代码时
+- **那么** `requestAnimationFrame` 通过可注入接口访问（而非直接调用）
+- **并且** 可注入接口的模拟实现以实现确定性的逐帧测试

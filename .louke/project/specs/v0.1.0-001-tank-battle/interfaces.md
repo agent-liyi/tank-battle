@@ -1,8 +1,8 @@
-# 坦克大战 — Interfaces
+# 坦克大战 — 接口
 
 - **Spec ID**: v0.1.0-001-tank-battle
 
-## §1 Module Interfaces
+## §1 模块接口
 
 ### §1.1 Game (game.js)
 
@@ -535,88 +535,88 @@ function getTankBoundingBox(tank) {}
 function isWithinBounds(x, y) {}
 ```
 
-## §2 Data Structures
+## §2 数据结构
 
 ```typescript
-// Tile types
+// 地块类型
 type TileType = 'empty' | 'brick' | 'steel' | 'water' | 'forest' | 'base';
 
-// Direction vector for movement and shooting
-// Only one axis is non-zero at a time (4-directional movement)
+// 移动和射击的方向向量
+// 同一时间仅一个轴非零（四方向移动）
 type Direction = { x: -1 | 0 | 1, y: -1 | 0 | 1 };
 
-// 13x13 grid, rows × cols
+// 13x13 网格，行 × 列
 // mapData[row][col]
 type MapData = TileType[][];
 
-// Level configuration data (predefined layout)
-type LevelData = number[][]; // numeric tile codes that map to TileType
+// 关卡配置数据（预定义布局）
+type LevelData = number[][]; // 映射到 TileType 的数字地块编码
 
-// Top-level game state machine
+// 顶层游戏状态机
 type GameState = {
   status: 'playing' | 'gameover' | 'paused';
   result: 'victory' | 'defeat' | null;
 };
 
-// Player tank state
+// 玩家坦克状态
 type PlayerState = {
-  x: number;           // pixel x coordinate (float)
-  y: number;           // pixel y coordinate (float)
-  direction: Direction; // current facing direction
-  lives: number;       // remaining lives (starts at 3)
-  invulnerabilityTimer: number; // frames remaining of invulnerability (0 = none)
-  respawnTimer: number; // frames until respawn after death (0 = alive)
-  destroyed: boolean;  // true when tank is in destroyed/dead state
+  x: number;           // 像素 x 坐标（浮点）
+  y: number;           // 像素 y 坐标（浮点）
+  direction: Direction; // 当前朝向
+  lives: number;       // 剩余生命（初始为 3）
+  invulnerabilityTimer: number; // 无敌剩余帧数（0 = 无）
+  respawnTimer: number; // 死亡后重生剩余帧数（0 = 存活）
+  destroyed: boolean;  // 坦克处于摧毁/死亡状态时为 true
 };
 
-// Enemy tank state
+// 敌方坦克状态
 type EnemyState = {
-  x: number;           // pixel x coordinate (float)
-  y: number;           // pixel y coordinate (float)
-  direction: Direction; // current facing direction
+  x: number;           // 像素 x 坐标（浮点）
+  y: number;           // 像素 y 坐标（浮点）
+  direction: Direction; // 当前朝向
   type: 'basic' | 'fast' | 'power' | 'armor';
-  active: boolean;     // true when on the field
-  directionTimer: number; // frames until next direction change (AI)
-  shootTimer: number;  // frames until next shot allowed (AI cooldown)
+  active: boolean;     // 在场上时为 true
+  directionTimer: number; // 下次改变方向剩余帧数（AI）
+  shootTimer: number;  // 下次允许射击剩余帧数（AI 冷却时间）
 };
 
-// Bullet state
+// 子弹状态
 type Bullet = {
-  x: number;           // pixel x coordinate (float)
-  y: number;           // pixel y coordinate (float)
-  direction: Direction; // travel direction
-  owner: 'player' | 'enemy'; // who fired this bullet
-  speed: number;       // pixels per frame
-  active: boolean;     // true while in flight
+  x: number;           // 像素 x 坐标（浮点）
+  y: number;           // 像素 y 坐标（浮点）
+  direction: Direction; // 飞行方向
+  owner: 'player' | 'enemy'; // 此子弹的发射者
+  speed: number;       // 像素/帧
+  active: boolean;     // 飞行中为 true
 };
 
-// Base state
+// 基地状态
 type BaseState = {
-  x: number;           // pixel x coordinate
-  y: number;           // pixel y coordinate
-  destroyed: boolean;  // true when destroyed -> game over (defeat)
+  x: number;           // 像素 x 坐标
+  y: number;           // 像素 y 坐标
+  destroyed: boolean;  // 摧毁时为 true -> 游戏结束（失败）
 };
 
-// RNG injection interface for deterministic testing
+// 用于确定性测试的 RNG 注入接口
 type RNG = {
   random(): number;           // [0, 1)
-  randomInt(min: number, max: number): number; // [min, max] inclusive integer
+  randomInt(min: number, max: number): number; // [min, max] 闭区间整数
 };
 
-// Scheduler injection interface for testing
+// 用于测试的 Scheduler 注入接口
 type Scheduler = {
   requestAnimationFrame(cb: (timestamp: number) => void): number;
   cancelAnimationFrame(id: number): void;
 };
 
-// Canvas dimensions
+// 画布尺寸
 type CanvasSize = {
-  w: number; // = TILE_SIZE * 13 = 416 (plus HUD area)
+  w: number; // = TILE_SIZE * 13 = 416（加 HUD 区域）
   h: number;
 };
 ```
 
-## §3 Event Contracts
+## §3 事件契约
 
 ### §3.1 Game → Input
 
@@ -633,15 +633,15 @@ Game.update() 调用:
 ```
 Game.render() 调用顺序:
   1. Renderer.clear()                        → void (清空画布)
-  2. Renderer.drawTile(x, y, tileType)       → void (遍历 mapData 绘制所有 tile)
+  2. Renderer.drawTile(x, y, tileType)       → void (遍历 mapData 绘制所有地块)
   3. Renderer.drawTank(x, y, dir, type, inv) → void (绘制玩家 + 每个活跃敌人)
   4. Renderer.drawBullet(x, y, dir)          → void (遍历绘制所有活跃子弹)
   5. Renderer.drawBase(x, y, destroyed)      → void (绘制基地)
   6. Renderer.drawUI(score, lives, enemies)  → void (绘制 HUD)
-  7. [if gameover] Renderer.drawGameOver(result) → void (游戏结束画面)
+  7. [若游戏结束] Renderer.drawGameOver(result) → void (游戏结束画面)
 ```
 
-### §3.3 Game → Pure Logic Layer
+### §3.3 Game → 纯逻辑层
 
 ```
 Game.update() 数据流:
@@ -653,53 +653,53 @@ Game.update() 数据流:
   2. enemy.js:
      spawnEnemyQueue(activeEnemies, queue, spawnPoints, playerPosition, rng)
        → { enemies: EnemyState[], updatedQueue: EnemyState[] }
-     for each active enemy:
+     对每个活跃敌人:
        updateEnemy(enemy, mapData, rng)
          → EnemyState
 
   3. bullet.js:
-     for each active bullet:
+     对每颗活跃子弹:
        updateBullet(bullet) → Bullet
        isBulletOutOfBounds(bullet) → boolean → 标记销毁
 
   4. collision.js (按优先级顺序):
-     for each bullet × tile:
+     对每个 子弹 × 地块:
        bulletVsTile(bullet, col, row, mapData)
          → { bulletDestroyed, tileChanged, newTileType? }
-     for each bullet × tank:
+     对每个 子弹 × 坦克:
        bulletVsTank(bullet, tank, invulnerable)
          → { bulletDestroyed, tankDestroyed }
-     for each bullet × base:
+     对每个 子弹 × 基地:
        bulletVsBase(bullet, base, isEnemyBullet)
          → { bulletDestroyed, baseDestroyed }
-     for each bullet × bullet:
+     对每个 子弹 × 子弹:
        bulletVsBullet(bulletA, bulletB)
          → { bothDestroyed }
-     for each tank × tile:
+     对每个 坦克 × 地块:
        tankVsTile(x, y, direction, mapData)
          → { blocked, newX, newY }
-     for each tank × tank:
+     对每个 坦克 × 坦克:
        tankVsTank(tankA, tankB, x, y)
          → { blocked, newX, newY }
 
   5. score.js:
-     for each destroyed enemy:
+     对每个被摧毁的敌人:
        addScore(currentScore, getScoreForEnemy(enemy.type))
          → newScore
 
   6. player.js / base.js:
-     for each player hit:
+     对每次玩家被击中:
        playerHit(player) → { player, event? }
-     for each base hit:
+     对每次基地被击中:
        destroyBase(base) → BaseState
 
-  7. Game Over 检测:
-     enemies remaining === 0  → victory
-     lives === 0              → defeat
-     isBaseDestroyed(base)    → defeat
+  7. 游戏结束检测:
+     剩余敌人 === 0           → 胜利
+     剩余生命 === 0           → 失败
+     isBaseDestroyed(base)    → 失败
 ```
 
-### §3.4 Pure Logic 模块约束
+### §3.4 纯逻辑模块约束
 
 - 所有纯函数模块（map, player, enemy, bullet, collision, score, base）**不触发事件**，通过**返回值传递状态变更**
 - 纯函数模块之间**无直接 import 依赖**，仅依赖 `constants.js`
