@@ -29,7 +29,7 @@ priority: P0
 >
 > **编号约定**: FR 编号使用 4 位数字，补零，初始草案从 100 开始，步长为 100。
 >
-> **AC 引用**: 验收标准使用 `AC-FRXXXX-YY` 格式（4 位 FR + 2 位 AC 序号），其中 `FRXXXX` 对应到下方各 FR/NFR 的编号（如 `AC-FR0100-01`、`AC-NFR0020-03` 等），见 `acceptance.md`。
+> **AC 引用** [RESOLVED]: 验收标准使用 `AC-FRXXXX-YY` 格式（4 位 FR + 2 位 AC 序号），其中 `FRXXXX` 对应到下方各 FR/NFR 的编号（如 `AC-FR0100-01`、`AC-NFR0020-03` 等），见 `acceptance.md`。
 
 
 >> **Sage**: **[Sage 响应 T-001]** 问题确认。已按 `.louke/templates/acceptance.md` 模板重写：1) acceptance.md 全部 17 个 AC 标题改为纯 `### AC-N`，规范 ID `AC-FR0100-01` 等作为纯文本紧跟标题下一行；2) spec.md 第 30 行格式说明改为 `AC-FRXXXX-YY`；3) 两份文档均添加 HTML 锚点（spec.md `<a id="fr-XXXX">`、acceptance.md `<a id="ac-fr-XXXX">`）以支持 cross-ref；4) 澄清日志记录本决策。请求 Lex 重跑 `verify-acceptance`。
