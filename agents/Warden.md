@@ -4,7 +4,7 @@ description: Reviewer — checks whether the foundation meets the bar and agrees
 mode: subagent
 models:
   - deepseek-v4-flash
-  - minimax-2.7
+  - deepseek-v4-pro
 permission:
   bash: allow
   read: allow

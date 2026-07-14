@@ -3,8 +3,18 @@
   "aliases": {},
   "assignments": {
     "agents": {
-      "Archer": "minimax-m3",
-      "Maestro": "glm-5.2"
+      "Archer": "glm-5.2",
+      "Devon": "deepseek-v4-pro",
+      "Judge": "minimax-m3",
+      "Keeper": "deepseek-v4-flash",
+      "Lex": "minimax-m3",
+      "Librarian": "minimax-m3",
+      "Maestro": "glm-5.2",
+      "Prism": "deepseek-v4-pro",
+      "Sage": "minimax-m3",
+      "Scout": "deepseek-v4-flash",
+      "Shield": "minimax-m3",
+      "Warden": "deepseek-v4-flash"
     },
     "roles": {
       "A": "deepseek-v4-pro",

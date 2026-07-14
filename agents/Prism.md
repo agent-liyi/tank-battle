@@ -4,7 +4,7 @@ description: Multi-perspective + critical — code quality, test anti-patterns, 
 mode: subagent
 models:
   - deepseek-v4-pro
-  - kimi-k2.7-code
+  - glm-5.2
 permission:
   bash: allow
   read: allow

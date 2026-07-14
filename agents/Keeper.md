@@ -4,7 +4,7 @@ description: Quality gate — verifies R-G-R order / commit message format / AC 
 mode: subagent
 models:
   - deepseek-v4-flash
-  - minimax-2.7
+  - minimax-m3
 permission:
   bash: allow
   read: allow

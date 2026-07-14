@@ -3,7 +3,8 @@ name: librarian
 description: Knowledge distillation — reads raw bundle and rewrites wiki pages/ as a whole
 mode: subagent
 models:
-  - minimax-cn-coding-plan/MiniMax-M2.7
+  - minimax-m3
+  - glm-5.2
 permission:
   bash: allow
   read: allow

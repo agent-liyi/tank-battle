@@ -4,7 +4,7 @@ description: Project foundation — orchestrate lk agent scout CLI to create rep
 mode: subagent
 models:
   - deepseek-v4-flash
-  - minimax-2.7
+  - deepseek-v4-pro
 permission:
   bash: allow
   read: allow

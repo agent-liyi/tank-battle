@@ -3,8 +3,8 @@ name: shield
 description: e2e test writer — write e2e tests per test-plan (B-class, Playwright/testclient/DB)
 mode: subagent
 models:
-  - kimi-k2.7-code
   - minimax-m3
+  - deepseek-v4-pro
 permission:
   bash: allow
   read: allow

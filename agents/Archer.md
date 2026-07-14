@@ -5,7 +5,6 @@ mode: subagent
 models:
   - glm-5.2
   - minimax-m3
-  - qwen-3.7-max
 permission:
   bash: allow
   read: allow
