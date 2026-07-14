@@ -38,12 +38,12 @@ describe('constants', () => {
     expect(TILE_SIZE).toBe(32);
   });
 
-  test('AC-constants GRID_SIZE should be 25', () => {
-    expect(GRID_SIZE).toBe(25);
+  test('AC-constants GRID_SIZE should be 32', () => {
+    expect(GRID_SIZE).toBe(32);
   });
 
-  test('AC-constants CANVAS_SIZE should be 800', () => {
-    expect(CANVAS_SIZE).toBe(800);
+  test('AC-constants CANVAS_SIZE should be 1024', () => {
+    expect(CANVAS_SIZE).toBe(1024);
   });
 
   test('AC-constants CANVAS_SIZE = GRID_SIZE * TILE_SIZE', () => {
@@ -86,25 +86,25 @@ describe('constants', () => {
     expect(SCORE_PER_ENEMY).toBe(100);
   });
 
-  test('AC-constants PLAYER spawn position should be (8*32, 23*32)', () => {
-    expect(PLAYER_SPAWN_X).toBe(8 * TILE_SIZE);
-    expect(PLAYER_SPAWN_Y).toBe(23 * TILE_SIZE);
+  test('AC-constants PLAYER spawn position should be (10*32, 30*32)', () => {
+    expect(PLAYER_SPAWN_X).toBe(10 * TILE_SIZE);
+    expect(PLAYER_SPAWN_Y).toBe(30 * TILE_SIZE);
   });
 
-  test('AC-constants BASE position should be at col 12, row 23', () => {
-    expect(BASE_POSITION.col).toBe(12);
-    expect(BASE_POSITION.row).toBe(23);
-    expect(BASE_X).toBe(12 * TILE_SIZE);
-    expect(BASE_Y).toBe(23 * TILE_SIZE);
+  test('AC-constants BASE position should be at col 15, row 30', () => {
+    expect(BASE_POSITION.col).toBe(15);
+    expect(BASE_POSITION.row).toBe(30);
+    expect(BASE_X).toBe(15 * TILE_SIZE);
+    expect(BASE_Y).toBe(30 * TILE_SIZE);
   });
 
   test('AC-constants ENEMY_SPAWN_POINTS should have 3 entries at correct positions', () => {
     expect(ENEMY_SPAWN_POINTS).toHaveLength(3);
     expect(ENEMY_SPAWN_POINTS[0].x).toBe(0);
     expect(ENEMY_SPAWN_POINTS[0].y).toBe(0);
-    expect(ENEMY_SPAWN_POINTS[1].x).toBe(12 * TILE_SIZE);
+    expect(ENEMY_SPAWN_POINTS[1].x).toBe(15 * TILE_SIZE);
     expect(ENEMY_SPAWN_POINTS[1].y).toBe(0);
-    expect(ENEMY_SPAWN_POINTS[2].x).toBe(24 * TILE_SIZE);
+    expect(ENEMY_SPAWN_POINTS[2].x).toBe(31 * TILE_SIZE);
     expect(ENEMY_SPAWN_POINTS[2].y).toBe(0);
   });
 

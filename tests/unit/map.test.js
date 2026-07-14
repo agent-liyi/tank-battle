@@ -105,7 +105,7 @@ describe('map - loadLevel', () => {
 });
 
 describe('map - getDefaultLevel', () => {
-  test('AC-v0.1.0-001-tank-battle-025 default level is 25x25', () => {
+  test('AC-v0.1.0-001-tank-battle-025 default level is 32x32', () => {
     const level = getDefaultLevel();
     expect(level).toHaveLength(GRID_SIZE);
     level.forEach(row => {
@@ -116,29 +116,29 @@ describe('map - getDefaultLevel', () => {
   test('AC-v0.1.0-001-tank-battle-025 base area has U-shape brick walls', () => {
     const level = getDefaultLevel();
 
-    // Row 22, cols 11-13 should be brick (top of U-shape)
-    expect(level[22][11]).toBe('brick');
-    expect(level[22][12]).toBe('brick');
-    expect(level[22][13]).toBe('brick');
+    // Row 29, cols 14-16 should be brick (top of U-shape)
+    expect(level[29][14]).toBe('brick');
+    expect(level[29][15]).toBe('brick');
+    expect(level[29][16]).toBe('brick');
 
-    // Row 23, cols 11 and 13 should be brick (sides of U-shape)
-    expect(level[23][11]).toBe('brick');
-    expect(level[23][13]).toBe('brick');
+    // Row 30, cols 14 and 16 should be brick (sides of U-shape)
+    expect(level[30][14]).toBe('brick');
+    expect(level[30][16]).toBe('brick');
 
-    // Base at (row 23, col 12)
-    expect(level[23][12]).toBe('base');
+    // Base at (row 30, col 15)
+    expect(level[30][15]).toBe('base');
   });
 
   test('AC-v0.1.0-001-tank-battle-057 enemy spawn points are empty', () => {
     const level = getDefaultLevel();
     expect(level[0][0]).toBe('empty');
-    expect(level[0][12]).toBe('empty');
-    expect(level[0][24]).toBe('empty');
+    expect(level[0][15]).toBe('empty');
+    expect(level[0][31]).toBe('empty');
   });
 
   test('AC-v0.1.0-001-tank-battle-057 player spawn area is empty', () => {
     const level = getDefaultLevel();
-    expect(level[23][8]).toBe('empty');
+    expect(level[30][10]).toBe('empty');
   });
 
   test('AC-v0.1.0-001-tank-battle-057 all tiles are valid types', () => {
