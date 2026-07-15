@@ -34,12 +34,12 @@ priority: P0
 >
 > **编号约定**: FR 编号使用 4 位数字，补零，初始草案从 100 开始，步长为 100。
 >
-> **AC 引用** [RESOLVED]: 验收标准使用 `AC-FRXXXX-YY` 格式（4 位 FR + 2 位 AC 序号），其中 `FRXXXX` 对应到下方各 FR/NFR 的编号（如 `AC-FR0100-01`、`AC-NFR0020-03` 等），见 `acceptance.md`。
+> **AC 引用** [RESOLVED]: 验收标准使用 `AC-FRXXXX-YY` 格式（4 位 FR + 2 位 AC 序号），其中 `FRXXXX` 对应到下方各 FR/NFR 的编号（如 `AC-FR1100-01`、`AC-NFR1020-03` 等），见 `acceptance.md`。
 
 
->> **Sage**: **[Sage 响应 T-001]** 问题确认。已按 `.louke/templates/acceptance.md` 模板重写：1) acceptance.md 全部 17 个 AC 标题改为纯 `### AC-N`，规范 ID `AC-FR0100-01` 等作为纯文本紧跟标题下一行；2) spec.md 第 30 行格式说明改为 `AC-FRXXXX-YY`；3) 两份文档均添加 HTML 锚点（spec.md `<a id="fr-XXXX">`、acceptance.md `<a id="ac-fr-XXXX">`）以支持 cross-ref；4) 澄清日志记录本决策。请求 Lex 重跑 `verify-acceptance`。
+>> **Sage**: **[Sage 响应 T-001]** 问题确认。已按 `.louke/templates/acceptance.md` 模板重写：1) acceptance.md 全部 17 个 AC 标题改为纯 `### AC-N`，规范 ID `AC-FR1100-01` 等作为纯文本紧跟标题下一行；2) spec.md 第 30 行格式说明改为 `AC-FRXXXX-YY`；3) 两份文档均添加 HTML 锚点（spec.md `<a id="fr-XXXX">`、acceptance.md `<a id="ac-fr-XXXX">`）以支持 cross-ref；4) 澄清日志记录本决策。请求 Lex 重跑 `verify-acceptance`。
 
-<a id="fr-0100"></a>
+<a id="fr-1100"></a>
 
 ### FR-1100 转向时网格对齐
 
@@ -58,11 +58,11 @@ priority: P0
 
 对齐函数：`snapToGrid(pixel) = Math.round(pixel / TILE_SIZE) * TILE_SIZE`
 
-对应 AC：`AC-FR0100-01` ~ `AC-FR0100-06`，见 [acceptance.md#ac-fr-0100](acceptance.md#ac-fr-0100)。
+对应 AC：`AC-FR1100-01` ~ `AC-FR1100-06`，见 [acceptance.md#ac-fr-0100](acceptance.md#ac-fr-0100)。
 
 ---
 
-<a id="fr-0200"></a>
+<a id="fr-1200"></a>
 
 ### FR-1200 对齐应用于玩家和敌方坦克
 
@@ -72,11 +72,11 @@ priority: P0
 
 网格对齐机制应同时应用于玩家坦克和敌方坦克，确保行为一致。敌方坦克在 AI 改变方向时（包括随机方向变更和碰撞后方向变更）同样触发网格对齐。
 
-对应 AC：`AC-FR0200-01` ~ `AC-FR0200-03`，见 [acceptance.md#ac-fr-0200](acceptance.md#ac-fr-0200)。
+对应 AC：`AC-FR1200-01` ~ `AC-FR1200-03`，见 [acceptance.md#ac-fr-0200](acceptance.md#ac-fr-0200)。
 
 ---
 
-<a id="fr-0300"></a>
+<a id="fr-1300"></a>
 
 ### FR-1300 对齐边界安全
 
@@ -88,11 +88,11 @@ priority: P0
 
 注：由于 TANK_SIZE=30 < TILE_SIZE=32，对齐到网格线后坦克仍完全在边界内（最大对齐位置为 `31 * 32 = 992`，`992 + 30 = 1022 < 1024`），因此钳制在正常情况下不会触发，但作为防御性编程仍需实现。
 
-对应 AC：`AC-FR0300-01` ~ `AC-FR0300-02`，见 [acceptance.md#ac-fr-0300](acceptance.md#ac-fr-0300)。
+对应 AC：`AC-FR1300-01` ~ `AC-FR1300-02`，见 [acceptance.md#ac-fr-0300](acceptance.md#ac-fr-0300)。
 
 ---
 
-<a id="fr-0400"></a>
+<a id="fr-1400"></a>
 
 ### FR-1400 同向移动保持网格对齐
 
@@ -102,13 +102,13 @@ priority: P0
 
 由于玩家速度（PLAYER_SPEED=4）和敌方速度（ENEMY_SPEED=3.2）均能整除 TILE_SIZE（32/4=8 帧/格，32/3.2=10 帧/格），当坦克从网格对齐位置开始沿同一方向移动时，每经过整数个 TILE_SIZE 距离后坐标自然回到网格线上。本需求确认这一现有行为不被破坏：坦克在同向连续移动期间不需要每帧重新对齐，但每次转向时的对齐确保了坦克始终在网格车道上。
 
-对应 AC：`AC-FR0400-01` ~ `AC-FR0400-02`，见 [acceptance.md#ac-fr-0400](acceptance.md#ac-fr-0400)。
+对应 AC：`AC-FR1400-01` ~ `AC-FR1400-02`，见 [acceptance.md#ac-fr-0400](acceptance.md#ac-fr-0400)。
 
 ---
 
 ## 非功能需求
 
-<a id="nfr-0010"></a>
+<a id="nfr-1010"></a>
 
 ### NFR-1010 对齐性能
 
@@ -118,11 +118,11 @@ priority: P0
 
 网格对齐计算（一次 `Math.round` + 乘法）为 O(1) 操作，不得影响 60fps 帧率。对齐逻辑应集成到现有的 `updatePlayer` / `updateEnemy` 移动流程中，不引入额外的渲染开销。
 
-对应 AC：`AC-NFR0010-01`，见 [acceptance.md#ac-nfr-0010](acceptance.md#ac-nfr-0010)。
+对应 AC：`AC-NFR1010-01`，见 [acceptance.md#ac-nfr-0010](acceptance.md#ac-nfr-0010)。
 
 ---
 
-<a id="nfr-0020"></a>
+<a id="nfr-1020"></a>
 
 ### NFR-1020 对齐可测试性
 
@@ -132,7 +132,7 @@ priority: P0
 
 对齐函数（`snapToGrid`）应实现为 `tank.js` 模块中的纯函数，可独立单元测试。对齐行为应通过模拟方向变更的集成测试验证，使用确定性输入（非随机）确保可断言。
 
-对应 AC：`AC-NFR0020-01` ~ `AC-NFR0020-03`，见 [acceptance.md#ac-nfr-0020](acceptance.md#ac-nfr-0020)。
+对应 AC：`AC-NFR1020-01` ~ `AC-NFR1020-03`，见 [acceptance.md#ac-nfr-0020](acceptance.md#ac-nfr-0020)。
 
 ---
 
@@ -150,7 +150,7 @@ priority: P0
 **决策**: 采用模板推荐的 `AC-FRXXXX-YY` 格式重写两份文档。
 
 **采纳方案**:
-1. **acceptance.md**: 标题改为纯 `### AC-N`（每个 FR/NFR 单元内从 1 顺序递增），规范 ID `AC-FR0100-01` 等作为纯文本放在标题下一行。同时为每个 FR/NFR 段落添加 `<a id="ac-fr-XXXX">` / `<a id="ac-nfr-XXXX">` 锚点，便于 spec 中的交叉引用。
+1. **acceptance.md**: 标题改为纯 `### AC-N`（每个 FR/NFR 单元内从 1 顺序递增），规范 ID `AC-FR1100-01` 等作为纯文本放在标题下一行。同时为每个 FR/NFR 段落添加 `<a id="ac-fr-XXXX">` / `<a id="ac-nfr-XXXX">` 锚点，便于 spec 中的交叉引用。
 2. **spec.md**: 修改第 30 行的格式说明为 `AC-FRXXXX-YY`；为每个 FR/NFR/US 添加 `<a id="fr-XXXX">` / `<a id="nfr-XXXX">` / `<a id="us-XXXX">` 锚点；在每个 FR/NFR 描述末尾补充"对应 AC"行，明确指向 acceptance.md 中对应的锚定段。
 
 **影响**:
