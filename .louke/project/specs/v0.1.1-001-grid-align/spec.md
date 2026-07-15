@@ -1,3 +1,8 @@
+---
+locked: true
+locked-at: 2026-07-15T06:07:39Z
+locked-by: lk agent sage record-lock
+---
 # 坦克大战 — 网格对齐 Spec
 
 - **Spec ID**: v0.1.1-001-grid-align
@@ -36,7 +41,7 @@ priority: P0
 
 <a id="fr-0100"></a>
 
-### FR-0100 转向时网格对齐
+### FR-1100 转向时网格对齐
 
 | Valid | Testable | Decided |
 |---|---|---|
@@ -59,7 +64,7 @@ priority: P0
 
 <a id="fr-0200"></a>
 
-### FR-0200 对齐应用于玩家和敌方坦克
+### FR-1200 对齐应用于玩家和敌方坦克
 
 | Valid | Testable | Decided |
 |---|---|---|
@@ -73,7 +78,7 @@ priority: P0
 
 <a id="fr-0300"></a>
 
-### FR-0300 对齐边界安全
+### FR-1300 对齐边界安全
 
 | Valid | Testable | Decided |
 |---|---|---|
@@ -89,7 +94,7 @@ priority: P0
 
 <a id="fr-0400"></a>
 
-### FR-0400 同向移动保持网格对齐
+### FR-1400 同向移动保持网格对齐
 
 | Valid | Testable | Decided |
 |---|---|---|
@@ -105,7 +110,7 @@ priority: P0
 
 <a id="nfr-0010"></a>
 
-### NFR-0010 对齐性能
+### NFR-1010 对齐性能
 
 | Valid | Testable | Decided |
 |---|---|---|
@@ -119,7 +124,7 @@ priority: P0
 
 <a id="nfr-0020"></a>
 
-### NFR-0020 对齐可测试性
+### NFR-1020 对齐可测试性
 
 | Valid | Testable | Decided |
 |---|---|---|
@@ -149,6 +154,6 @@ priority: P0
 2. **spec.md**: 修改第 30 行的格式说明为 `AC-FRXXXX-YY`；为每个 FR/NFR/US 添加 `<a id="fr-XXXX">` / `<a id="nfr-XXXX">` / `<a id="us-XXXX">` 锚点；在每个 FR/NFR 描述末尾补充"对应 AC"行，明确指向 acceptance.md 中对应的锚定段。
 
 **影响**:
-- acceptance.md 共 17 个 AC（FR-0100: 6, FR-0200: 3, FR-0300: 2, FR-0400: 2, NFR-0010: 1, NFR-0020: 3），全部重命名。
+- acceptance.md 共 17 个 AC（FR-1100: 6, FR-1200: 3, FR-1300: 2, FR-1400: 2, NFR-1010: 1, NFR-1020: 3），全部重命名。
 - spec.md 新增 8 个 HTML 锚点（1 US + 4 FR + 2 NFR + 1 备用），不改变语义内容。
 - 不影响测试计划的 AC-FRXXXX-YY 引用一致性。
