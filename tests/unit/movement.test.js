@@ -4,6 +4,7 @@ import {
   isWithinBounds,
   pixelToTile,
   tileToPixel,
+  snapToGrid,
 } from '../../src/js/tank.js';
 import {
   DIRECTIONS,
@@ -90,5 +91,52 @@ describe('tank - coordinate conversion', () => {
     expect(tileToPixel(0)).toBe(0);
     expect(tileToPixel(1)).toBe(TILE_SIZE);
     expect(tileToPixel(5)).toBe(TILE_SIZE * 5);
+  });
+});
+
+describe('tank - snapToGrid', () => {
+  // AC-NFR1020-01: pure function grid-alignment
+  test('snapToGrid(0) === 0', () => {
+    expect(snapToGrid(0)).toBe(0);
+  });
+
+  test('snapToGrid(15) === 0 (rounds down to nearest grid)', () => {
+    expect(snapToGrid(15)).toBe(0);
+  });
+
+  test('snapToGrid(17) === 32 (rounds up to nearest grid)', () => {
+    expect(snapToGrid(17)).toBe(TILE_SIZE);
+  });
+
+  test('snapToGrid(32) === 32 (already on grid)', () => {
+    expect(snapToGrid(TILE_SIZE)).toBe(TILE_SIZE);
+  });
+
+  test('snapToGrid(100) === 96', () => {
+    expect(snapToGrid(100)).toBe(96);
+  });
+
+  test('snapToGrid(130) === 128', () => {
+    expect(snapToGrid(130)).toBe(128);
+  });
+
+  // AC-FR1300-02: boundary safety - result must keep tank within canvas
+  test('snapToGrid always returns value that keeps tank within canvas', () => {
+    for (let p = 0; p <= CANVAS_SIZE; p += 7) {
+      const snapped = snapToGrid(p);
+      expect(snapped % TILE_SIZE).toBe(0);
+      expect(snapped).toBeGreaterThanOrEqual(0);
+      expect(snapped + TANK_SIZE).toBeLessThanOrEqual(CANVAS_SIZE);
+    }
+  });
+
+  test('snapToGrid clamps negative input to 0', () => {
+    expect(snapToGrid(-10)).toBe(0);
+    expect(snapToGrid(-1)).toBe(0);
+  });
+
+  test('snapToGrid clamps to max valid aligned position', () => {
+    // Max valid position: 31 * 32 = 992 (992 + 30 = 1022 < 1024)
+    expect(snapToGrid(CANVAS_SIZE)).toBeLessThanOrEqual(CANVAS_SIZE - TANK_SIZE);
   });
 });

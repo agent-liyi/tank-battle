@@ -9,7 +9,7 @@ import {
   CANVAS_SIZE,
   TANK_SIZE,
 } from './constants.js';
-import { calculateMovement, isWithinBounds } from './tank.js';
+import { calculateMovement, isWithinBounds, snapToGrid } from './tank.js';
 
 export function createPlayer(position) {
   return {
@@ -62,9 +62,26 @@ export function updatePlayer(player, direction, mapData, enemies, bullets) {
   let newY = player.y;
 
   if (direction.x !== 0 || direction.y !== 0) {
+    // Grid-alignment on direction change: snap the perpendicular axis to the
+    // nearest grid line so the tank always travels along a grid lane.
+    // Triggered on 90-degree turns (horizontal<->vertical) or from NONE.
+    const oldDir = player.direction;
+    const isOldHorizontal = oldDir.x !== 0;
+    const isOldVertical = oldDir.y !== 0;
+    const isOldNone = !isOldHorizontal && !isOldVertical;
+    const isNewVertical = direction.y !== 0;
+
+    if (isNewVertical && (isOldHorizontal || isOldNone)) {
+      // Turning to vertical: snap X to grid
+      newX = snapToGrid(player.x);
+    } else if (!isNewVertical && (isOldVertical || isOldNone)) {
+      // Turning to horizontal: snap Y to grid
+      newY = snapToGrid(player.y);
+    }
+
     const { dx, dy } = calculateMovement(direction, PLAYER_SPEED);
-    newX = player.x + dx;
-    newY = player.y + dy;
+    newX = newX + dx;
+    newY = newY + dy;
 
     // Boundary check
     if (!isWithinBounds(newX, newY)) {
