@@ -18,4 +18,4 @@ backlog_project = "https://github.com/users/agent-liyi/projects/2"
 
 [e2e]
 paths = ["tests/e2e"]
-run = "NODE_OPTIONS=--experimental-vm-modules npx jest tests/e2e"
+run = "env NODE_OPTIONS=--experimental-vm-modules npx jest tests/e2e"
