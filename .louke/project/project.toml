@@ -8,7 +8,7 @@ release_branch = "releases/v0.1.1"
 
 [meta]
 created = "2026-07-14"
-current_stage = "M-SPEC"
+current_stage = "M-E2E"
 security_audit = "disabled"
 smoke_test_issue = "#TODO (closed)"
 smoke_test_pr = "#TODO (closed)"
@@ -18,4 +18,4 @@ backlog_project = "https://github.com/users/agent-liyi/projects/2"
 
 [e2e]
 paths = ["tests/e2e"]
-run = "npx jest tests/e2e"
+run = "NODE_OPTIONS=--experimental-vm-modules npx jest tests/e2e"
