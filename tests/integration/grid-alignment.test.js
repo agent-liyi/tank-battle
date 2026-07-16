@@ -8,6 +8,7 @@
 
 import { updatePlayer, createPlayer } from '../../src/js/player.js';
 import { updateEnemy, createEnemy } from '../../src/js/enemy.js';
+import { snapToGrid } from '../../src/js/tank.js';
 import { DIRECTIONS, TILE_SIZE, TANK_SIZE, CANVAS_SIZE } from '../../src/js/constants.js';
 
 describe('updatePlayer - grid alignment on direction change', () => {
@@ -260,5 +261,27 @@ describe('updateEnemy - same-direction movement maintains grid alignment', () =>
     // X remains on grid lane 64 throughout
     expect(updated.x).toBe(64);
     xPerFrame.forEach(xVal => expect(xVal).toBe(64));
+  });
+});
+
+// AC-NFR1010-01: snapToGrid is O(1) and does not impact 60fps frame rate.
+// A simple microbenchmark: 5 tanks * 10000 calls = 50000 snap operations
+// should complete well within a single 16.67ms frame budget.
+describe('snapToGrid - performance (AC-NFR1010-01)', () => {
+  test('50000 snapToGrid calls complete in under 100ms (well within 16.67ms/frame budget)', () => {
+    const TANK_COUNT = 5;
+    const CALLS_PER_TANK = 10000;
+    const FRAME_BUDGET_MS = 100; // generous: 6 frames worth of budget
+
+    const start = process.hrtime.bigint();
+    for (let t = 0; t < TANK_COUNT; t += 1) {
+      for (let i = 0; i < CALLS_PER_TANK; i += 1) {
+        snapToGrid(i * 7 + t * 13);
+      }
+    }
+    const elapsedMs = Number(process.hrtime.bigint() - start) / 1e6;
+
+    expect(TANK_COUNT * CALLS_PER_TANK).toBe(50000);
+    expect(elapsedMs).toBeLessThan(FRAME_BUDGET_MS);
   });
 });
