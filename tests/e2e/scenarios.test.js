@@ -140,21 +140,24 @@ describe('E2E-02: Player Movement and Shooting', () => {
     input.getDirection.mockReturnValue({ x: 1, y: 0 });
     game.update();
     expect(game.player.x).toBeGreaterThan(initialX);
-    expect(game.player.y).toBe(yAfterUp);
+    // Grid-alignment: turning from up to right snaps Y back to grid line
+    expect(game.player.y % TILE_SIZE).toBe(0);
 
     // Move down
     const xAfterRight = game.player.x;
     input.getDirection.mockReturnValue({ x: 0, y: 1 });
     game.update();
     expect(game.player.y).toBeGreaterThan(yAfterUp);
-    expect(game.player.x).toBe(xAfterRight);
+    // Grid-alignment: turning from right to down snaps X back to grid line
+    expect(game.player.x % TILE_SIZE).toBe(0);
 
     // Move left
     const yAfterDown = game.player.y;
     input.getDirection.mockReturnValue({ x: -1, y: 0 });
     game.update();
     expect(game.player.x).toBeLessThan(xAfterRight);
-    expect(game.player.y).toBe(yAfterDown);
+    // Grid-alignment: turning from down to left snaps Y back to grid line
+    expect(game.player.y % TILE_SIZE).toBe(0);
   });
 
   test('player movement speed is 1 tile per 8 frames', () => {

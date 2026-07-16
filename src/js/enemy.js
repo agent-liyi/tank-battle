@@ -9,7 +9,7 @@ import {
   CANVAS_SIZE,
   TANK_SIZE,
 } from './constants.js';
-import { calculateMovement, isWithinBounds } from './tank.js';
+import { calculateMovement, isWithinBounds, snapToGrid } from './tank.js';
 
 const ALL_DIRECTIONS = [DIRECTIONS.UP, DIRECTIONS.DOWN, DIRECTIONS.LEFT, DIRECTIONS.RIGHT];
 
@@ -57,18 +57,52 @@ export function updateEnemy(enemy, mapData, rng) {
   let newY = updated.y;
 
   if (updated.direction.x !== 0 || updated.direction.y !== 0) {
+    // Grid-alignment on direction change: snap the perpendicular axis to the
+    // nearest grid line so the tank always travels along a grid lane.
+    // Triggered on 90-degree turns (horizontal<->vertical) or from NONE.
+    const oldDir = enemy.direction;
+    const isOldHorizontal = oldDir.x !== 0;
+    const isOldVertical = oldDir.y !== 0;
+    const isOldNone = !isOldHorizontal && !isOldVertical;
+    const isNewVertical = updated.direction.y !== 0;
+
+    if (isNewVertical && (isOldHorizontal || isOldNone)) {
+      // Turning to vertical: snap X to grid
+      newX = snapToGrid(updated.x);
+    } else if (!isNewVertical && (isOldVertical || isOldNone)) {
+      // Turning to horizontal: snap Y to grid
+      newY = snapToGrid(updated.y);
+    }
+
     const { dx, dy } = calculateMovement(updated.direction, ENEMY_SPEED);
-    newX = updated.x + dx;
-    newY = updated.y + dy;
+    newX = newX + dx;
+    newY = newY + dy;
 
     // Check boundaries
     if (!isWithinBounds(newX, newY)) {
-      // Blocked by boundary - pick new direction
+      // Blocked by boundary - this is another direction change event.
+      // Apply grid-alignment for the new direction too, so the tank stays
+      // aligned even when it can't move this frame.
+      const prevDir = updated.direction;
       const choice = rng.randomInt(0, 3);
       updated.direction = { ...ALL_DIRECTIONS[choice] };
       updated.directionTimer = rng.randomInt(AI_DIRECTION_MIN, AI_DIRECTION_MAX);
-      newX = updated.x;
-      newY = updated.y;
+
+      const isPrevVertical = prevDir.y !== 0;
+      const isNewDirVertical = updated.direction.y !== 0;
+      if (isNewDirVertical && !isPrevVertical) {
+        // Changed from horizontal to vertical: snap X
+        newX = snapToGrid(updated.x);
+        newY = updated.y;
+      } else if (!isNewDirVertical && isPrevVertical) {
+        // Changed from vertical to horizontal: snap Y
+        newX = updated.x;
+        newY = snapToGrid(updated.y);
+      } else {
+        // Same axis (180° turn) or no change: no snap
+        newX = updated.x;
+        newY = updated.y;
+      }
     }
   }
 
