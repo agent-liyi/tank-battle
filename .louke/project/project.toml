@@ -8,7 +8,7 @@ release_branch = "releases/v0.1.1"
 
 [meta]
 created = "2026-07-14"
-current_stage = "M-E2E"
+current_stage = "M-MILESTONE"
 security_audit = "disabled"
 smoke_test_issue = "#TODO (closed)"
 smoke_test_pr = "#TODO (closed)"
