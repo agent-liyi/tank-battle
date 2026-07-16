@@ -8,7 +8,7 @@
 
 import { updatePlayer, createPlayer } from '../../src/js/player.js';
 import { updateEnemy, createEnemy } from '../../src/js/enemy.js';
-import { DIRECTIONS, TILE_SIZE } from '../../src/js/constants.js';
+import { DIRECTIONS, TILE_SIZE, TANK_SIZE, CANVAS_SIZE } from '../../src/js/constants.js';
 
 describe('updatePlayer - grid alignment on direction change', () => {
   // AC-FR1100-01: turning horizontal->vertical snaps X
@@ -76,6 +76,86 @@ describe('updatePlayer - grid alignment on direction change', () => {
 
     expect(updated.x).toBe(128); // still grid-aligned
     expect(updated.y).toBe(64 - 4); // moved up
+  });
+
+  // AC-FR1100-04: turning from NONE (stationary) triggers grid alignment
+  test('turning from stationary (NONE) to up snaps X to nearest grid line', () => {
+    const player = {
+      ...createPlayer({ x: 200, y: 200 }),
+      x: 200, // off-grid
+      y: 200, // off-grid
+      direction: { ...DIRECTIONS.NONE },
+    };
+
+    const updated = updatePlayer(player, DIRECTIONS.UP, [], [], []);
+
+    // X snaps to nearest grid: round(200/32)*32 = 192
+    expect(updated.x).toBe(192);
+    // Y moves up from 200: 200 - PLAYER_SPEED(4) = 196
+    expect(updated.y).toBe(196);
+    expect(updated.direction).toEqual(DIRECTIONS.UP);
+  });
+
+  // AC-FR1100-05: turning from down to left snaps Y
+  test('turning from down to left snaps Y to nearest grid line', () => {
+    const player = {
+      ...createPlayer({ x: 65, y: 130 }),
+      x: 65,  // off-grid
+      y: 130, // off-grid
+      direction: { ...DIRECTIONS.DOWN },
+    };
+
+    const updated = updatePlayer(player, DIRECTIONS.LEFT, [], [], []);
+
+    // Y snaps to nearest grid: round(130/32)*32 = 128
+    expect(updated.y).toBe(128);
+    // X moves left from 65: 65 - PLAYER_SPEED(4) = 61
+    expect(updated.x).toBe(61);
+    expect(updated.direction).toEqual(DIRECTIONS.LEFT);
+  });
+
+  // AC-FR1300-01: near-boundary coordinate snaps within canvas
+  test('turning near right boundary snaps X within canvas bounds', () => {
+    const player = {
+      ...createPlayer({ x: 1005, y: 68 }),
+      x: 1005, // near right boundary, off-grid
+      y: 68,
+      direction: { ...DIRECTIONS.RIGHT },
+    };
+
+    const updated = updatePlayer(player, DIRECTIONS.UP, [], [], []);
+
+    // X snaps to nearest grid: round(1005/32)*32 = 992
+    expect(updated.x).toBe(992);
+    // 992 + TANK_SIZE(30) = 1022 <= CANVAS_SIZE(1024) -> within bounds
+    expect(updated.x + TANK_SIZE).toBeLessThanOrEqual(CANVAS_SIZE);
+    expect(updated.y).toBe(68 - 4); // moved up
+    expect(updated.direction).toEqual(DIRECTIONS.UP);
+  });
+});
+
+describe('updatePlayer - same-direction movement maintains grid alignment', () => {
+  // AC-FR1400-01: continuous same-direction movement stays on grid lane
+  test('player moving right for 8 frames stays on grid lane', () => {
+    const player = {
+      ...createPlayer({ x: 128, y: 64 }),
+      x: 128, // grid-aligned
+      y: 64,  // grid-aligned
+      direction: { ...DIRECTIONS.RIGHT },
+    };
+
+    let updated = player;
+    const yPerFrame = [];
+    for (let frame = 0; frame < 8; frame += 1) {
+      updated = updatePlayer(updated, DIRECTIONS.RIGHT, [], [], []);
+      yPerFrame.push(updated.y);
+    }
+
+    // 8 frames * PLAYER_SPEED(4) = 32 = TILE_SIZE -> x: 128 -> 160
+    expect(updated.x).toBe(160);
+    // Y remains on grid lane 64 throughout
+    expect(updated.y).toBe(64);
+    yPerFrame.forEach(y => expect(y).toBe(64));
   });
 });
 
@@ -149,5 +229,36 @@ describe('updateEnemy - grid alignment on direction change', () => {
     // Y was 991 (off-grid). Snap to grid: round(991/32)*32 = 992.
     expect(updated.y).toBe(992);
     expect(updated.direction).toEqual(DIRECTIONS.RIGHT);
+  });
+});
+
+describe('updateEnemy - same-direction movement maintains grid alignment', () => {
+  // AC-FR1400-02: continuous same-direction movement stays on grid lane
+  test('enemy moving down for 10 frames stays on grid lane', () => {
+    const enemy = {
+      ...createEnemy({ x: 64, y: 128 }),
+      x: 64,  // grid-aligned
+      y: 128, // grid-aligned
+      direction: { ...DIRECTIONS.DOWN },
+      directionTimer: 100, // disable AI direction change during 10 frames
+      shootTimer: 100,
+    };
+
+    // Mock RNG kept inert: timers never reach 0 and no boundary collision,
+    // so randomInt is never invoked.
+    const rng = { randomInt: () => 0 };
+    let updated = enemy;
+    const xPerFrame = [];
+    for (let frame = 0; frame < 10; frame += 1) {
+      updated = updateEnemy(updated, [], rng);
+      xPerFrame.push(updated.x);
+    }
+
+    // 10 frames * ENEMY_SPEED(3.2) = 32 = TILE_SIZE -> y: 128 -> 160
+    // Floating-point accumulation yields 159.9999... -> use toBeCloseTo.
+    expect(updated.y).toBeCloseTo(160, 5);
+    // X remains on grid lane 64 throughout
+    expect(updated.x).toBe(64);
+    xPerFrame.forEach(xVal => expect(xVal).toBe(64));
   });
 });
